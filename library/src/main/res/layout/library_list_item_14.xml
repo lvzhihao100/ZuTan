@@ -1,0 +1,52 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ListItem14Custom">
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:elevation="1dp"
+        android:orientation="vertical"
+        android:translationZ="1dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80pt"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="40pt"
+            android:paddingStart="40pt">
+
+            <TextView
+                android:id="@+id/tv_left"
+                android:layout_width="250pt"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:gravity="center_vertical|start"
+                android:lines="1"
+                android:textSize="30pt"
+                tools:text="占位" />
+
+            <TextView
+                android:id="@+id/tv_right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10pt"
+                android:layout_toEndOf="@id/tv_left"
+                android:ellipsize="end"
+                android:gravity="center_vertical|start"
+                android:lines="1"
+                android:textColor="@color/hint_color"
+                android:textSize="26pt"
+                tools:text="占位" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

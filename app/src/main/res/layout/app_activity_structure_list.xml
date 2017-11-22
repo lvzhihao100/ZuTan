@@ -1,0 +1,85 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class=".StructureListActivityCustom">
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
+            android:id="@+id/loopViewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            app:rvp_singlePageFling="true"
+            app:rvp_triggerOffset="0.1" />
+
+        <Button
+            android:id="@+id/bt_father"
+            android:layout_width="200pt"
+            android:layout_height="50pt"
+            android:layout_marginLeft="20pt"
+            android:background="@drawable/library_shape_3_gradient_14"
+            android:text="父人物卡"
+            android:textColor="@color/common_white"
+            android:textSize="30pt" />
+
+        <Button
+            android:id="@+id/bt_mother"
+            android:layout_width="200pt"
+            android:layout_height="50pt"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="20pt"
+            android:layout_marginRight="20pt"
+            android:background="@drawable/library_shape_3_gradient_14"
+            android:text="母人物卡"
+            android:textColor="@color/common_white"
+            android:textSize="30pt" />
+
+        <Button
+            android:id="@+id/bt_old"
+            android:layout_width="50pt"
+            android:layout_height="200pt"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20pt"
+            android:layout_marginRight="20pt"
+            android:background="@drawable/library_shape_3_gradient_14"
+            android:text="兄人物卡"
+            android:textColor="@color/common_white"
+            android:textSize="30pt" />
+
+        <Button
+            android:id="@+id/bt_small"
+            android:layout_width="50pt"
+            android:layout_height="200pt"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20pt"
+            android:layout_marginRight="20pt"
+            android:background="@drawable/library_shape_3_gradient_14"
+            android:text="弟人物卡"
+            android:textColor="@color/common_white"
+            android:textSize="30pt" />
+
+        <Button
+            android:id="@+id/bt_son"
+            android:layout_width="200pt"
+            android:layout_height="50pt"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20pt"
+            android:layout_marginRight="20pt"
+            android:background="@drawable/library_shape_3_gradient_14"
+            android:text="子人物卡"
+            android:textColor="@color/common_white"
+            android:textSize="30pt" />
+
+
+    </RelativeLayout>
+</layout>

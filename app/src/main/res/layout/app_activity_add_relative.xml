@@ -1,0 +1,74 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".AddRelativeActivityCustom">
+
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="500pt"
+                android:layout_height="300pt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20pt">
+
+                <RelativeLayout
+                    android:id="@+id/rl_card"
+                    android:layout_width="400pt"
+                    android:layout_height="230pt"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10pt"
+                    android:background="@mipmap/app_id_card_exam"></RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:text="请插入身份证"
+                    android:textSize="30pt" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/cardView"
+                android:layout_marginTop="30pt"></android.support.v7.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/bt_submit"
+                android:layout_width="270pt"
+                android:layout_height="80pt"
+                android:layout_below="@id/recyclerView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20pt"
+                android:background="@drawable/library_shape_3_gradient_14"
+                android:elevation="10dp"
+                android:text="提交"
+                android:textColor="@color/common_white"
+                android:textSize="30pt"
+                android:translationZ="10dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/bt_submit"
+                android:layout_below="@id/bt_submit"
+                android:layout_margin="10pt"
+                android:text="若该人物卡已注册,请确保身份信息与注册信息一致"
+                android:textColor="@color/common_hint_color"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

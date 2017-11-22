@@ -1,0 +1,102 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class=".TestActivityCustom">
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="200pt"
+            android:layout_height="200pt"
+            android:background="@color/common_ColorPrimary"
+            android:text="TV"
+            app:layout_behavior="com.gamerole.zutan.behavior.FistBehavior" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="200pt"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@color/colorAccent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="Left"
+                    android:layout_marginTop="500pt"
+                    android:textColor="@android:color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="Left"
+                    android:textColor="@android:color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="Left"
+                    android:textColor="@android:color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="Left"
+                    android:layout_marginTop="500pt"
+                    android:textColor="@android:color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="Left"
+                    android:layout_marginTop="500pt"
+                    android:textColor="@android:color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="Left"
+                    android:textColor="@android:color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="Left"
+                    android:textColor="@android:color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="Left"
+                    android:layout_marginTop="500pt"
+                    android:textColor="@android:color/white" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
+                    android:text="Left"
+                    android:layout_marginTop="500pt"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

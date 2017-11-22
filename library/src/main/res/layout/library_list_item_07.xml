@@ -1,0 +1,60 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ListItem7Custom">
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:elevation="1dp"
+        android:orientation="vertical"
+        android:translationZ="1dp">
+
+
+        <RelativeLayout
+            android:id="@+id/ll_staff_records"
+            android:layout_width="match_parent"
+            android:layout_height="80pt"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="40pt"
+            android:paddingStart="40pt">
+
+            <ImageView
+                android:id="@+id/iv_enter"
+                android:layout_width="28pt"
+                android:layout_height="28pt"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30pt"
+                android:src="@mipmap/library_arrow_right"
+                android:layout_marginEnd="30pt"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_enter"
+                android:gravity="center_vertical|start"
+                android:textSize="30pt"
+                tools:text="员工档案" />
+
+            <ImageView
+                android:id="@+id/iv_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignLeft="@id/tv_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/library_line_space"
+                android:layout_alignStart="@id/tv_content" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

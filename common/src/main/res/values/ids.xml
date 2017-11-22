@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="common_item_click_support" type="id" />
+
+
+
+
+
+
+    //activity title
+    <item name="common_back" type="id"/>
+    <item name="common_tv_title" type="id"/>
+    <item name="common_rl_title" type="id"/>
+    <item name="common_tv_right" type="id"/>
+</resources>

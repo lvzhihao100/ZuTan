@@ -1,0 +1,37 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ListItem4Custom">
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_root"
+        android:layout_width="match_parent"
+        android:layout_height="180pt"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="180pt"
+            android:layout_height="180pt"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="30pt"
+            android:layout_height="30pt"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:background="#66222222"
+            android:src="@mipmap/library_image_delete"
+            android:visibility="invisible"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="3dp" />
+    </RelativeLayout>
+
+</layout>

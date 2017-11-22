@@ -1,0 +1,68 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ListItem29Custom">
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/ll_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80pt"
+            android:gravity="center_vertical"
+            android:paddingLeft="40pt"
+            android:paddingRight="30pt">
+
+
+            <TextView
+                android:id="@+id/tv_left_content"
+                android:layout_width="200pt"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center_vertical|left"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="员工档案"
+                android:textSize="26pt" />
+
+            <ImageView
+                android:id="@+id/iv_right_enter"
+                android:layout_width="30pt"
+                android:layout_height="30pt"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8pt"
+                android:src="@mipmap/library_arrow_right"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_right_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_right_enter"
+                android:layout_toRightOf="@id/tv_left_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical|right"
+                android:maxLines="2"
+                android:textColorHint="@color/hint_color"
+                android:textSize="26pt"
+                tools:text="tv_right_hint_content" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/library_line_divider" />
+    </LinearLayout>
+</layout>

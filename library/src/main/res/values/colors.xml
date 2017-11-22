@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="library_ColorPrimary">#3F51B5</color>
+    <color name="library_ColorPrimaryDark">#303F9F</color>
+    <color name="library_ColorAccent">#FF4081</color>
+
+    <color name="library_main_color">#009ded</color>
+    <color name="library_line_divider">#aaaaaa</color>
+    <color name="library_line_space">#eeeeee</color>
+    <color name="library_page_bg">#F7F7F7</color>
+    <color name="library_main_page_grid_title_bg">#E9E9E9</color>
+    <color name="library_personnel_with">#ff0000</color>
+    <color name="library_personnel_without">#00ff00</color>
+
+
+    <!-- 从底部弹出 -->
+    <color name="library_actionsheet_gray">#8F8F8F</color>
+    <color name="library_actionsheet_blue">#037BFF</color>
+
+
+</resources>

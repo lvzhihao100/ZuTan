@@ -1,0 +1,42 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data class=".ListItem5Custom">
+
+    </data>
+    <LinearLayout
+        android:id="@+id/ll_checkable"
+        android:layout_width="match_parent"
+        android:layout_height="100pt"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="50pt"
+            android:layout_height="50pt"
+            android:layout_marginLeft="20pt"
+            android:layout_marginRight="20pt"
+            android:clickable="false"
+            android:focusable="false" />
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="80pt"
+            android:layout_height="80pt"
+            android:layout_marginRight="10pt"
+
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|start"
+            android:textSize="30pt"
+            tools:text="tv_content" />
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,105 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ListItem9Custom">
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:elevation="1dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:translationZ="1dp"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="10dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80pt"
+            android:paddingLeft="30pt"
+            android:paddingRight="30pt">
+
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="40pt"
+                android:layout_height="40pt"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20pt"
+                android:layout_marginRight="20pt"
+                tools:src="@mipmap/ic_launcher" />
+
+            <Button
+                android:id="@+id/bt_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="10pt"
+                android:paddingEnd="10pt"
+                android:paddingLeft="10pt"
+                android:paddingRight="10pt"
+                android:paddingStart="10pt"
+                android:background="@drawable/library_shape_1_primary_8"
+                android:gravity="center"
+                android:textColor="@color/common_white"
+                android:textSize="26pt"
+                tools:text="占位" />
+
+            <Button
+                android:id="@+id/bt_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/bt_right"
+                android:layout_toStartOf="@id/bt_right"
+                android:background="@drawable/library_shape_1_primary_8"
+                android:gravity="center"
+                android:paddingEnd="10pt"
+                android:paddingLeft="10pt"
+                android:paddingRight="10pt"
+                android:paddingStart="10pt"
+                android:textColor="@color/common_white"
+                android:textSize="26pt"
+                tools:text="占位" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/iv_head"
+                android:layout_toLeftOf="@id/bt_left"
+                android:layout_toRightOf="@id/iv_head"
+                android:layout_toStartOf="@id/bt_left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_upper_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:textSize="28pt"
+                    tools:text="upper content" />
+
+                <TextView
+                    android:id="@+id/tv_down_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:textSize="24pt"
+                    tools:text="down content" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

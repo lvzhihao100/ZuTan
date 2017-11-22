@@ -1,0 +1,50 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ListItem2Custom" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60pt"
+        android:background="?android:attr/selectableItemBackground"
+        android:elevation="1dp"
+        android:paddingLeft="30pt"
+        android:translationZ="1dp">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20pt"
+            tools:src="@mipmap/ic_launcher"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/iv_enter"
+            android:layout_toRightOf="@id/iv_head"
+            android:ellipsize="end"
+            android:gravity="center_vertical|left"
+            android:lines="1"
+            android:textSize="30pt"
+            tools:text="12312" />
+
+        <ImageView
+            android:id="@+id/iv_enter"
+            android:layout_width="28pt"
+            android:layout_height="28pt"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="30pt"
+
+            android:layout_marginRight="30pt"
+            android:src="@mipmap/library_arrow_right" />
+
+    </RelativeLayout>
+</layout>
