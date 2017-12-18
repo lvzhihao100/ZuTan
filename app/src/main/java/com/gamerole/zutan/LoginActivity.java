@@ -207,7 +207,9 @@ public class LoginActivity extends CommonActivity {
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(aVoid -> {
                     if (inputsAll.test()) {
-                        requestLogin();
+//                        requestLogin();
+                        ARouter.getInstance().build(RoutConfig.APP_SHOW_MAP).navigation();
+
                     }
                 });
         dataBinding.etUsername.addTextChangedListener(new TextWatcher() {
@@ -234,6 +236,7 @@ public class LoginActivity extends CommonActivity {
             }
         });
     }
+
     private void requestLogin() {
         OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.LOGIN)
                 .params("idCard", dataBinding.etUsername.getText().toString())

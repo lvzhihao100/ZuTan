@@ -1,0 +1,21 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.gamerole.rxcode.demo.MainActivity">
+
+    <data class=".TantanItemCustom">
+
+    </data>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="200pt"
+        android:layout_height="200pt"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="#393F4E">
+
+    </android.support.v7.widget.CardView>
+</layout>
+

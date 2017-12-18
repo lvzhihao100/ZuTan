@@ -15,4 +15,5 @@ public class RoutConfig {
     public static final String APP_ADD_RELATIVE = APP + "/addRelative";
     public static final String APP_SCAN_FINGER = APP + "/scanFinger";
     public static final String APP_TEST = APP+"/test";
+    public static final String APP_SHOW_MAP = APP + "/showMap";
 }

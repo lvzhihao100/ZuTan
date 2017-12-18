@@ -1,7 +1,5 @@
 package com.eqdd.library.gen;
 
-import com.eqdd.common.base.App;
-
 /**
  * Created by lv on 17-9-30.
  */

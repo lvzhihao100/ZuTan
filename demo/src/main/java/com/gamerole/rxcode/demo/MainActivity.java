@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.gamerole.rxcode.demo.db.DBUtil;
+import com.gamerole.rxcode.demo.db.entity.Student;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("MainActivity->onTouch");
                 return false;
             }
+        });
+        DBUtil.insertStudent(new Student(12,"你好"));
+        DBUtil.getStudentByName("你好").observe(this,student -> {
+            System.out.println(student);
         });
     }
 }

@@ -5,14 +5,11 @@ if (isModule.toBoolean()) {
 } else {
     apply plugin: 'com.android.library'
 }
-apply plugin: 'org.greenrobot.greendao'
 buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-//        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
-    }
+
 }
 
 
@@ -77,11 +74,6 @@ android {
     aaptOptions {
         additionalParameters "--no-version-vectors"
     }
-    greendao {
-        schemaVersion 1
-        daoPackage 'com.eqdd.common.gen'
-        targetGenDir 'src/main/java'
-    }
     lintOptions {
         abortOnError false
         checkReleaseBuilds false
@@ -114,14 +106,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-//    compile rootProject.ext.dependencies["multidex"]
     compile rootProject.ext.dependencies["support-v4"]
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["cardview-v7"]
     compile rootProject.ext.dependencies["recyclerview-v7"]
     compile rootProject.ext.dependencies["design"]
     compile rootProject.ext.dependencies["next-inputs-android"]
-    compile rootProject.ext.dependencies["picasso"]
     compile rootProject.ext.dependencies["zxing-library"]
     compile rootProject.ext.dependencies["ShortcutBadger"]
     compile rootProject.ext.dependencies["retrofit"]
@@ -133,10 +123,8 @@ dependencies {
     compile rootProject.ext.dependencies["rxpermissions"]
     compile rootProject.ext.dependencies["rxlifecycle-components"]
     compile rootProject.ext.dependencies["rxlifecycle"]
-    compile rootProject.ext.dependencies["greendao-generator"]
-    compile rootProject.ext.dependencies["greendao"]
-    compile rootProject.ext.dependencies["nineoldandroids"]
     compile rootProject.ext.dependencies["pickerview"]
+
     compile 'com.github.lvzhihao100:DataBindPercent:1.1.1'
     compile 'com.github.lvzhihao100:MultiChooseSelector:1.0.0'
     compile 'com.github.lvzhihao100:NextInputs-Android:1.4'
@@ -148,7 +136,7 @@ dependencies {
     // If you want to use the GPU Filters
     compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 
-    compile 'com.bulong.rudeness:rudeness:latest.release@aar'
+    compile 'com.bulong.rudeness:rudeness:0.1.4@aar'
 
     // 此处以JPush 3.0.3 版本为例。
 
@@ -207,4 +195,8 @@ dependencies {
     //图片选择
     compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.1'
     compile 'com.github.chenBingX:SuperTextView:v1.1'
+    /*##################高德地图####################*/
+    compile 'com.amap.api:3dmap:5.6.0'
+    compile 'com.amap.api:location:3.6.1'
+    compile 'com.amap.api:search:5.5.0'
 }

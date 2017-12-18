@@ -1,0 +1,11 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".ShowMapActivityCustom">
+
+    </data>
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.amap.api.maps.MapView>
+</layout>

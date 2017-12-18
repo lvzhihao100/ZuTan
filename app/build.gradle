@@ -1,18 +1,22 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'org.greenrobot.greendao'
 repositories { flatDir { dirs 'libs' } }
 buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-//        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
-    }
 }
 
 
 android {
+    signingConfigs {
+        gaode {
+            keyAlias 'alias'
+            keyPassword 'a123456'
+            storePassword 'a123456'
+            storeFile file('/home/lv/AndroidStudioProjects/sign/zutan.jks')
+        }
+    }
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
@@ -21,7 +25,6 @@ android {
 
 
         applicationId "com.gamerole.zutan"
-
         versionCode 1
         versionName "1.0"
 
@@ -53,6 +56,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.gaode
+        }
+        debug {
+            signingConfig signingConfigs.gaode
         }
     }
     sourceSets {
@@ -67,14 +74,12 @@ android {
     aaptOptions {
         additionalParameters "--no-version-vectors"
     }
-
     lintOptions {
         abortOnError false
         checkReleaseBuilds false
         // 防止在发布的时候出现因MissingTranslation导致Build Failed!
         disable 'MissingTranslation'
     }
-
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/NOTICE'
@@ -99,6 +104,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
     compile project(':library')
-
+    compile "android.arch.persistence.room:runtime:1.0.0-rc1"
+    compile "android.arch.lifecycle:runtime:1.0.3"
+    compile "android.arch.lifecycle:extensions:1.0.0-rc1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-rc1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-rc1"
 }
 

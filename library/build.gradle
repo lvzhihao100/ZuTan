@@ -5,12 +5,9 @@ if (isModule.toBoolean()) {
 } else {
     apply plugin: 'com.android.library'
 }
-apply plugin: 'org.greenrobot.greendao'
 buildscript {
     repositories {
         mavenCentral()
-    }
-    dependencies {
     }
 }
 
@@ -38,11 +35,6 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
-    }
-    greendao {
-        schemaVersion 1
-        daoPackage 'com.eqdd.library.gen'
-        targetGenDir 'src/main/java'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -103,7 +95,6 @@ android {
     }
     resourcePrefix "library_"
 }
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -112,13 +103,11 @@ dependencies {
     compile('com.zwh:RxFingerPrinter:1.0.1', {
         exclude group: 'io.reactivex.rxandroid'
     })
-
     compile 'com.github.lvzhihao100:WaveSideBar:1.0.3'
     compile 'com.github.lvzhihao100:ActionSheet:1.0'
     compile 'com.github.lvzhihao100:MultiTreeMenu:1.0'
     compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2@aar'
     testCompile 'junit:junit:4.12'
-    compile 'com.amap.api:location:latest.integration'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
     compile project(':common')
 
