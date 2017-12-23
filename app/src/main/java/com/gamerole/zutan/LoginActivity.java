@@ -1,5 +1,6 @@
 package com.gamerole.zutan;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.LayoutTransition;
@@ -20,6 +21,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.common.utils.ImageUtil;
+import com.eqdd.common.utils.PermissionTipUtil;
 import com.eqdd.common.utils.PicUtil;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.databind.percent.WindowUtil;
@@ -41,6 +43,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cookie.store.CookieStore;
 import com.lzy.okgo.model.Response;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.io.File;
 import java.util.List;
@@ -85,11 +88,36 @@ public class LoginActivity extends CommonActivity {
                 .add(access.findEditText(R.id.et_password))
                 .with(StaticScheme.Required(), ValueScheme.RangeLength(6, 18));
 
-
+//        RxPermissions.getInstance(LoginActivity.this)
+//                .request(Manifest.permission.ACCESS_COARSE_LOCATION,
+//                        Manifest.permission.ACCESS_FINE_LOCATION,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE,
+//                        Manifest.permission.READ_PHONE_STATE)
+//                .subscribe(isGranted -> {
+//                    if (isGranted) {
+//                        ARouter.getInstance().build(RoutConfig.APP_SHOW_MAP).navigation();
+//                    } else {
+//                        PermissionTipUtil.tip(LoginActivity.this, "位置");
+//                    }
+//                });
     }
 
     @Override
     public void setView() {
+//        RxPermissions.getInstance(LoginActivity.this)
+//                .request(Manifest.permission.ACCESS_COARSE_LOCATION,
+//                        Manifest.permission.ACCESS_FINE_LOCATION,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE,
+//                        Manifest.permission.READ_PHONE_STATE)
+//                .subscribe(isGranted -> {
+//                    if (isGranted) {
+//                        ARouter.getInstance().build(RoutConfig.APP_SHOW_MAP).navigation();
+//                    } else {
+//                        PermissionTipUtil.tip(LoginActivity.this, "位置");
+//                    }
+//                });
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         final int screenHeight = metrics.heightPixels;
@@ -152,8 +180,6 @@ public class LoginActivity extends CommonActivity {
             } else if (deltaHeight < 350 * WindowUtil.csw / WindowUtil.width && isUp) {
                 isUp = false;
                 dataBinding.llLogo.setVisibility(View.VISIBLE);
-
-
                 ValueAnimator animator = ValueAnimator.ofFloat(100, 0);
                 animator.setDuration(500);
                 animator.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -207,8 +233,8 @@ public class LoginActivity extends CommonActivity {
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(aVoid -> {
                     if (inputsAll.test()) {
-//                        requestLogin();
-                        ARouter.getInstance().build(RoutConfig.APP_SHOW_MAP).navigation();
+                        requestLogin();
+
 
                     }
                 });
@@ -247,7 +273,7 @@ public class LoginActivity extends CommonActivity {
                         HttpResult httpResult = response.body();
                         ToastUtil.showShort(httpResult.getMsg());
                         if (httpResult.getStatus() == 200) {
-                            ARouter.getInstance().build(RoutConfig.APP_STRUCTURE_LIST).navigation();
+                            ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
                         }
                     }
                 });
@@ -281,7 +307,7 @@ public class LoginActivity extends CommonActivity {
                             HttpResult httpResult = response.body();
                             ToastUtil.showShort(httpResult.getMsg());
                             if (httpResult.getStatus() == 200) {
-                                ARouter.getInstance().build(RoutConfig.APP_STRUCTURE_LIST).navigation();
+                                ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
 
 //                                HttpUtil.compareFace(LoginActivity.this, new File(filePath),
 //                                        httpResult.getItems().getFaceToken(), (isSuccess, faceToken) -> {

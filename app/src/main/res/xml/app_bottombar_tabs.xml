@@ -1,0 +1,17 @@
+<tabs>
+    <tab
+        barColorWhenSelected="@color/colorAccent"
+        icon="@mipmap/app_ic_msg"
+        id="@+id/tab_msg"
+        title="消息" />
+    <tab
+        barColorWhenSelected="#5D4037"
+        icon="@mipmap/app_ic_home"
+        id="@+id/tab_home"
+        title="家园" />
+    <tab
+        barColorWhenSelected="#7B1FA2"
+        icon="@mipmap/app_ic_my"
+        id="@+id/tab_info"
+        title="我" />
+</tabs>

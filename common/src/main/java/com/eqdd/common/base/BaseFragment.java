@@ -1,6 +1,7 @@
 package com.eqdd.common.base;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,28 +19,28 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
     private ViewDataBinding fragmentCustom;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (fragmentCustom==null) {
-            fragmentCustom = initBinding(inflater);
+        if (getView() == null) {
+            fragmentCustom = initBinding(DataBindingUtil.inflate(inflater, getLayoutId(), null, false));
         }
-        ViewGroup parent=(ViewGroup) fragmentCustom.getRoot().getParent();
-        if (parent!=null){
+        ViewGroup parent = (ViewGroup) fragmentCustom.getRoot().getParent();
+        if (parent != null) {
             parent.removeView(fragmentCustom.getRoot());
         }
         initData();
         setView();
-
         return fragmentCustom.getRoot();
     }
+
+    protected abstract int getLayoutId();
 
     protected abstract void setView();
 
     protected abstract void initData();
 
-    public abstract ViewDataBinding initBinding(LayoutInflater inflater);
+    public abstract ViewDataBinding initBinding(ViewDataBinding inflate);
 
     /**
      * [页面跳转]
@@ -62,7 +63,7 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
         if (bundle != null) {
             intent.putExtras(bundle);
         }
-       startActivity(intent);
+        startActivity(intent);
     }
 
 

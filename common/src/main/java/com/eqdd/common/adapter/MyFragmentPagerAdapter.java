@@ -22,6 +22,11 @@ public class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
         this.views = views;
     }
 
+    public MyFragmentPagerAdapter(FragmentManager fm, List<Fragment> views) {
+        super(fm);
+        this.views = views;
+    }
+
     @Override
     public Fragment getItem(int position) {
         return views.get(position);
@@ -41,6 +46,6 @@ public class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
     //配置标题的方法
     @Override
     public CharSequence getPageTitle(int position) {
-        return title.get(position);
+        return title == null ? "" : title.get(position);
     }
 }

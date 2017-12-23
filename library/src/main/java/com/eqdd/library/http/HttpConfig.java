@@ -13,4 +13,6 @@ public class HttpConfig {
     public final static String ADD_RELATIVE = "user/addRelative/";
     public final static String NET_INFO = "user/netInfo/";
     public final static String SIBLING_INFO = "user/relative/";
+    public static final String GET_USERS_LOCATION = "user/locations/";
+
 }

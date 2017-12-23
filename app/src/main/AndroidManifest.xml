@@ -48,6 +48,7 @@
 
         </activity>
         <activity android:name=".ShowMapActivity" />
+        <activity android:name=".MainActivity" />
         <!--<activity android:name=".ScanFingerActivity" />-->
         <meta-data
             android:name="com.amap.api.v2.apikey"

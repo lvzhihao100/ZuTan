@@ -32,9 +32,11 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
     public static final String ACTION_NETWORK_CHANGE = "android.net.conn.CONNECTIVITY_CHANGE";
     public INetLoadingView netLoadingView;
     private long oldTime = 0;
+    public Bundle savedInstanceState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.savedInstanceState = savedInstanceState;
         super.onCreate(savedInstanceState);
         netLoadingView = new DialogHelper(this);
         initBinding();
