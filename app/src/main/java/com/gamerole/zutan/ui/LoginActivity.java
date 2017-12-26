@@ -1,11 +1,6 @@
-package com.gamerole.zutan;
+package com.gamerole.zutan.ui;
 
-import android.Manifest;
 import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.LayoutTransition;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -21,35 +16,30 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.common.utils.ImageUtil;
-import com.eqdd.common.utils.PermissionTipUtil;
 import com.eqdd.common.utils.PicUtil;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.databind.percent.WindowUtil;
 import com.eqdd.inputs.AndroidNextInputs;
 import com.eqdd.inputs.WidgetAccess;
-import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.bean.User;
 import com.eqdd.library.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.eqdd.library.utils.HttpUtil;
 import com.eqdd.nextinputs.StaticScheme;
 import com.eqdd.nextinputs.ValueScheme;
+import com.gamerole.zutan.LoginActivityCustom;
+import com.gamerole.zutan.R;
 import com.jakewharton.rxbinding.view.RxView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.cookie.store.CookieStore;
 import com.lzy.okgo.model.Response;
-import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import okhttp3.Cookie;
 
 /**
  * Created by 吕志豪 on 17-10-13  下午2:48.

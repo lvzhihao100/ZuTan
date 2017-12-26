@@ -1,4 +1,4 @@
-package com.gamerole.zutan;
+package com.gamerole.zutan.ui;
 
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.eqdd.common.adapter.MyFragmentPagerAdapter;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.library.base.RoutConfig;
+import com.gamerole.zutan.R;
 import com.gamerole.zutan.fragment.MsgFragment;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class MainActivity extends CommonActivity {
 
             @Override
             public void onPageSelected(int position) {
-                dataBinding.bottomBar.selectTabAtPosition(position);
+                dataBinding.bottomBar.selectTabAtPosition(position, true);
             }
 
             @Override

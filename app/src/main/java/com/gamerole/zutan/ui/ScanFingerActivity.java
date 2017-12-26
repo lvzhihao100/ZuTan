@@ -1,4 +1,4 @@
-package com.gamerole.zutan;
+package com.gamerole.zutan.ui;
 
 import android.databinding.ViewDataBinding;
 import android.widget.Toast;
@@ -6,6 +6,8 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.eqdd.common.base.CommonFullTitleActivity;
 import com.eqdd.library.base.RoutConfig;
+import com.gamerole.zutan.R;
+import com.gamerole.zutan.ScanFingerActivityCustom;
 
 
 import rx.Subscriber;

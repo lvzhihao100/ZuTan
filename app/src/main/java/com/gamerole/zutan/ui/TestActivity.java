@@ -1,4 +1,4 @@
-package com.gamerole.zutan;
+package com.gamerole.zutan.ui;
 
 import android.databinding.ViewDataBinding;
 import android.support.v4.view.ViewCompat;
@@ -6,6 +6,8 @@ import android.support.v4.view.ViewCompat;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.eqdd.common.base.CommonFullTitleActivity;
 import com.eqdd.library.base.RoutConfig;
+import com.gamerole.zutan.R;
+import com.gamerole.zutan.TestActivityCustom;
 
 /**
  * @author吕志豪 .

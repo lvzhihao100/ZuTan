@@ -3,15 +3,27 @@
         barColorWhenSelected="@color/colorAccent"
         icon="@mipmap/app_ic_msg"
         id="@+id/tab_msg"
+        inActiveColor="#00FF00"
+        activeColor="#FF0000"
+        badgeBackgroundColor="#FF0000"
+        badgeHidesWhenActive="true"
         title="消息" />
     <tab
         barColorWhenSelected="#5D4037"
         icon="@mipmap/app_ic_home"
         id="@+id/tab_home"
+        inActiveColor="#00FF00"
+        activeColor="#FF0000"
+        badgeBackgroundColor="#FF0000"
+        badgeHidesWhenActive="true"
         title="家园" />
     <tab
         barColorWhenSelected="#7B1FA2"
         icon="@mipmap/app_ic_my"
         id="@+id/tab_info"
+        inActiveColor="#00FF00"
+        activeColor="#FF0000"
+        badgeBackgroundColor="#FF0000"
+        badgeHidesWhenActive="true"
         title="我" />
 </tabs>

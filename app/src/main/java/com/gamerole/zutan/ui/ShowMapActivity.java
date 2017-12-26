@@ -1,4 +1,4 @@
-package com.gamerole.zutan;
+package com.gamerole.zutan.ui;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.BitmapFactory;
@@ -19,6 +19,8 @@ import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
+import com.gamerole.zutan.R;
+import com.gamerole.zutan.ShowMapActivityCustom;
 import com.gamerole.zutan.bean.UserLocationBean;
 import com.gamerole.zutan.livedata.LocationLiveData;
 import com.lzy.okgo.OkGo;
@@ -44,9 +46,7 @@ public class ShowMapActivity extends BaseActivity {
     @Override
     public void initBinding() {
         dataBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_map);
-
     }
-
     @Override
     public void initData() {
         dataBinding.mapView.onCreate(savedInstanceState);// 此方法须覆写，虚拟机需要在很多情况下保存地图绘制的当前状态。
@@ -104,8 +104,6 @@ public class ShowMapActivity extends BaseActivity {
             MarkerOptions markerOption = new MarkerOptions();
             markerOption.position(new LatLng(item.getLatitude(), item.getLongitude()));
             markerOption.title(item.getAddress()).snippet("西安市：34.341568, 108.940174");
-
-            markerOption.draggable(true);//设置Marker可拖动
             markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
                     .decodeResource(getResources(), R.mipmap.library_map_location)));
             // 将Marker设置为贴地显示，可以双指下拉地图查看效果

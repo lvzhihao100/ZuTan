@@ -1,4 +1,4 @@
-package com.gamerole.zutan;
+package com.gamerole.zutan.ui;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
@@ -18,6 +18,7 @@ import com.eqdd.library.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.eqdd.library.utils.HttpUtil;
+import com.gamerole.zutan.R;
 import com.jakewharton.rxbinding.view.RxView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -34,29 +35,28 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author吕志豪 .
- * @date 17-10-20  上午9:31.
+ * Created by 吕志豪 on 17-10-17  下午3:13.
  * Github :https://github.com/lvzhihao100
  * E-Mail：1030753080@qq.com
  * 简书 :http://www.jianshu.com/u/6e525b929aac
  */
-@Route(path = RoutConfig.APP_ADD_RELATIVE)
-public class AddRelativeActivity extends CommonFullTitleActivity {
+@Route(path = RoutConfig.APP_REGISTER)
+public class RegisterActivity extends CommonFullTitleActivity {
 
-    private com.gamerole.zutan.AddRelativeActivityCustom dataBinding;
+    private com.gamerole.zutan.RegisterActivityCustom dataBinding;
     private SlimAdapterEx<TwoBean<String, String>> slimAdapterEx;
     private String filepath;
 
     @Override
     protected void initBinding(ViewDataBinding inflate) {
 
-        dataBinding = (com.gamerole.zutan.AddRelativeActivityCustom) inflate;
-        initTopTitleBar("添加人物卡");
+        dataBinding = (com.gamerole.zutan.RegisterActivityCustom) inflate;
+        initTopTitleBar("注册");
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.app_activity_add_relative;
+        return R.layout.app_activity_register;
     }
 
     @Override
@@ -79,30 +79,38 @@ public class AddRelativeActivity extends CommonFullTitleActivity {
         RxView.clicks(dataBinding.rlCard)
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(aVoid -> {
-                    PicUtil.single(AddRelativeActivity.this);
+                    PicUtil.single(RegisterActivity.this);
                 });
         RxView.clicks(dataBinding.btSubmit)
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(aVoid -> {
-                    HashMap<String, String> maps = new HashMap<>();
-                    maps.put("name", slimAdapterEx.getDataItem(0).getTwo());
-                    maps.put("sex", slimAdapterEx.getDataItem(1).getTwo());
-                    maps.put("birth", slimAdapterEx.getDataItem(2).getTwo());
-                    maps.put("idCard", slimAdapterEx.getDataItem(3).getTwo());
-                    maps.put("race", slimAdapterEx.getDataItem(4).getTwo());
-                    maps.put("address", slimAdapterEx.getDataItem(5).getTwo());
-                    OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.ADD_RELATIVE + "father")
-                            .upJson(new JSONObject(maps))
-                            .execute(new DialogCallBack<HttpResult>(AddRelativeActivity.this) {
-                                @Override
-                                public void onSuccess(Response<HttpResult> response) {
-                                    HttpResult httpResult = response.body();
-                                    ToastUtil.showShort(httpResult.getMsg());
-                                    if (httpResult.getStatus() == 200) {
-                                        finish();
-                                    }
-                                }
-                            });
+                    HttpUtil.detectFace(RegisterActivity.this, new File(filepath), (isSuccess, faceToken) -> {
+                        if (isSuccess) {
+                            HashMap<String, Object> maps = new HashMap<>();
+                            maps.put("name", slimAdapterEx.getDataItem(0).getTwo());
+                            maps.put("sex", slimAdapterEx.getDataItem(1).getTwo());
+                            maps.put("birth", slimAdapterEx.getDataItem(2).getTwo());
+                            maps.put("idCard", slimAdapterEx.getDataItem(3).getTwo());
+                            maps.put("race", slimAdapterEx.getDataItem(4).getTwo());
+                            maps.put("address", slimAdapterEx.getDataItem(5).getTwo());
+                            maps.put("password", "123456");
+                            maps.put("faceToken", faceToken);
+                            maps.put("isCheck", true);
+                            OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.REGISTER)
+                                    .upJson(new JSONObject(maps))
+                                    .execute(new DialogCallBack<HttpResult>(RegisterActivity.this) {
+                                        @Override
+                                        public void onSuccess(Response<HttpResult> response) {
+                                            HttpResult httpResult = response.body();
+                                            ToastUtil.showShort(httpResult.getMsg());
+                                            if (httpResult.getStatus() == 200) {
+                                                HttpUtil.createFaceSet(slimAdapterEx.getDataItem(3).getTwo(), faceToken);
+                                                finish();
+                                            }
+                                        }
+                                    });
+                        }
+                    });
                 });
     }
 
@@ -113,7 +121,7 @@ public class AddRelativeActivity extends CommonFullTitleActivity {
             List<LocalMedia> localMedias = PictureSelector.obtainMultipleResult(data);
             filepath = localMedias.get(0).isCompressed() ?
                     localMedias.get(0).getCompressPath() : localMedias.get(0).getPath();
-            HttpUtil.checkIDCard(AddRelativeActivity.this, new File(filepath), (isSuccess, cardsBean) -> {
+            HttpUtil.checkIDCard(RegisterActivity.this, new File(filepath), (isSuccess, cardsBean) -> {
                 if (isSuccess) {
                     ArrayList<TwoBean<String, String>> slimData = new ArrayList<>();
                     slimData.add(new TwoBean<>("姓名", cardsBean.getName()));

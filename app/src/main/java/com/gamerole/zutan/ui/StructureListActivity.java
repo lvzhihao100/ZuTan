@@ -1,4 +1,4 @@
-package com.gamerole.zutan;
+package com.gamerole.zutan.ui;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.adapter.ItemClickSupport;
 import com.eqdd.common.adapter.slimadapter.SlimAdapterEx;
 import com.eqdd.common.adapter.slimadapter.SlimInjector;
@@ -19,9 +18,10 @@ import com.eqdd.library.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.eqdd.library.store.DisMoveLinearLayoutManager;
+import com.gamerole.zutan.R;
+import com.gamerole.zutan.StructureListActivityCustom;
 import com.gamerole.zutan.bean.NetInfoBean;
 import com.jakewharton.rxbinding.view.RxView;
-import com.lsjwzh.widget.recyclerviewpager.LoopRecyclerViewPager;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;

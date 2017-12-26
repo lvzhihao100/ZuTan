@@ -27,28 +27,28 @@
         android:supportsRtl="true"
         android:theme="@style/common_AppTheme"
         tools:replace="android:label">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScanFingerActivity">
+        <activity android:name=".ui.ScanFingerActivity">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
 
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".StructureListActivity" />
-        <activity android:name=".AddRelativeActivity" />
-        <activity android:name=".TestActivity">
+        <activity android:name=".ui.RegisterActivity" />
+        <activity android:name=".ui.StructureListActivity" />
+        <activity android:name=".ui.AddRelativeActivity" />
+        <activity android:name=".ui.TestActivity">
 
         </activity>
-        <activity android:name=".ShowMapActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.ShowMapActivity" />
+        <activity android:name=".ui.MainActivity" />
         <!--<activity android:name=".ScanFingerActivity" />-->
         <meta-data
             android:name="com.amap.api.v2.apikey"

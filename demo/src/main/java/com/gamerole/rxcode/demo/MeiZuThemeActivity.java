@@ -49,9 +49,6 @@ public class MeiZuThemeActivity extends AppCompatActivity {
         dataBinding = DataBindingUtil.setContentView(this, R.layout.demo_activity_meizu_theme);
 
 
-        dataBinding.recyclerView.setItemAnimator(new MyItemAnimator() {
-        });
-        dataBinding.recyclerView.getItemAnimator().setRemoveDuration(2000);
         dataBinding.recyclerView.setLayoutManager(new OverLayCardLayoutManager());
         SlimAdapterEx slimAdapterEx = SlimAdapterEx.create().registerDefault(R.layout.list_item_tantan, (data, injector) -> {
 

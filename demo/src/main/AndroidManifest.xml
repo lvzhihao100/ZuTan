@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gamerole.rxcode.demo">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".base.DemoApplication"
         android:allowBackup="true"
@@ -10,10 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".MeiZuThemeActivity" >
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MeiZuThemeActivity">
 
+
+        </activity>
+        <activity android:name=".ViewPagerActivity">
+
+        </activity>
+        <activity android:name=".RecyclerViewMapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
