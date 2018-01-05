@@ -14,7 +14,5 @@ public class LibraryService implements IProvider {
     public void init(Context context) {
 
     }
-    public void initLibrary(Context context){
 
-    }
 }

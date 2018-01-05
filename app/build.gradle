@@ -103,10 +103,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
     compile project(':library')
-    compile "android.arch.persistence.room:runtime:1.0.0-rc1"
-    compile "android.arch.lifecycle:runtime:1.0.3"
-    compile "android.arch.lifecycle:extensions:1.0.0-rc1"
+    compile 'com.ramotion.paperonboarding:paper-onboarding:1.1.1'
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-rc1"
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-rc1"
+    implementation project(':rongtalk')
+    implementation project(':nim')
 }
 

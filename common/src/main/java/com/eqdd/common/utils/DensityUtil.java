@@ -2,6 +2,8 @@ package com.eqdd.common.utils;
 
 import android.content.Context;
 
+import com.eqdd.databind.percent.WindowUtil;
+
 /**
  * Created by lvzhihao on 17-4-10.
  */
@@ -29,4 +31,8 @@ public class DensityUtil {
         float var2 = var0.getResources().getDisplayMetrics().scaledDensity;
         return (int)(var1 / var2 + 0.5F);
     }
+    public static int percentW(int width) {
+        return width * WindowUtil.csw / WindowUtil.width;
+    }
+
 }

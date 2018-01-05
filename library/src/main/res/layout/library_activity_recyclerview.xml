@@ -1,6 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data class=".RecyclerViewCustom" />
+    <data class=".LibraryRecyclerViewCustom" />
 
 
     <LinearLayout
@@ -9,9 +9,13 @@
         android:background="@color/common_white"
         android:orientation="vertical">
 
-        <com.recyclerview.swipe.SwipeMenuRecyclerView
+        <include
+            android:id="@+id/include_title"
+            layout="@layout/common_activity_title" />
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.recyclerview.swipe.SwipeMenuRecyclerView>
+            android:layout_height="match_parent" />
     </LinearLayout>
 </layout>

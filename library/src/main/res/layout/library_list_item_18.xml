@@ -1,0 +1,57 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ListItem18Custom">
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120pt"
+        android:background="@color/common_white"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:padding="25pt">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="80pt"
+            android:layout_height="80pt"
+            android:layout_centerVertical="true"
+            tools:src="@mipmap/common_error_img" />
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="25pt"
+            android:layout_toEndOf="@id/iv_head"
+            android:gravity="center_vertical"
+            android:padding="10pt"
+            android:textSize="30pt"
+            tools:text="吕志豪" />
+
+        <ImageView
+            android:layout_width="30pt"
+            android:layout_height="30pt"
+            android:layout_alignTop="@id/tv_left"
+            android:layout_toEndOf="@id/tv_left"
+            android:src="@drawable/library_shape_5_circle_red" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical|end"
+            android:textColor="@color/common_gray8"
+            android:textSize="20pt"
+            tools:text="比灵璧 : 0" />
+
+
+    </RelativeLayout>
+
+</layout>

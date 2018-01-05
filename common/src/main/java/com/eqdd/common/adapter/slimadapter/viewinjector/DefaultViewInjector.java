@@ -122,7 +122,7 @@ public class DefaultViewInjector implements IViewInjector<DefaultViewInjector> {
     }
 
     @Override
-    public DefaultViewInjector imageCircle(int id, String url) {
+    public DefaultViewInjector imageCircle(int id, Object url) {
         ImageUtil.setCircleImage(url, findViewById(id));
         return this;
     }

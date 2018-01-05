@@ -1,0 +1,16 @@
+
+ext.moduleId="com.gamerole.nim"
+ext.isModule=false
+ext.prefix="nim_"
+apply from:"https://gitee.com/moonlook_lv/config/raw/master/module.gradle"
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile project(':uikit')
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
+}

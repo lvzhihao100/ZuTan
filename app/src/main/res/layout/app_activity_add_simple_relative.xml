@@ -1,0 +1,72 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class=".AddSimpleRelativeActivityCustom" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_grayC"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300pt">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_head"
+                android:layout_width="200pt"
+                android:layout_height="200pt"
+                android:layout_centerInParent="true"
+                android:background="@drawable/library_shape_4_circle_white"
+                android:elevation="10pt"
+                android:translationZ="10pt" />
+
+            <LinearLayout
+                android:id="@+id/ll_head_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:translationZ="20pt">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_camera"
+                    android:layout_width="80pt"
+                    android:layout_height="80pt"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/library_ic_photo_hint" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10pt"
+                    android:gravity="center"
+                    android:text="上传头像"
+                    android:textColor="@color/black"
+                    android:textSize="26pt" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="400pt"
+            android:layout_height="80pt"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="35pt"
+            android:background="@drawable/library_selector_2"
+            android:elevation="20pt"
+            android:text="完成"
+            android:textColor="@color/common_white"
+            android:textSize="30pt"
+            android:translationZ="10pt" />
+
+    </LinearLayout>
+</layout>

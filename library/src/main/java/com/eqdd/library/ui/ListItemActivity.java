@@ -9,7 +9,7 @@ import com.eqdd.common.adapter.slimadapter.SlimInjector;
 import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.CommonFullTitleActivity;
 import com.eqdd.library.R;
-import com.eqdd.library.RecyclerViewCustom;
+import com.eqdd.library.LibraryRecyclerViewCustom;
 import com.eqdd.library.base.RoutConfig;
 
 import java.util.ArrayList;
@@ -20,12 +20,12 @@ import java.util.ArrayList;
 @Route(path = RoutConfig.LIBRARY_LIST_ITEM)
 public class ListItemActivity extends CommonFullTitleActivity {
 
-    private RecyclerViewCustom dataBinding;
+    private LibraryRecyclerViewCustom dataBinding;
     private SlimAdapterEx slimAdapterEx;
 
     @Override
     protected void initBinding(ViewDataBinding inflate) {
-        dataBinding = (RecyclerViewCustom) inflate;
+        dataBinding = (LibraryRecyclerViewCustom) inflate;
     }
 
     @Override

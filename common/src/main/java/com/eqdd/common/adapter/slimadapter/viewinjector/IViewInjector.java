@@ -37,7 +37,7 @@ public interface IViewInjector<VI extends IViewInjector> {
     VI hint(int id, CharSequence charSequence);
 
     VI image(int id, int res);
-    VI imageCircle(int id, String url);
+    VI imageCircle(int id, Object url);
     VI image(int id, String url);
 
     VI image(int id, Drawable drawable);

@@ -1,11 +1,10 @@
 package com.gamerole.zutan.fragment;
 
 import android.databinding.ViewDataBinding;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.eqdd.common.base.BaseFragment;
-import com.eqdd.library.RecyclerViewCustom;
+import com.eqdd.library.LibraryRecyclerViewCustom;
 import com.gamerole.zutan.R;
 
 /**
@@ -18,7 +17,7 @@ import com.gamerole.zutan.R;
 
 public class MsgFragment extends BaseFragment {
 
-    private RecyclerViewCustom dataBinding;
+    private LibraryRecyclerViewCustom dataBinding;
 
     @Override
     protected int getLayoutId() {
@@ -37,7 +36,7 @@ public class MsgFragment extends BaseFragment {
 
     @Override
     public ViewDataBinding initBinding(ViewDataBinding inflate) {
-        return dataBinding = (RecyclerViewCustom) inflate;
+        return dataBinding = (LibraryRecyclerViewCustom) inflate;
     }
 
     @Override

@@ -36,8 +36,8 @@ public class DemoApplication extends Application {
         }
         ARouter.init(App.INSTANCE); // 尽可能早，推荐在Application中初始化
         ARouter.getInstance().inject(this);
-        libraryService.initLibrary(this);
-        commonService.initCommon(this);
+        libraryService.init(this);
+        commonService.init(this);
         DBHelper.getInstance().init(this);
     }
 

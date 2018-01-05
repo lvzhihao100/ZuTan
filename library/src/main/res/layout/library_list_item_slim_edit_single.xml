@@ -1,0 +1,35 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ListItemSlimEditSingleCustom">
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70pt"
+        android:orientation="horizontal"
+        android:paddingEnd="25pt"
+        android:paddingStart="25pt">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="120pt"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|start"
+            android:textColor="@color/common_gray8"
+            android:textSize="24pt"
+            tools:text="年龄" />
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:textColor="@android:color/black"
+            android:textSize="24pt" />
+    </LinearLayout>
+
+
+</layout>

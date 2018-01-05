@@ -17,5 +17,9 @@
     <color name="library_actionsheet_gray">#8F8F8F</color>
     <color name="library_actionsheet_blue">#037BFF</color>
 
+    <color name="library_orange_start">#fae802</color>
+    <color name="library_orange_end">#ff7101</color>
+
+
 
 </resources>

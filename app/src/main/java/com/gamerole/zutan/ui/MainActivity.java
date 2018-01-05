@@ -9,6 +9,8 @@ import com.eqdd.common.adapter.MyFragmentPagerAdapter;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.library.base.RoutConfig;
 import com.gamerole.zutan.R;
+import com.gamerole.zutan.fragment.HomeFragment;
+import com.gamerole.zutan.fragment.MineFragment;
 import com.gamerole.zutan.fragment.MsgFragment;
 
 import java.util.ArrayList;
@@ -32,8 +34,8 @@ public class MainActivity extends CommonActivity {
     public void setView() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new MsgFragment());
-        fragments.add(new MsgFragment());
-        fragments.add(new MsgFragment());
+        fragments.add(new HomeFragment());
+        fragments.add(new MineFragment());
 
         dataBinding.viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments));
 

@@ -32,10 +32,6 @@ import okhttp3.OkHttpClient;
 public class CommonService implements IProvider {
     @Override
     public void init(Context context) {
-
-    }
-
-    public void initCommon(Context context) {
         App.INSTANCE.registerActivityLifecycleCallbacks(new BaseActivityLifecycleCallbacks());
         WindowUtil.init(context);
         new RudenessScreenHelper(App.INSTANCE, 630).activate();
@@ -44,8 +40,8 @@ public class CommonService implements IProvider {
         Stetho.initializeWithDefaults(context);
         ShortcutBadger.applyCount(context, 7);
         initOkgoHttp(context);
-        //全局公共参数
     }
+
 
     private void initOkgoHttp(Context context) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();

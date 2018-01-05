@@ -28,11 +28,7 @@
         android:theme="@style/common_AppTheme"
         tools:replace="android:label">
         <activity android:name=".ui.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.ScanFingerActivity">
             <!--<intent-filter>-->
@@ -49,6 +45,14 @@
         </activity>
         <activity android:name=".ui.ShowMapActivity" />
         <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.AddSimpleRelativeActivity" />
+        <activity android:name=".ui.GuideActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!--<activity android:name=".ScanFingerActivity" />-->
         <meta-data
             android:name="com.amap.api.v2.apikey"

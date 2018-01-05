@@ -73,7 +73,7 @@ public abstract class CustomViewInjector<CVI extends IViewInjector> implements I
         return (CVI) this;
     }
     @Override
-    public CVI imageCircle(int id, String url) {
+    public CVI imageCircle(int id, Object url) {
         wrappedInjector.imageCircle(id, url);
         return (CVI) this;
     }
