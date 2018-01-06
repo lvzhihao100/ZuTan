@@ -7,6 +7,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.eqdd.common.R;
 import com.eqdd.common.base.App;
+import com.eqdd.common.base.GlideApp;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -34,15 +35,16 @@ public class ImageUtil {
     private static RequestOptions optionsCircle;
 
     public static void setCircleImage(Object url, ImageView imageView) {
-        Glide.with(App.INSTANCE).load(url).apply(optionsCircle).into(imageView);
+        GlideApp.with(App.INSTANCE).load(url).apply(optionsCircle).into(imageView);
     }
 
     public static void setImage(Object url, ImageView imageView) {
-        Glide.with(App.INSTANCE).load(url).apply(optionsNormal).into(imageView);
+        GlideApp.with(App.INSTANCE).load(url).apply(optionsNormal).into(imageView);
 
     }
+
     public static void flurImage(Object url, ImageView imageView, int radius) {
-        Glide.with(App.INSTANCE).load(url)
+        GlideApp.with(App.INSTANCE).load(url)
                 .apply(bitmapTransform(new BlurTransformation(radius)))
                 .into(imageView);
     }

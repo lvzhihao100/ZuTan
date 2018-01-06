@@ -4,9 +4,6 @@
 
     <application>
 
-        <meta-data
-            android:name="com.netease.nim.uikit.support.glide.NIMGlideModule"
-            android:value="GlideModule"/>
 
         <!-- 会话窗口 -->
         <!-- UI组件中包含了语音选文字功能，该界面是全屏显示，为了视觉上的美观，该界面主题ActionBar使用Overlay模式。

@@ -53,9 +53,9 @@ public class HomeFragment extends BaseFragment {
         data.add(new ThirdBean<Integer, String, String>(R.mipmap.error_picture, "我的友圈", "比特比 :0"));
         dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataBinding.recyclerView.addItemDecoration(new SectionDividerLineItemDecoration(getActivity(), 1, 3)
-        .setLeftDividerPadding(DensityUtil.percentW(20))
-        .setRightDividerPadding(0)
-        .setSectionHeight(DensityUtil.percentW(12)));
+                .setLeftDividerPadding(DensityUtil.percentW(20))
+                .setRightDividerPadding(0)
+                .setSectionHeight(DensityUtil.percentW(12)));
         SlimAdapterEx.create().register(R.layout.library_list_item_17_head, new SlimInjector<SecondBean>() {
             @Override
             public void onInject(SecondBean data, IViewInjector injector) {
@@ -76,6 +76,8 @@ public class HomeFragment extends BaseFragment {
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     if (position == 0) {
                         ARouter.getInstance().build(RoutConfig.APP_ADD_SIMPLE_RELATIVE).navigation();
+                    } else if (position == 1) {
+                        ARouter.getInstance().build(RoutConfig.APP_FRIEND_LIST).navigation();
                     }
                 });
 

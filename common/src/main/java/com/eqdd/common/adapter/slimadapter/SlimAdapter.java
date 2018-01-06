@@ -113,6 +113,7 @@ public class SlimAdapter<D> extends AbstractSlimAdapter implements IDataAdapter<
 
     @Override
     public Object getItem(int position) {
+
         return data.get(position);
     }
 

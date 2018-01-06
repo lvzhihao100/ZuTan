@@ -2,21 +2,18 @@ package com.gamerole.zutan.ui;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.transition.TransitionManager;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.ActivityFrameLayoutCustom;
 import com.eqdd.common.base.CommonActivity;
+import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.library.base.RoutConfig;
 import com.gamerole.zutan.R;
 import com.ramotion.paperonboarding.PaperOnboardingEngine;
-import com.ramotion.paperonboarding.PaperOnboardingFragment;
 import com.ramotion.paperonboarding.PaperOnboardingPage;
-import com.ramotion.paperonboarding.listeners.PaperOnboardingOnChangeListener;
-import com.ramotion.paperonboarding.listeners.PaperOnboardingOnRightOutListener;
 
 import java.util.ArrayList;
 
@@ -43,12 +40,17 @@ public class GuideActivity extends CommonActivity {
         PaperOnboardingEngine engine = new PaperOnboardingEngine(findViewById(R.id.onboardingRootView), getDataForOnboarding(), getApplicationContext());
 
         engine.setOnChangeListener((oldElementIndex, newElementIndex) -> {
+            if (newElementIndex == 2) {
+                TransitionManager.beginDelayedTransition(dataBinding.onboardingRootView);
+                dataBinding.btEnter.setVisibility(View.VISIBLE);
+            } else {
+                TransitionManager.beginDelayedTransition(dataBinding.onboardingRootView);
+                dataBinding.btEnter.setVisibility(View.GONE);
+            }
         });
-
-        engine.setOnRightOutListener(() -> {
-            // Probably here will be your exit action
+        ClickUtil.click(dataBinding.btEnter, () -> {
+            ARouter.getInstance().build(RoutConfig.APP_LOGIN).navigation();
         });
-
     }
 
     // Just example data for Onboarding

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.common.utils.ImageUtil;
@@ -47,7 +48,7 @@ import java.util.concurrent.TimeUnit;
  * E-Mail：1030753080@qq.com
  * 简书 :http://www.jianshu.com/u/6e525b929aac
  */
-
+@Route(path = RoutConfig.APP_LOGIN)
 public class LoginActivity extends CommonActivity {
 
     private LoginActivityCustom dataBinding;

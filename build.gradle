@@ -1,4 +1,4 @@
-apply from: "http://code.taobao.org/svn/appConfig/config.gradle"
+apply from: "https://gitee.com/moonlook_lv/config/raw/master/config.gradle"
 buildscript {
     repositories {
         maven { url "https://jitpack.io" }

@@ -1,6 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data class=".AddRelativeActivityCustom">
+    <data class=".AddFriendActivityCustom">
 
     </data>
 
@@ -27,6 +27,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10pt"
                     android:background="@mipmap/app_id_card_exam">
+
                     <ImageView
                         android:id="@+id/iv_photo"
                         android:layout_width="match_parent"
@@ -46,9 +47,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/cardView"
-                android:layout_marginTop="30pt"></android.support.v7.widget.RecyclerView>
+                android:layout_marginTop="30pt" />
 
-            <Button
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/bt_submit"
                 android:layout_width="270pt"
                 android:layout_height="80pt"
@@ -60,19 +61,8 @@
                 android:text="提交"
                 android:textColor="@color/common_white"
                 android:textSize="30pt"
-                android:translationZ="10dp"
-                android:visibility="gone" />
+                android:translationZ="10dp" />
 
-            <TextView
-                android:id="@+id/tv_tip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/bt_submit"
-                android:layout_below="@id/bt_submit"
-                android:layout_margin="10pt"
-                android:text="若该人物卡已注册,请确保身份信息与注册信息一致"
-                android:textColor="@color/common_hint_color"
-                android:visibility="gone" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 

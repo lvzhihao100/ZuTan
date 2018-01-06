@@ -25,8 +25,7 @@ public class ZuTanApplication extends Application {
     LibraryService libraryService;
     @Autowired
     CommonService commonService;
-    @Autowired
-    RongTalkService rongTalkService;
+
 
     @Override
     public void onCreate() {
@@ -39,7 +38,6 @@ public class ZuTanApplication extends Application {
         ARouter.getInstance().inject(this);
         libraryService.init(this);
         commonService.init(this);
-        rongTalkService.init(this);
     }
 
     public boolean isApkInDebug(Context context) {

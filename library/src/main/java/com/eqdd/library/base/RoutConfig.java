@@ -19,4 +19,7 @@ public class RoutConfig {
     public static final String APP_HOME = APP + "/home";
     public static final String APP_ADD_SIMPLE_RELATIVE = APP + "/addSimpleRelative";
     public static final String APP_GUIDE = APP + "/guide";
+    public static final String APP_LOGIN = APP + "/login";
+    public static final String APP_ADD_FRIEND = APP+"/addFriend";
+    public static final String APP_FRIEND_LIST = APP + "/friendList";
 }

@@ -5,9 +5,89 @@
     </data>
 
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
+    <RelativeLayout
+        android:id="@+id/onboardingRootView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true">
+
+        <!-- BG COLORS CONTAINER -->
+        <FrameLayout
+            android:id="@+id/onboardingBackgroundContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- MAIN LAYOUT SECTION -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="65dp"
+            android:animateLayoutChanges="true"
+            android:clipChildren="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical">
+
+                <!-- ICON CONTAINER -->
+                <FrameLayout
+                    android:id="@+id/onboardingContentIconContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:clipChildren="false"
+                    android:clipToPadding="false" />
+
+                <!-- TEXT CONTAINER -->
+                <FrameLayout
+                    android:id="@+id/onboardingContentTextContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!-- PAGER ICONS CONTAINER -->
+        <LinearLayout
+            android:id="@+id/onboardingPagerIconsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="25dp"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_enter"
+            android:layout_width="200pt"
+            android:layout_height="70pt"
+            android:layout_above="@id/onboardingPagerIconsContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20pt"
+            android:background="@drawable/common_selector_5"
+            android:elevation="10pt"
+            android:gravity="center"
+            android:text="进入应用"
+            android:textColor="@color/common_white"
+            android:textSize="30pt"
+            android:translationZ="10pt"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
 
 </layout>

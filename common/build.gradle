@@ -1,8 +1,7 @@
-
-ext.moduleId="com.eqdd.common"
-ext.isModule=false
-ext.prefix="common_"
-apply from:"https://gitee.com/moonlook_lv/config/raw/master/module.gradle"
+ext.moduleId = "com.eqdd.common"
+ext.isModule = false
+ext.prefix = "common_"
+apply from: "https://gitee.com/moonlook_lv/config/raw/master/module.gradle"
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -15,7 +14,6 @@ dependencies {
     compile rootProject.ext.dependencies["cardview-v7"]
     compile rootProject.ext.dependencies["recyclerview-v7"]
     compile rootProject.ext.dependencies["design"]
-    compile rootProject.ext.dependencies["next-inputs-android"]
     compile rootProject.ext.dependencies["zxing-library"]
     compile rootProject.ext.dependencies["ShortcutBadger"]
     compile rootProject.ext.dependencies["retrofit"]
@@ -34,11 +32,13 @@ dependencies {
     compile 'com.github.lvzhihao100:NextInputs-Android:1.4'
     compile 'com.github.lvzhihao100:NewSwipe:1.1'
     compile 'com.github.lvzhihao100:PinHeadForRecyclerView:1.3'
-
-    compile 'com.github.bumptech.glide:glide:4.2.0'
-
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
+    /*######################图片加载框架#################*/
+    compile 'com.github.bumptech.glide:glide:4.3.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+    compile 'com.github.bumptech.glide:okhttp3-integration:4.3.1'
     compile 'jp.wasabeef:glide-transformations:3.0.1'
+    /*######################图片加载框架#################*/
+
 
     compile 'com.bulong.rudeness:rudeness:0.1.4@aar'
 
@@ -66,7 +66,7 @@ dependencies {
 
     compile 'com.roughike:bottom-bar:2.3.1'
 
-    compile 'com.github.zcweng:switch-button:0.0.3@aar'
+//    compile 'com.github.zcweng:switch-button:0.0.3@aar'
     // 图片预览
     compile 'ch.ielse:imagewatcher:1.0.1'
     compile 'com.tencent.bugly:crashreport_upgrade:1.3.4'
@@ -88,23 +88,20 @@ dependencies {
     compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.1'
     compile 'com.github.chenBingX:SuperTextView:v1.1'
 
-
     /*##################高德地图####################*/
     compile 'com.amap.api:3dmap:5.6.0'
     compile 'com.amap.api:location:3.6.1'
     compile 'com.amap.api:search:5.5.0'
     /*##################高德地图####################*/
 
-
     /*#####################弹出对话框#####################*/
     implementation('com.afollestad.material-dialogs:core:0.9.6.0') {
         exclude group: 'com.android.support'
     }
-    implementation ('com.afollestad.material-dialogs:commons:0.9.6.0'){
+    implementation('com.afollestad.material-dialogs:commons:0.9.6.0') {
         exclude group: 'com.android.support'
     }
     /*#####################弹出对话框#####################*/
-
 
     /*#####################数据库room#####################*/
     compile 'android.arch.persistence.room:runtime:1.0.0-rc1'
