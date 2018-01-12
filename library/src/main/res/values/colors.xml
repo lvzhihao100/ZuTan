@@ -20,6 +20,11 @@
     <color name="library_orange_start">#fae802</color>
     <color name="library_orange_end">#ff7101</color>
 
+    <color name="library_gray">#21252a</color>
+    <color name="library_orange">#ff8c6a</color>
+    <color name="library_white">#ffffff</color>
+    <color name="library_black">#000000</color>
+    <color name="library_blue">#ff14445a</color>
 
 
 </resources>

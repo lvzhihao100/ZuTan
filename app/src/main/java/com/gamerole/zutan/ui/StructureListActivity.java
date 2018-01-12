@@ -13,7 +13,7 @@ import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.CommonFullTitleActivity;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.bean.User;
+import com.eqdd.library.bean.room.User;
 import com.eqdd.library.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;

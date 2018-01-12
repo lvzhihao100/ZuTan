@@ -22,8 +22,8 @@
 
                 <RelativeLayout
                     android:id="@+id/rl_card"
-                    android:layout_width="400pt"
-                    android:layout_height="230pt"
+                    android:layout_width="450pt"
+                    android:layout_height="310pt"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10pt"
                     android:background="@mipmap/app_id_card_exam">
@@ -38,22 +38,199 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:text="请插入身份证"
+                    android:text="请上传头像"
                     android:textSize="30pt" />
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <LinearLayout
+                android:id="@+id/ll_edit"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/cardView"
-                android:layout_marginTop="30pt" />
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70pt"
+                    android:orientation="horizontal"
+                    android:paddingEnd="25pt"
+                    android:paddingStart="25pt">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="120pt"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|start"
+                        android:text="姓名"
+                        android:textColor="@color/common_gray8"
+                        android:textSize="24pt" />
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="无名无姓"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/et_career"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black"
+                        android:textSize="24pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70pt"
+                    android:orientation="horizontal"
+                    android:paddingEnd="25pt"
+                    android:paddingStart="25pt">
+
+                    <TextView
+                        android:id="@+id/tv_sex"
+                        android:layout_width="120pt"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|start"
+                        android:text="性别"
+                        android:textColor="@color/common_gray8"
+                        android:textSize="24pt" />
+
+                    <TextView
+                        android:id="@+id/et_sex"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="center_vertical|start"
+                        android:lines="1"
+                        android:nextFocusDown="@id/et_birth"
+                        android:text="未知"
+                        android:textColor="@android:color/black"
+                        android:textSize="24pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70pt"
+                    android:orientation="horizontal"
+                    android:paddingEnd="25pt"
+                    android:paddingStart="25pt">
+
+                    <TextView
+                        android:id="@+id/tv_birth"
+                        android:layout_width="120pt"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|start"
+                        android:text="出身日期"
+                        android:textColor="@color/common_gray8"
+                        android:textSize="24pt" />
+
+                    <TextView
+                        android:id="@+id/et_birth"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="center_vertical|start"
+                        android:lines="1"
+
+                        android:nextFocusDown="@id/et_career"
+                        android:textColor="@android:color/black"
+                        android:textSize="24pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70pt"
+                    android:orientation="horizontal"
+                    android:paddingEnd="25pt"
+                    android:paddingStart="25pt">
+
+                    <TextView
+                        android:id="@+id/tv_career"
+                        android:layout_width="120pt"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|start"
+                        android:text="职业"
+                        android:textColor="@color/common_gray8"
+                        android:textSize="24pt" />
+
+                    <EditText
+                        android:id="@+id/et_career"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="center_vertical|start"
+                        android:hint="未知"
+                        android:imeOptions="actionNext"
+                        android:nextFocusDown="@id/et_address"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black"
+                        android:textSize="24pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70pt"
+                    android:orientation="horizontal"
+                    android:paddingEnd="25pt"
+                    android:paddingStart="25pt">
+
+                    <TextView
+                        android:id="@+id/tv_race"
+                        android:layout_width="120pt"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|start"
+                        android:text="民族"
+                        android:textColor="@color/common_gray8"
+                        android:textSize="24pt" />
+
+                    <EditText
+                        android:id="@+id/et_race"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="center_vertical|start"
+                        android:hint="未知"
+
+                        android:lines="1"
+                        android:nextFocusDown="@id/et_address"
+                        android:textColor="@android:color/black"
+                        android:textSize="24pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="25pt"
+                    android:paddingStart="25pt">
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="120pt"
+                        android:layout_height="70pt"
+                        android:gravity="center_vertical|start"
+                        android:text="住址"
+                        android:textColor="@color/common_gray8"
+                        android:textSize="24pt" />
+
+                    <EditText
+                        android:id="@+id/et_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="center_vertical|start"
+                        android:imeOptions="actionDone"
+                        android:minHeight="70pt"
+                        android:text="云深不知处"
+                        android:textColor="@android:color/black"
+                        android:textSize="24pt" />
+                </LinearLayout>
+            </LinearLayout>
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/bt_submit"
                 android:layout_width="270pt"
                 android:layout_height="80pt"
-                android:layout_below="@id/recyclerView"
+                android:layout_below="@id/ll_edit"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20pt"
                 android:background="@drawable/library_shape_3_gradient_14"

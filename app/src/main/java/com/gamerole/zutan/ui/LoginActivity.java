@@ -18,11 +18,15 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.common.utils.ImageUtil;
 import com.eqdd.common.utils.PicUtil;
+import com.eqdd.common.utils.SPUtil;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.databind.percent.WindowUtil;
 import com.eqdd.inputs.AndroidNextInputs;
 import com.eqdd.inputs.WidgetAccess;
+import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
+import com.eqdd.library.bean.room.DBUtil;
+import com.eqdd.library.bean.room.User;
 import com.eqdd.library.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
@@ -255,15 +259,17 @@ public class LoginActivity extends CommonActivity {
     }
 
     private void requestLogin() {
-        OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.LOGIN)
+        OkGo.<HttpResult<User>>post(HttpConfig.BASE_URL + HttpConfig.LOGIN)
                 .params("idCard", dataBinding.etUsername.getText().toString())
                 .params("password", dataBinding.etPassword.getText().toString())
-                .execute(new DialogCallBack<HttpResult>(LoginActivity.this) {
+                .execute(new DialogCallBack<HttpResult<User>>(LoginActivity.this) {
                     @Override
-                    public void onSuccess(Response<HttpResult> response) {
-                        HttpResult httpResult = response.body();
+                    public void onSuccess(Response<HttpResult<User>> response) {
+                        HttpResult<User> httpResult = response.body();
                         ToastUtil.showShort(httpResult.getMsg());
                         if (httpResult.getStatus() == 200) {
+                            DBUtil.insertUser(httpResult.getItems());
+                            SPUtil.setParam(Config.IDCARD, httpResult.getItems().getIdCard());
                             ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
                         }
                     }

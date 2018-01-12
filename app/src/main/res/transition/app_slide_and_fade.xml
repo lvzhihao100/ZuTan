@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <slide
+        android:duration="500"
+        android:slideEdge="bottom"
+        android:startDelay="1000">
+        <targets>
+            <target android:targetId="@id/viewPager"></target>
+        </targets>
+    </slide>
+    <slide
+        android:duration="500"
+        android:interpolator="@android:interpolator/decelerate_quint"
+        android:slideEdge="top"
+        android:startDelay="1000">
+        <targets>
+            <target android:targetId="@id/toolBar"></target>
+            <target android:targetId="@android:id/statusBarBackground"></target>
+            <target android:targetId="@id/slidingTabLayout"></target>
+            <target android:targetId="@id/back" />
+        </targets>
+    </slide>
+    <slide android:startDelay="800">
+        <targets>
+            <target android:targetId="@id/send_msg" />
+        </targets>
+    </slide>
+
+</transitionSet>

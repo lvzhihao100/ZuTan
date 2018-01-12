@@ -1,4 +1,7 @@
-package com.eqdd.library.bean;
+package com.eqdd.library.bean.room;
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 /**
  * @author吕志豪 .
@@ -7,7 +10,7 @@ package com.eqdd.library.bean;
  * E-Mail：1030753080@qq.com
  * 简书 :http://www.jianshu.com/u/6e525b929aac
  */
-
+@Entity
 public class User {
 
     /**
@@ -22,12 +25,12 @@ public class User {
      * race : string
      * sex : string
      */
-
+    @PrimaryKey
+    private int id;
     private String address;
     private String birth;
     private String faceToken;
     private String facesetToken;
-    private int id;
     private String idCard;
     private String name;
     private String password;

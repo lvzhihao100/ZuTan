@@ -1,0 +1,21 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".HomeListActivityCustom">
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/library_orange"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <com.eqdd.common.widget.RangeTimeSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="300pt"
+            android:padding="30pt" />
+    </LinearLayout>
+
+</layout>

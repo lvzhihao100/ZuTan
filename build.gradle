@@ -1,4 +1,4 @@
-apply from: "https://gitee.com/moonlook_lv/config/raw/master/config.gradle"
+apply from: "https://gitee.com/moonlook_lv/config/raw/master/zutanConfig.gradle"
 buildscript {
     repositories {
         maven { url "https://jitpack.io" }

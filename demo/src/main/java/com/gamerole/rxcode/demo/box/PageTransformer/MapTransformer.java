@@ -12,14 +12,11 @@ import android.view.View;
  */
 
 public class MapTransformer implements ViewPager.PageTransformer {
+    //卡片之间的高度差
     private static final float LENTH = 100;
 
     @Override
     public void transformPage(View page, float position) {
-
-        int width = page.getWidth();
         page.setTranslationY(LENTH * Math.abs(position));
     }
-
-
 }

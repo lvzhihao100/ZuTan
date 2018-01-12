@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.facade.template.IProvider;
+import com.eqdd.library.bean.room.DBHelper;
 
 /**
  * Created by lvzhihao on 17-5-31.
@@ -12,7 +13,7 @@ import com.alibaba.android.arouter.facade.template.IProvider;
 public class LibraryService implements IProvider {
     @Override
     public void init(Context context) {
-
+        DBHelper.getInstance().init(context);
     }
 
 }

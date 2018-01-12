@@ -75,7 +75,7 @@ public class HomeFragment extends BaseFragment {
         ItemClickSupport.addTo(dataBinding.recyclerView)
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     if (position == 0) {
-                        ARouter.getInstance().build(RoutConfig.APP_ADD_SIMPLE_RELATIVE).navigation();
+                        ARouter.getInstance().build(RoutConfig.APP_HOME_LIST).navigation();
                     } else if (position == 1) {
                         ARouter.getInstance().build(RoutConfig.APP_FRIEND_LIST).navigation();
                     }

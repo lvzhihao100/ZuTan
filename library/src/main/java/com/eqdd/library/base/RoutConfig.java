@@ -22,4 +22,8 @@ public class RoutConfig {
     public static final String APP_LOGIN = APP + "/login";
     public static final String APP_ADD_FRIEND = APP+"/addFriend";
     public static final String APP_FRIEND_LIST = APP + "/friendList";
+    public static final String APP_FRIEND_EUCLID_LIST = APP + "/friendEuclidList";
+    public static final String APP_FRIEND_INFO = APP + "/friendInfo";
+    public static final String APP_FRIEND_INFO_TEST = APP + "/friendInfoTest";
+    public static final String APP_HOME_LIST = APP + "/homeList";
 }

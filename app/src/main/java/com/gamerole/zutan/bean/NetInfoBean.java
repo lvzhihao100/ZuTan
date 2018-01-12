@@ -1,6 +1,6 @@
 package com.gamerole.zutan.bean;
 
-import com.eqdd.library.bean.User;
+import com.eqdd.library.bean.room.User;
 
 import java.util.List;
 

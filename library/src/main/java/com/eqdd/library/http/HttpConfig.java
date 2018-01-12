@@ -16,4 +16,5 @@ public class HttpConfig {
     public static final String GET_USERS_LOCATION = "user/locations/";
 
     public static final String ADD_FRIEND = "friend/add";
+    public static final String FRIEND_PAGE_LIST = "friend/findAll/";
 }

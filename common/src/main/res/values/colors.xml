@@ -24,4 +24,37 @@
     <color name="common_grayD">#dddddd</color>
     <color name="common_grayE">#eeeeee</color>
 
+
+
+    <color name="common_text_dark">#616161</color>
+
+    <!--#######################主题颜色###################-->
+    <color name="common_theme_blue_background">#84ffff</color>
+    <color name="common_theme_blue_primary">#4FC3F7</color>
+    <color name="common_theme_blue_accent">#ff193a</color>
+    <color name="common_theme_blue_text">@color/common_text_dark</color>
+    <color name="common_theme_blue_text_inverse">@android:color/black</color>
+    <color name="common_theme_blue_primary_dark">#039BE5</color>
+
+
+    <color name="common_theme_green_background">#b9f6ca</color>
+    <color name="common_theme_green_primary">#669900</color>
+    <color name="common_theme_green_accent">#e919ff</color>
+    <color name="common_theme_green_text">@color/common_text_dark</color>
+    <color name="common_theme_green_primary_dark">#558B2F</color>
+
+
+
+    <color name="common_theme_yellow_background">#ffff8d</color>
+    <color name="common_theme_yellow_primary">#ff8800</color>
+    <color name="common_theme_yellow_accent">#19dcff</color>
+    <color name="common_theme_yellow_text">@color/common_text_dark</color>
+    <color name="common_theme_yellow_primary_dark">#EF6C00</color>
+
+
+    <color name="common_theme_red_background">#ff8a80</color>
+    <color name="common_theme_red_primary">#ff5252</color>
+    <color name="common_theme_red_accent">#fffc19</color>
+    <color name="common_theme_red_text">#ffffff</color>
+    <color name="common_theme_red_primary_dark">#e64a4a</color>
 </resources>

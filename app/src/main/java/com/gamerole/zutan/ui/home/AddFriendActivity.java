@@ -1,20 +1,18 @@
 package com.gamerole.zutan.ui.home;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.widget.EditText;
+import android.text.TextUtils;
+import android.widget.DatePicker;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.eqdd.common.adapter.slimadapter.SlimAdapterEx;
-import com.eqdd.common.adapter.slimadapter.SlimInjector;
-import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.CommonFullTitleActivity;
-import com.eqdd.common.bean.TwoBean;
 import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ImageUtil;
 import com.eqdd.common.utils.PicUtil;
+import com.eqdd.common.utils.StringSelectUtil;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.http.DialogCallBack;
@@ -22,7 +20,6 @@ import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.gamerole.zutan.AddFriendActivityCustom;
 import com.gamerole.zutan.R;
-import com.gamerole.zutan.ui.AddRelativeActivity;
 import com.jakewharton.rxbinding.view.RxView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -30,11 +27,9 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
-import org.json.JSONObject;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -49,8 +44,11 @@ import java.util.concurrent.TimeUnit;
 public class AddFriendActivity extends CommonFullTitleActivity {
 
     private AddFriendActivityCustom dataBinding;
-    private SlimAdapterEx<TwoBean<String, String>> slimAdapterEx;
     private String filepath;
+    private String msg;
+    private com.afollestad.materialdialogs.MaterialDialog sexChoose;
+    private DatePickerDialog dateChoose;
+    private MaterialDialog raceChoose;
 
     @Override
     protected void initBinding(ViewDataBinding inflate) {
@@ -67,40 +65,22 @@ public class AddFriendActivity extends CommonFullTitleActivity {
     @Override
     public void initData() {
 
-        dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        slimAdapterEx = SlimAdapterEx.create().register(R.layout.library_list_item_slim_edit_single, new SlimInjector<TwoBean>() {
-            @Override
-            public void onInject(TwoBean data, IViewInjector injector) {
-                injector.text(R.id.tv_title, (String) data.getOne())
-                        .text(R.id.et_content, (String) data.getTwo());
-            }
-        }).attachTo(dataBinding.recyclerView).updateData(new ArrayList());
-        ArrayList<TwoBean<String, String>> data = new ArrayList<>();
-        data.add(new TwoBean<>("*姓名", ""));
-        data.add(new TwoBean<>("性别", ""));
-        data.add(new TwoBean<>("出生日期", ""));
-        data.add(new TwoBean<>("职业", ""));
-        data.add(new TwoBean<>("民族", ""));
-        data.add(new TwoBean<>("住址", ""));
-        slimAdapterEx.updateData(data);
     }
 
     @Override
     public void setView() {
         RxView.clicks(dataBinding.rlCard)
                 .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(aVoid -> {
-                    PicUtil.single(this);
-                });
+                .subscribe(aVoid -> PicUtil.cut(this, 640, 412));
         ClickUtil.click(dataBinding.btSubmit, () -> {
             if (checkParams()) {
                 OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.ADD_FRIEND)
-                        .params("name", getContent(0))
-                        .params("sex", getContent(1))
-                        .params("birth", getContent(2))
-                        .params("career", getContent(3))
-                        .params("race", getContent(4))
-                        .params("address", getContent(5))
+                        .params("name", dataBinding.etName.getText().toString())
+                        .params("sex", dataBinding.etSex.getText().toString())
+                        .params("birth", dataBinding.etBirth.getText().toString())
+                        .params("career", dataBinding.etCareer.getText().toString())
+                        .params("race", dataBinding.etRace.getText().toString())
+                        .params("address", dataBinding.etAddress.getText().toString())
                         .params("file", new File(filepath))
                         .execute(new DialogCallBack<HttpResult>(this) {
                             @Override
@@ -113,17 +93,47 @@ public class AddFriendActivity extends CommonFullTitleActivity {
                             }
                         });
             } else {
-                ToastUtil.showShort("123");
+                ToastUtil.showShort(msg);
             }
+        });
+        ClickUtil.click(dataBinding.etSex, () -> {
+            if (sexChoose == null) {
+                sexChoose = StringSelectUtil.single(this, R.array.common_sex, (dialog, itemView, which, text) -> {
+                    dataBinding.etSex.setText(text);
+                    return true;
+                });
+            }
+            sexChoose.show();
+        });
+        ClickUtil.click(dataBinding.etBirth, () -> {
+            if (dateChoose == null) {
+                dateChoose = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+                    Calendar instance = Calendar.getInstance();
+                    instance.set(Calendar.YEAR, year);
+                    instance.set(Calendar.MONTH, month);
+                    instance.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    String date = new SimpleDateFormat("yyyy-MM-dd").format(instance.getTime());
+                    dataBinding.etBirth.setText(date);
+                }, -1, -1, -1);
+            }
+            dateChoose.show();
+        });
+        ClickUtil.click(dataBinding.etRace, () -> {
+            if (raceChoose == null) {
+                raceChoose = StringSelectUtil.single(this, R.array.common_sex, (dialog, itemView, which, text) -> {
+                    dataBinding.etRace.setText(text);
+                    return true;
+                });
+            }
+            raceChoose.show();
         });
     }
 
-    @NonNull
-    private String getContent(int pos) {
-        return ((EditText) dataBinding.recyclerView.getChildAt(pos).findViewById(R.id.et_content)).getText().toString();
-    }
-
     private boolean checkParams() {
+        if (TextUtils.isEmpty(filepath)) {
+            msg = "头像必传";
+            return false;
+        }
         return true;
     }
 

@@ -1,16 +1,80 @@
 <resources>
 
-    <style name="common_AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    <style name="common_AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/common_ColorPrimary</item>
         <item name="colorPrimaryDark">@color/common_ColorPrimaryDark</item>
         <item name="colorAccent">@color/common_ColorAccent</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <item name="android:windowAllowReturnTransitionOverlap">false</item>
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:titleTextAppearance">@style/common_Material_TextAppearance_Title</item>
+
     </style>
 
-    <!-- Application theme. -->
-    <style name="common_AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <style name="common_AppTheme.TransNav" parent="common_AppTheme">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
-    <style name="common_AppTheme.TransNav" parent="AppTheme" />
+
+
+    <style name="common_AppTheme_Red" parent="common_AppTheme">
+        <item name="android:colorPrimary">@color/common_theme_red_primary</item>
+        <item name="android:colorPrimaryDark">@color/common_theme_red_primary</item>
+        <item name="android:colorAccent">@color/common_theme_red_accent</item>
+        <item name="android:textColorPrimary">@color/common_theme_red_text</item>
+        <item name="android:statusBarColor">@color/common_theme_red_primary_dark</item>
+        <item name="android:windowBackground">@color/common_theme_red_background</item>
+
+
+    </style>
+
+    <style name="common_Material_TextAppearance_Title" parent="android:TextAppearance.Material.Title">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="common_MaterialAnimations.TextAppearance.Title.Inverse" parent="android:TextAppearance.Material.Title">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+    </style>
+
+
+    <style name="common_AppTheme_Blue" parent="common_AppTheme">
+        <item name="android:colorPrimary">@color/common_theme_blue_primary</item>
+        <item name="android:colorPrimaryDark">@color/common_theme_blue_primary_dark</item>
+        <item name="android:textColorPrimary">@color/common_theme_blue_text</item>
+        <item name="android:textColorPrimaryInverse">@color/common_theme_blue_text_inverse</item>
+        <item name="android:statusBarColor">@color/common_theme_blue_primary_dark</item>
+        <item name="android:windowBackground">@color/common_theme_blue_background</item>
+        <item name="android:colorAccent">@color/common_theme_blue_accent</item>
+    </style>
+
+
+    <style name="common_AppTheme_Green" parent="common_AppTheme">
+        <item name="android:colorPrimary">@color/common_theme_green_primary</item>
+        <item name="android:colorPrimaryDark">@color/common_theme_green_primary</item>
+        <item name="android:textColorPrimary">@color/common_theme_green_text</item>
+        <item name="android:statusBarColor">@color/common_theme_green_primary_dark</item>
+        <item name="android:windowBackground">@color/common_theme_green_background</item>
+        <item name="android:colorAccent">@color/common_theme_green_accent</item>
+    </style>
+
+
+    <style name="common_AppTheme_Yellow" parent="common_AppTheme">
+        <item name="android:colorPrimary">@color/common_theme_yellow_primary</item>
+        <item name="android:colorPrimaryDark">@color/common_theme_yellow_primary</item>
+        <item name="android:textColorPrimary">@color/common_theme_yellow_text</item>
+        <item name="android:statusBarColor">@color/common_theme_yellow_primary_dark</item>
+        <item name="android:windowBackground">@color/common_theme_yellow_background</item>
+        <item name="android:colorAccent">@color/common_theme_yellow_accent</item>
+    </style>
+
     <style name="common_CDialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
