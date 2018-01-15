@@ -5,13 +5,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.adapter.MyFragmentPagerAdapter;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.library.base.RoutConfig;
 import com.gamerole.zutan.R;
 import com.gamerole.zutan.fragment.HomeFragment;
 import com.gamerole.zutan.fragment.MineFragment;
-import com.gamerole.zutan.fragment.MsgFragment;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,8 @@ public class MainActivity extends CommonActivity {
     @Override
     public void setView() {
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new MsgFragment());
+        Fragment fragment = (Fragment) ARouter.getInstance().build(RoutConfig.RONGTALK_FRAGMENT_MSG).navigation();
+        fragments.add(fragment);
         fragments.add(new HomeFragment());
         fragments.add(new MineFragment());
 

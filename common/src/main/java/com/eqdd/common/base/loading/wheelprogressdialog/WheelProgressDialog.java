@@ -11,67 +11,70 @@ import com.eqdd.common.R;
 
 
 public class WheelProgressDialog extends AlertDialog {
-	private ProgressWheel mWheelView;
-	private TextView mMessageView;
-	private String message;
-	private int progress;
+    private ProgressWheel mWheelView;
+    private TextView mMessageView;
+    private String message;
+    private int progress;
 
-	public WheelProgressDialog(Context context) {
-		super(context);
-	}
+    public WheelProgressDialog(Context context) {
+        super(context);
+    }
 
-	public WheelProgressDialog(Context context, int theme) {
-		super(context,theme);
-	}
+    public WheelProgressDialog(Context context, int theme) {
+        super(context, theme);
+    }
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		LayoutInflater inflater = LayoutInflater.from(getContext());
-		View v = inflater.inflate(R.layout.common_wheel_progress_dialog, null);
-		mWheelView=(ProgressWheel) v.findViewById(R.id.progress);
-		mMessageView=(TextView)v.findViewById(R.id.message);
-		setView(v);
-		mWheelView.setText("0%");
-		this.setCancelable(false);// 设置点击屏幕Dialog不消失
-		super.onCreate(savedInstanceState);
-	}
-	
-	public WheelProgressDialog message(String message){
-		this.message=message;
-		if(mMessageView!=null){
-			mMessageView.setText(message);
-		}
-		return this;
-	}
-	
-	public WheelProgressDialog title(String title){
-		setTitle(title);
-		return this;
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View v = inflater.inflate(R.layout.common_wheel_progress_dialog, null);
+        mWheelView = v.findViewById(R.id.progress);
+        mMessageView = v.findViewById(R.id.message);
+        setView(v);
+        mWheelView.setText("0%");
+        this.setCancelable(false);// 设置点击屏幕Dialog不消失
+        super.onCreate(savedInstanceState);
+    }
 
-	@Override
-	public void show() {
-		super.show();
-		mWheelView.setProgress(progress);
-		mMessageView.setText(message);
-	}
+    public WheelProgressDialog message(String message) {
+        this.message = message;
+        if (mMessageView != null) {
+            mMessageView.setText(message);
+        }
+        return this;
+    }
 
-	public WheelProgressDialog progress(int value) {
-		if(value<0){
-			value=0;
-		}
-		if(value>100){
-			value=100;
-		}
-		this.progress=value*360/100;
-		if(mWheelView!=null){
-			mWheelView.setProgress(progress);
-			mWheelView.setText(value+"%");
-		}
-		return this;
-	}
+    public WheelProgressDialog title(String title) {
+        setTitle(title);
+        return this;
+    }
 
-	
-	
+    @Override
+    public void show() {
+        super.show();
+        mWheelView.setProgress(progress);
+        mMessageView.setText(message);
+    }
 
+    public WheelProgressDialog progress(int value) {
+        if (value < 0) {
+            value = 0;
+        }
+        if (value > 100) {
+            value = 100;
+        }
+        this.progress = value * 360 / 100;
+        if (mWheelView != null) {
+            mWheelView.setProgress(progress);
+            mWheelView.setText(value + "%");
+        }
+        return this;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        hide();
+    }
 }

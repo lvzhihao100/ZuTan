@@ -5,18 +5,14 @@ apply from:"https://gitee.com/moonlook_lv/config/raw/master/module.gradle"
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+
     implementation project(':library')
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
     /*##################融云聊天####################*/
-    implementation 'com.github.lvzhihao100:MyIMKit:1.1'
+    implementation 'com.github.lvzhihao100:MyIMKit:1.2.0'
     implementation 'com.github.lvzhihao100:MyCallKit:1.0'
-    implementation 'com.github.lvzhihao100:MyRedPacket:1.0'
+    implementation 'com.github.lvzhihao100:MyRedPacket:1.2.0'
     implementation 'com.github.lvzhihao100:MySticker:1.1.1'
     /*##################融云聊天####################*/
 }

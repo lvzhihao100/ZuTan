@@ -17,4 +17,7 @@ public class HttpConfig {
 
     public static final String ADD_FRIEND = "friend/add";
     public static final String FRIEND_PAGE_LIST = "friend/findAll/";
+    public static final String NIM_CREATE = "https://api.netease.im/nimserver/user/create.action";
+    public static final String GET_RONG_TOKEN = "rongTalk/token/get";
+    public static final String GET_FACE_TOKEN = "face/token/get";
 }

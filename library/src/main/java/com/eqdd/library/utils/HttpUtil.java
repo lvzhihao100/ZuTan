@@ -9,6 +9,7 @@ import com.eqdd.library.bean.DetectBean;
 import com.eqdd.library.bean.FaceSetBean;
 import com.eqdd.library.bean.IDCheckBean;
 import com.eqdd.library.http.DialogCallBack;
+import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.eqdd.library.http.JsonCallBack;
 import com.lzy.okgo.OkGo;
@@ -37,17 +38,19 @@ public class HttpUtil {
      * @param file
      */
     public static void detectFace(BaseActivity baseActivity, File file, @Nullable DetectFaceBack detectFaceBack) {
+        baseActivity.showLoading("获取原始faceToken...");
         OkGo.<DetectBean>post("https://api-cn.faceplusplus.com/facepp/v3/detect")
                 .params("api_key", FACE_PLUSPLUS_APIKEY)
                 .params("api_secret", FACE_PLUSPLUS_APTSECRET)
                 .params("image_file", file)
-                .execute(new DialogCallBack<DetectBean>(baseActivity) {
+                .execute(new JsonCallBack<DetectBean>() {
                     @Override
                     public void onSuccess(Response<DetectBean> response) {
                         DetectBean httpResult = response.body();
                         if (TextUtils.isEmpty(httpResult.getError_message())) {
                             detectFaceBack.back(true, httpResult.getFaces().get(0).getFace_token());
                         } else {
+                            baseActivity.hideLoading("获取原始faceToken失败");
                             detectFaceBack.back(false, null);
                         }
                     }
@@ -109,17 +112,21 @@ public class HttpUtil {
      * @param idCardBack
      */
     public static void checkIDCard(BaseActivity baseActivity, File file, @Nullable CheckIDCardBack idCardBack) {
+        baseActivity.showLoading("正在获取身份证信息...");
         OkGo.<IDCheckBean>post("https://api-cn.faceplusplus.com/cardpp/v1/ocridcard")
                 .params("image_file", file)
                 .params("api_key", FACE_PLUSPLUS_APIKEY)
                 .params("api_secret", FACE_PLUSPLUS_APTSECRET)
-                .execute(new DialogCallBack<IDCheckBean>(baseActivity) {
+                .execute(new JsonCallBack<IDCheckBean>() {
                     @Override
                     public void onSuccess(Response<IDCheckBean> response) {
                         IDCheckBean httpResult = response.body();
                         if (TextUtils.isEmpty(httpResult.getError_message())) {
+                            baseActivity.hideLoading("身份证信息获取成功...");
+
                             idCardBack.back(true, httpResult.getCards().get(0));
                         } else {
+                            baseActivity.hideLoading("身份证信息获取失败...");
                             idCardBack.back(false, null);
                         }
                     }
@@ -139,6 +146,19 @@ public class HttpUtil {
                 });
     }
 
+    public static void getFaceTokenFromServer(BaseActivity baseActivity, String idCard, ResultObjectBack resultObjectBack) {
+        baseActivity.showLoading("获取服务器faceToken...");
+        OkGo.<HttpResult<String>>post(HttpConfig.BASE_URL + HttpConfig.GET_FACE_TOKEN)
+                .params("idCard", idCard)
+                .execute(new JsonCallBack<HttpResult<String>>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult<String>> response) {
+                        HttpResult<String> httpResult = response.body();
+                        resultObjectBack.onResultBack(httpResult.getStatus(), httpResult.getItems());
+                    }
+                });
+    }
+
     public interface CheckIDCardBack {
         void back(boolean isSuccess, IDCheckBean.CardsBean cardsBean);
     }
@@ -149,6 +169,10 @@ public class HttpUtil {
 
     public interface CompareFaceBack {
         void back(boolean isSuccess, String faceToken);
+    }
+
+    public interface ResultObjectBack {
+        void onResultBack(int status, Object object);
     }
 
 }

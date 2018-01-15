@@ -15,9 +15,8 @@
 
         <fragment
             android:id="@+id/recent_contacts_fragment"
-            android:name="com.netease.nim.uikit.recent.RecentContactsFragment"
+            android:name="com.netease.nim.uikit.business.recent.RecentContactsFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </fragment>
+            android:layout_height="match_parent"></fragment>
     </LinearLayout>
 </layout>

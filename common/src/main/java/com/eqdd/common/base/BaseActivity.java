@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.eqdd.common.R;
 import com.eqdd.common.base.loading.INetLoadingView;
 import com.eqdd.common.base.loading.waitdialog.DialogHelper;
+import com.eqdd.common.base.loading.wheelprogressdialog.WheelProgressHelper;
 import com.eqdd.common.utils.ToastUtil;
 import com.jakewharton.rxbinding.view.RxView;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
@@ -38,7 +39,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
     protected void onCreate(Bundle savedInstanceState) {
         this.savedInstanceState = savedInstanceState;
         super.onCreate(savedInstanceState);
-        netLoadingView = new DialogHelper(this);
+        netLoadingView = new WheelProgressHelper(this);
         initBinding();
         initData();
         setView();
@@ -81,6 +82,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
 
     @Override
     protected void onDestroy() {
+
         super.onDestroy();
     }
 

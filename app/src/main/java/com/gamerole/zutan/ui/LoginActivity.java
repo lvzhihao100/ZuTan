@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.base.CommonActivity;
@@ -23,6 +24,8 @@ import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.databind.percent.WindowUtil;
 import com.eqdd.inputs.AndroidNextInputs;
 import com.eqdd.inputs.WidgetAccess;
+import com.eqdd.library.Iservice.nim.NimLoginService;
+import com.eqdd.library.Iservice.rongtalk.RongConnectService;
 import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.room.DBUtil;
@@ -62,6 +65,8 @@ public class LoginActivity extends CommonActivity {
     private WidgetAccess access;
     private AndroidNextInputs inputsAll;
     private String idCardPath;
+    @Autowired
+    RongConnectService rongConnectService;
 
     @Override
     public void initBinding() {
@@ -71,6 +76,7 @@ public class LoginActivity extends CommonActivity {
 
     @Override
     public void initData() {
+        ARouter.getInstance().inject(this);
         inputs = new AndroidNextInputs();
         inputsAll = new AndroidNextInputs();
         access = new WidgetAccess(this);
@@ -270,6 +276,7 @@ public class LoginActivity extends CommonActivity {
                         if (httpResult.getStatus() == 200) {
                             DBUtil.insertUser(httpResult.getItems());
                             SPUtil.setParam(Config.IDCARD, httpResult.getItems().getIdCard());
+                            rongConnectService.getToken();
                             ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
                         }
                     }

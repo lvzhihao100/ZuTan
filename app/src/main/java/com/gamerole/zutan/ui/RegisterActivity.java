@@ -17,6 +17,7 @@ import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
+import com.eqdd.library.http.JsonCallBack;
 import com.eqdd.library.utils.HttpUtil;
 import com.gamerole.zutan.R;
 import com.jakewharton.rxbinding.view.RxView;
@@ -84,33 +85,47 @@ public class RegisterActivity extends CommonFullTitleActivity {
         RxView.clicks(dataBinding.btSubmit)
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(aVoid -> {
-                    HttpUtil.detectFace(RegisterActivity.this, new File(filepath), (isSuccess, faceToken) -> {
-                        if (isSuccess) {
-                            HashMap<String, Object> maps = new HashMap<>();
-                            maps.put("name", slimAdapterEx.getDataItem(0).getTwo());
-                            maps.put("sex", slimAdapterEx.getDataItem(1).getTwo());
-                            maps.put("birth", slimAdapterEx.getDataItem(2).getTwo());
-                            maps.put("idCard", slimAdapterEx.getDataItem(3).getTwo());
-                            maps.put("race", slimAdapterEx.getDataItem(4).getTwo());
-                            maps.put("address", slimAdapterEx.getDataItem(5).getTwo());
-                            maps.put("password", "123456");
-                            maps.put("faceToken", faceToken);
-                            maps.put("isCheck", true);
-                            OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.REGISTER)
-                                    .upJson(new JSONObject(maps))
-                                    .execute(new DialogCallBack<HttpResult>(RegisterActivity.this) {
-                                        @Override
-                                        public void onSuccess(Response<HttpResult> response) {
-                                            HttpResult httpResult = response.body();
-                                            ToastUtil.showShort(httpResult.getMsg());
-                                            if (httpResult.getStatus() == 200) {
-                                                HttpUtil.createFaceSet(slimAdapterEx.getDataItem(3).getTwo(), faceToken);
-                                                finish();
-                                            }
-                                        }
-                                    });
+                    HttpUtil.getFaceTokenFromServer(RegisterActivity.this, slimAdapterEx.getDataItem(3).getTwo(), (status, object) -> {
+                        if (status == 200) {
+                            String faceToken = (String) object;
+                            register(faceToken);
+                        } else if (status == 201) {
+                            HttpUtil.detectFace(RegisterActivity.this, new File(filepath), (isSuccess, faceToken) -> {
+                                if (isSuccess) {
+                                    register(faceToken);
+                                }
+                            });
+                        } else {
+                            hideLoading("服务器错误");
                         }
+
                     });
+                });
+    }
+
+    private void register(String faceToken) {
+        showLoading("注册用户...");
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("name", slimAdapterEx.getDataItem(0).getTwo());
+        maps.put("sex", slimAdapterEx.getDataItem(1).getTwo());
+        maps.put("birth", slimAdapterEx.getDataItem(2).getTwo());
+        maps.put("idCard", slimAdapterEx.getDataItem(3).getTwo());
+        maps.put("race", slimAdapterEx.getDataItem(4).getTwo());
+        maps.put("address", slimAdapterEx.getDataItem(5).getTwo());
+        maps.put("password", slimAdapterEx.getDataItem(3).getTwo().substring(11, 18));
+        maps.put("faceToken", faceToken);
+        maps.put("isCheck", true);
+        OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.REGISTER)
+                .upJson(new JSONObject(maps))
+                .execute(new JsonCallBack<HttpResult>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult> response) {
+                        HttpResult httpResult = response.body();
+                        hideLoading(httpResult.getMsg());
+                        if (httpResult.getStatus() == 200) {
+                            finish();
+                        }
+                    }
                 });
     }
 

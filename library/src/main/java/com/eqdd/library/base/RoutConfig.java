@@ -5,6 +5,10 @@ package com.eqdd.library.base;
  */
 
 public class RoutConfig {
+    public static final String FRAGMENT = "/fragment";
+    public static final String SERVICE = "/service";
+    public static final String APPLICATION = "/application";
+
     public static final String LIBRARY = "/library";
     public static final String LIBRARY_LIST_ITEM = LIBRARY + "/listItem";
 
@@ -20,10 +24,23 @@ public class RoutConfig {
     public static final String APP_ADD_SIMPLE_RELATIVE = APP + "/addSimpleRelative";
     public static final String APP_GUIDE = APP + "/guide";
     public static final String APP_LOGIN = APP + "/login";
-    public static final String APP_ADD_FRIEND = APP+"/addFriend";
+    public static final String APP_ADD_FRIEND = APP + "/addFriend";
     public static final String APP_FRIEND_LIST = APP + "/friendList";
     public static final String APP_FRIEND_EUCLID_LIST = APP + "/friendEuclidList";
     public static final String APP_FRIEND_INFO = APP + "/friendInfo";
     public static final String APP_FRIEND_INFO_TEST = APP + "/friendInfoTest";
     public static final String APP_HOME_LIST = APP + "/homeList";
+
+    public static final String NIM = "/nim";
+    public static final String NIM_APPLICATION = NIM + APPLICATION;
+    public static final String NIM_FRAGMENT_MSG = NIM + FRAGMENT + "/msg";
+    public static final String NIM_SERVICE_LOGIN = NIM + SERVICE + "/login";
+
+    public static final String RONGTALK = "/rongTalk";
+    public static final String RONGTALK_APPLICATION = RONGTALK + APPLICATION;
+    public static final String RONGTALK_SERVICE_LOGIN = RONGTALK + SERVICE + "/login";
+
+    public static final String RONGTALK_SERVICE_CONNECT = RONGTALK + SERVICE + "/connect";
+    public static final String RONGTALK_SERVICE_LOGOUT = RONGTALK + SERVICE + "/logout";
+    public static final String RONGTALK_FRAGMENT_MSG = RONGTALK+FRAGMENT+"msg";
 }

@@ -36,6 +36,15 @@ public class User {
     private String password;
     private String race;
     private String sex;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getAddress() {
         return address;

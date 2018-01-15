@@ -3,8 +3,10 @@ package com.gamerole.nim;
 import android.databinding.ViewDataBinding;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.eqdd.common.base.BaseFragment;
 import com.eqdd.library.LibraryRecyclerViewCustom;
+import com.eqdd.library.base.RoutConfig;
 
 /**
  * @author吕志豪 .
@@ -13,7 +15,7 @@ import com.eqdd.library.LibraryRecyclerViewCustom;
  * E-Mail：1030753080@qq.com
  * 简书 :http://www.jianshu.com/u/6e525b929aac
  */
-
+@Route(path = RoutConfig.NIM_FRAGMENT_MSG)
 public class MsgFragment extends BaseFragment {
 
     private LibraryRecyclerViewCustom dataBinding;

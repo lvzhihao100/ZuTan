@@ -10,7 +10,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.base.App;
 import com.eqdd.common.base.CommonService;
 import com.eqdd.library.service.LibraryService;
-import com.gamerole.rongtalk.service.RongTalkService;
 
 /**
  * Created by 吕志豪 on 17-10-13  下午4:10.
@@ -25,6 +24,8 @@ public class ZuTanApplication extends Application {
     LibraryService libraryService;
     @Autowired
     CommonService commonService;
+//    @Autowired
+//    NimService nimService;
 
 
     @Override
@@ -38,6 +39,7 @@ public class ZuTanApplication extends Application {
         ARouter.getInstance().inject(this);
         libraryService.init(this);
         commonService.init(this);
+//        nimService.init(this);
     }
 
     public boolean isApkInDebug(Context context) {

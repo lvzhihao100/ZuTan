@@ -18,9 +18,6 @@ import android.view.ViewGroup;
 
 import com.gamerole.rxcode.demo.box.SnapHelper.StartSnapHelper;
 
-/**
- * Created by xmuSistone on 2017/9/20.
- */
 public class VegaLayoutManager extends RecyclerView.LayoutManager {
 
     private int scroll = 0;

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/body"
@@ -12,21 +13,20 @@
         android:paddingBottom="10dip"
         android:paddingEnd="8dip"
         android:paddingStart="8dip"
-        android:paddingTop="10dip" >
+        android:paddingTop="10dip">
 
-       <com.yusong.baseproject.base.loading.wheelprogressdialog.ProgressWheel
-            xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+        <com.eqdd.common.base.loading.wheelprogressdialog.ProgressWheel
             android:id="@+id/progress"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            ProgressWheel:PWbarColor="#FFB752"
-            ProgressWheel:PWbarLenth="10dp"
-            ProgressWheel:PWbarWidth="10dp"
-            ProgressWheel:PWrimColor="#1ACB9C"
-            ProgressWheel:PWrimWidth="10dp"
-            ProgressWheel:PWspinSpeed="3dp"
-            ProgressWheel:PWtextColor="#222222"
-            ProgressWheel:PWtextSize="14sp" />
+            app:PWbarColor="#FFB752"
+            app:PWbarLenth="10dp"
+            app:PWbarWidth="10dp"
+            app:PWrimColor="#1ACB9C"
+            app:PWrimWidth="10dp"
+            app:PWspinSpeed="3dp"
+            app:PWtextColor="#222222"
+            app:PWtextSize="14sp" />
 
         <TextView
             android:id="@+id/message"

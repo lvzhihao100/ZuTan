@@ -19,40 +19,38 @@ import rx.schedulers.Schedulers;
  */
 public class WheelProgressHelper implements INetLoadingView {
 
-    private static WheelProgressDialog wheelProgressDialog;
+    private WheelProgressDialog wheelProgressDialog;
     private int wheelProgress;
     private Subscription subscribe;
-    private String endMsg="加载结束";
-    private String loadingMsg="加载中";
+    private String endMsg = "加载结束";
+    private String loadingMsg = "加载中";
 
-    public  WheelProgressHelper(Context context) {
-        if (wheelProgressDialog==null) {
+    public WheelProgressHelper(Context context) {
+        if (wheelProgressDialog == null) {
             try {
                 wheelProgressDialog = new WheelProgressDialog(context);
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println(e.toString());
+                System.out.println("WheelProgressHelper" + e.toString());
             }
         }
     }
-    private  void showBinner() {
+
+    private void showBinner() {
         subscribe = Observable.just(1)
                 .subscribeOn(Schedulers.io())
                 .interval(100, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Long>() {
-                    @Override
-                    public void call(Long aLong) {
-                        if (++wheelProgress <= 110) {
-                            if (wheelProgress > 90 && wheelProgress < 100) {
-                                wheelProgress = 90;
-                            }
-                            wheelProgressDialog.progress(wheelProgress >= 100 ? 100 : wheelProgress).message(wheelProgress >= 100 ? endMsg : loadingMsg);
-                        } else {
-                            subscribe.unsubscribe();
-                            if (wheelProgressDialog.isShowing()) {
-                                wheelProgressDialog.dismiss();
-                            }
+                .subscribe(aLong -> {
+                    if (++wheelProgress <= 110) {
+                        if (wheelProgress > 90 && wheelProgress < 100) {
+                            wheelProgress = 90;
+                        }
+                        wheelProgressDialog.progress(wheelProgress >= 100 ? 100 : wheelProgress).message(wheelProgress >= 100 ? endMsg : loadingMsg);
+                    } else {
+                        subscribe.unsubscribe();
+                        if (wheelProgressDialog.isShowing()) {
+                            wheelProgressDialog.hide();
                         }
                     }
                 });
@@ -60,8 +58,8 @@ public class WheelProgressHelper implements INetLoadingView {
 
     @Override
     public void showLoading() {
-        wheelProgress=0;
-        if (subscribe==null) {
+        wheelProgress = 0;
+        if (subscribe == null) {
             showBinner();
         }
         wheelProgressDialog.show();
@@ -69,18 +67,18 @@ public class WheelProgressHelper implements INetLoadingView {
 
     @Override
     public void showLoading(String msg) {
-        loadingMsg=msg;
+        loadingMsg = msg;
         showLoading();
     }
 
     @Override
     public void hideLoading(String msg) {
-        wheelProgress=100;
-        endMsg=msg;
+        wheelProgress = 100;
+        endMsg = msg;
     }
 
     @Override
     public void hideLoading() {
-        wheelProgress=100;
+        wheelProgress = 100;
     }
 }
