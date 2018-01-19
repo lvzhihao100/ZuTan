@@ -1,6 +1,8 @@
 package com.eqdd.library.bean.room;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
@@ -10,7 +12,7 @@ import android.arch.persistence.room.PrimaryKey;
  * E-Mail：1030753080@qq.com
  * 简书 :http://www.jianshu.com/u/6e525b929aac
  */
-@Entity
+@Entity(indices = {@Index(value = "idCard", unique = true)})
 public class User {
 
     /**
@@ -37,6 +39,24 @@ public class User {
     private String race;
     private String sex;
     private String token;
+    private String photo;
+    private int zuId;
+
+    public int getZuId() {
+        return zuId;
+    }
+
+    public void setZuId(int zuId) {
+        this.zuId = zuId;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     public String getToken() {
         return token;

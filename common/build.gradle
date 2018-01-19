@@ -10,7 +10,6 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile rootProject.ext.dependencies["multidex"]
-
     compile rootProject.ext.dependencies["support-v4"]
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["cardview-v7"]
@@ -20,10 +19,15 @@ dependencies {
     compile rootProject.ext.dependencies["ShortcutBadger"]
     compile rootProject.ext.dependencies["retrofit"]
     compile rootProject.ext.dependencies["retrofit-converter-gson"]
-    compile rootProject.ext.dependencies["retrofit-adapter-rxjava"]
+//    compile rootProject.ext.dependencies["retrofit-adapter-rxjava"]
     compile rootProject.ext.dependencies["rxjava"]
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["rxbinding"]
+    compile rootProject.ext.dependencies["rxbinding-recyclerview-v7"]
+    compile rootProject.ext.dependencies["rxbinding-support-v4"]
+    compile rootProject.ext.dependencies["rxbinding-design"]
+    compile rootProject.ext.dependencies["rxbinding-appcompat-v7"]
     compile rootProject.ext.dependencies["rxpermissions"]
     compile rootProject.ext.dependencies["rxlifecycle-components"]
     compile rootProject.ext.dependencies["rxlifecycle"]
@@ -109,6 +113,7 @@ dependencies {
     compile 'android.arch.persistence.room:runtime:1.0.0-rc1'
     compile 'android.arch.lifecycle:runtime:1.0.3'
     compile 'android.arch.lifecycle:extensions:1.0.0-rc1'
+    compile 'android.arch.persistence.room:rxjava2:1.0.0-rc1'
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-rc1"
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-rc1"
 

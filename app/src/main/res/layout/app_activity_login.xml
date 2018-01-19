@@ -88,7 +88,7 @@
                         android:maxLength="18"
                         android:nextFocusDown="@id/et_password"
                         android:singleLine="true"
-                        android:text="412824199203124753"
+                        android:text="430981199104135435"
                         android:textColor="@color/common_white"
                         android:textColorHint="@color/hint_color" />
                 </android.support.design.widget.TextInputLayout>
@@ -127,7 +127,7 @@
                         android:inputType="textPassword"
                         android:maxLength="18"
                         android:singleLine="true"
-                        android:text="123456"
+                        android:text="4135435"
                         android:textColor="@color/common_white"
                         android:textColorHint="@color/hint_color" />
                 </android.support.design.widget.TextInputLayout>

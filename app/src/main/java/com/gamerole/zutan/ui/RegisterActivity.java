@@ -11,16 +11,15 @@ import com.eqdd.common.adapter.slimadapter.SlimInjector;
 import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.CommonFullTitleActivity;
 import com.eqdd.common.bean.TwoBean;
+import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.PicUtil;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
-import com.eqdd.library.http.JsonCallBack;
+import com.eqdd.common.http.JsonCallBack;
 import com.eqdd.library.utils.HttpUtil;
 import com.gamerole.zutan.R;
-import com.jakewharton.rxbinding.view.RxView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -77,30 +76,27 @@ public class RegisterActivity extends CommonFullTitleActivity {
 
     @Override
     public void setView() {
-        RxView.clicks(dataBinding.rlCard)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(aVoid -> {
-                    PicUtil.single(RegisterActivity.this);
-                });
-        RxView.clicks(dataBinding.btSubmit)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(aVoid -> {
-                    HttpUtil.getFaceTokenFromServer(RegisterActivity.this, slimAdapterEx.getDataItem(3).getTwo(), (status, object) -> {
-                        if (status == 200) {
-                            String faceToken = (String) object;
-                            register(faceToken);
-                        } else if (status == 201) {
-                            HttpUtil.detectFace(RegisterActivity.this, new File(filepath), (isSuccess, faceToken) -> {
-                                if (isSuccess) {
-                                    register(faceToken);
-                                }
-                            });
-                        } else {
-                            hideLoading("服务器错误");
-                        }
+        ClickUtil.click(dataBinding.rlCard, () -> {
 
+            PicUtil.single(RegisterActivity.this);
+        });
+        ClickUtil.click(dataBinding.btSubmit, () -> {
+            HttpUtil.getFaceTokenFromServer(RegisterActivity.this, slimAdapterEx.getDataItem(3).getTwo(), (status, object) -> {
+                if (status == 200) {
+                    String faceToken = (String) object;
+                    register(faceToken);
+                } else if (status == 201) {
+                    HttpUtil.detectFace(RegisterActivity.this, new File(filepath), (isSuccess, faceToken) -> {
+                        if (isSuccess) {
+                            register(faceToken);
+                        }
                     });
-                });
+                } else {
+                    hideLoading(R.string.COMMON_SERVER_ERROR);
+                }
+
+            });
+        });
     }
 
     private void register(String faceToken) {

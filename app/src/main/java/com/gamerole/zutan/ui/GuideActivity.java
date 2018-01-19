@@ -50,6 +50,7 @@ public class GuideActivity extends CommonActivity {
         });
         ClickUtil.click(dataBinding.btEnter, () -> {
             ARouter.getInstance().build(RoutConfig.APP_LOGIN).navigation();
+            finish();
         });
     }
 

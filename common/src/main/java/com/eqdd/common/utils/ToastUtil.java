@@ -4,7 +4,8 @@ import android.widget.Toast;
 
 import com.eqdd.common.base.App;
 
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+
 
 /**
  * Created by vzhihao on 2016/8/24.

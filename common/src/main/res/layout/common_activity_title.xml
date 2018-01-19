@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class=".ActivityTitleCustom">
 
@@ -9,7 +10,7 @@
         android:id="@+id/common_rl_title"
         android:layout_width="match_parent"
         android:layout_height="80pt"
-        android:background="@color/common_ColorPrimary"
+        android:background="?android:colorPrimary"
         android:clipToPadding="true"
         android:elevation="2pt"
         android:fitsSystemWindows="true"
@@ -21,10 +22,10 @@
             android:layout_height="80pt"
             android:layout_centerVertical="true"
             android:paddingBottom="8pt"
-            android:paddingLeft="10pt"
-            android:paddingRight="20pt"
+            android:paddingEnd="20pt"
+            android:paddingStart="10pt"
             android:paddingTop="8pt"
-            android:src="@mipmap/common_back_white"></ImageView>
+            android:src="@mipmap/common_back_white" />
 
         <TextView
             android:id="@+id/common_tv_title"
@@ -34,26 +35,28 @@
             android:maxEms="8"
             android:singleLine="true"
             android:textColor="@color/common_white"
-            android:textSize="25pt" />
+            android:textSize="25pt"
+            tools:text="标题" />
 
         <TextView
             android:id="@+id/common_tv_right"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10pt"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10pt"
             android:gravity="center"
             android:textColor="@color/common_white"
             android:textSize="25pt"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:text="添加" />
 
         <ImageView
             android:id="@+id/common_iv_right"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10pt"
+            android:layout_marginEnd="10pt"
             android:src="@mipmap/ic_launcher"
             android:visibility="gone" />
 
@@ -61,11 +64,11 @@
             android:id="@+id/common_ib_add"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@null"
-            android:paddingLeft="8pt"
-            android:paddingRight="20pt"
+            android:paddingEnd="20pt"
+            android:paddingStart="8pt"
             android:visibility="gone" />
 
         <ImageView
@@ -73,10 +76,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/common_ib_add"
+            android:layout_toStartOf="@id/common_ib_add"
             android:background="@null"
-            android:paddingLeft="20pt"
-            android:paddingRight="8pt"
+            android:paddingEnd="8pt"
+            android:paddingStart="20pt"
             android:visibility="gone" />
     </RelativeLayout>
 

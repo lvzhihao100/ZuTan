@@ -4,17 +4,36 @@
     <data class=".MainActivityCustom" />
 
     <RelativeLayout
-        android:clipToPadding="true"
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:background="@color/library_orange_end"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?android:colorPrimary"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="80pt">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingEnd="25pt"
+                android:paddingStart="25pt"
+                android:text="@string/app_label_name"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="30pt" />
+
+        </RelativeLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottomBar" />
+            android:layout_above="@+id/bottomBar"
+            android:layout_below="@id/rl_title"
+            android:background="@color/common_white" />
 
         <com.roughike.bottombar.BottomBar
             android:id="@+id/bottomBar"

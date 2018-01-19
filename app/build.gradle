@@ -23,8 +23,6 @@ android {
 //        minSdkVersion rootProject.ext.android["minSdkVersion"]
         minSdkVersion 21
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-
-
         applicationId "com.gamerole.zutan"
         versionCode 1
         versionName "1.0"
@@ -39,14 +37,14 @@ android {
             }
         }
         manifestPlaceholders = [
-                JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "bf6b9fb37f1cd64ef457901c", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "fa93cb49ca3a230aa3ca1906", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
+        signingConfig signingConfigs.gaode
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
-
         targetCompatibility JavaVersion.VERSION_1_8
     }
     configurations.all {
@@ -59,7 +57,22 @@ android {
             signingConfig signingConfigs.gaode
         }
         debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.gaode
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {//这里是all，下面是根据自己的情况来定制
+            def fileName
+            if (variant.buildType.name == "debug") {
+
+                fileName = "zutand.apk"
+            } else {
+                fileName = "zutan.apk"
+            }
+
+            outputFileName = fileName
         }
     }
     sourceSets {
@@ -94,22 +107,23 @@ android {
         exclude 'META-INF/RXJAVA'
     }
     resourcePrefix "app_"
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
-    compile project(':library')
-    compile 'com.ramotion.paperonboarding:paper-onboarding:1.1.1'
+    api project(':library')
+    api 'com.ramotion.paperonboarding:paper-onboarding:1.1.1'
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-rc1"
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-rc1"
     implementation project(':rongtalk')
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-
-    implementation project(':nim')
+    api 'de.hdodenhof:circleimageview:2.1.0'
+    //    implementation project(':nim')
 }
 

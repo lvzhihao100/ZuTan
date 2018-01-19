@@ -28,8 +28,12 @@ public class RoutConfig {
     public static final String APP_FRIEND_LIST = APP + "/friendList";
     public static final String APP_FRIEND_EUCLID_LIST = APP + "/friendEuclidList";
     public static final String APP_FRIEND_INFO = APP + "/friendInfo";
+    public static final String APP_USER_INFO = APP + "/userInfo";
     public static final String APP_FRIEND_INFO_TEST = APP + "/friendInfoTest";
     public static final String APP_HOME_LIST = APP + "/homeList";
+    public static final String APP_ZU_CREATE = APP + "zu/create";
+    public static final String APP_ZU_GUIDE = APP + "zu/guide";
+    public static final String APP_ZU_ENTER = APP + "zu/enter";
 
     public static final String NIM = "/nim";
     public static final String NIM_APPLICATION = NIM + APPLICATION;
@@ -42,5 +46,6 @@ public class RoutConfig {
 
     public static final String RONGTALK_SERVICE_CONNECT = RONGTALK + SERVICE + "/connect";
     public static final String RONGTALK_SERVICE_LOGOUT = RONGTALK + SERVICE + "/logout";
-    public static final String RONGTALK_FRAGMENT_MSG = RONGTALK+FRAGMENT+"msg";
+    public static final String RONGTALK_FRAGMENT_MSG = RONGTALK+FRAGMENT+"/msg";
+    public static final String RONGTALK_SERVICE_START = RONGTALK+SERVICE+"/start";
 }

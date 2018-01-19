@@ -11,23 +11,22 @@ import com.eqdd.common.adapter.slimadapter.SlimAdapterEx;
 import com.eqdd.common.adapter.slimadapter.SlimInjector;
 import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.CommonFullTitleActivity;
+import com.eqdd.common.http.DialogCallBack;
+import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.room.User;
-import com.eqdd.library.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.eqdd.library.store.DisMoveLinearLayoutManager;
 import com.gamerole.zutan.R;
 import com.gamerole.zutan.StructureListActivityCustom;
 import com.gamerole.zutan.bean.NetInfoBean;
-import com.jakewharton.rxbinding.view.RxView;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author吕志豪 .
@@ -229,76 +228,72 @@ public class StructureListActivity extends CommonFullTitleActivity {
 
     @Override
     public void setView() {
-        RxView.clicks(dataBinding.btFather)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(aVoid -> {
-                    if (up) {
-                        OkGo.<HttpResult<NetInfoBean.Siblings>>post(HttpConfig.BASE_URL + HttpConfig.SIBLING_INFO + "fatherSiblingFromFather")
-                                .params("id", nowUser.getId())
-                                .execute(new DialogCallBack<HttpResult<NetInfoBean.Siblings>>(StructureListActivity.this) {
-                                    @Override
-                                    public void onSuccess(Response<HttpResult<NetInfoBean.Siblings>> response) {
-                                        HttpResult<NetInfoBean.Siblings> httpResult = response.body();
-                                        ToastUtil.showShort(httpResult.getMsg());
-                                        if (httpResult.getStatus() == 200) {
-                                            if (nowPos == 0) {
-                                                slimAdapterEx.getData().add(0, httpResult.getItems());
-                                                slimAdapterEx.notifyItemInserted(0);
-                                                dataBinding.loopViewpager.scrollToPosition(0);
-                                            } else {
-                                                slimAdapterEx.getData().remove(nowPos - 1);
-                                                slimAdapterEx.getData().add(nowPos - 1, httpResult.getItems());
-                                                slimAdapterEx.notifyItemChanged(nowPos - 1);
-                                                dataBinding.loopViewpager.scrollToPosition(nowPos - 1);
-                                                nowPos--;
-                                            }
-                                            if (httpResult.getItems().getUsers().size() > 0) {
-                                                up = true;
-                                                down = true;
-                                                nowUser = httpResult.getItems().getUsers().get(httpResult.getItems().getPos());
-                                            } else {
-                                                up = false;
-                                            }
-                                        }
+        ClickUtil.click(dataBinding.btFather,() -> {
+            if (up) {
+                OkGo.<HttpResult<NetInfoBean.Siblings>>post(HttpConfig.BASE_URL + HttpConfig.SIBLING_INFO + "fatherSiblingFromFather")
+                        .params("id", nowUser.getId())
+                        .execute(new DialogCallBack<HttpResult<NetInfoBean.Siblings>>(StructureListActivity.this) {
+                            @Override
+                            public void onSuccess(Response<HttpResult<NetInfoBean.Siblings>> response) {
+                                HttpResult<NetInfoBean.Siblings> httpResult = response.body();
+                                ToastUtil.showShort(httpResult.getMsg());
+                                if (httpResult.getStatus() == 200) {
+                                    if (nowPos == 0) {
+                                        slimAdapterEx.getData().add(0, httpResult.getItems());
+                                        slimAdapterEx.notifyItemInserted(0);
+                                        dataBinding.loopViewpager.scrollToPosition(0);
+                                    } else {
+                                        slimAdapterEx.getData().remove(nowPos - 1);
+                                        slimAdapterEx.getData().add(nowPos - 1, httpResult.getItems());
+                                        slimAdapterEx.notifyItemChanged(nowPos - 1);
+                                        dataBinding.loopViewpager.scrollToPosition(nowPos - 1);
+                                        nowPos--;
                                     }
-                                });
-                    }
-                });
-        RxView.clicks(dataBinding.btSon)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(aVoid -> {
-                    if (down) {
-                        OkGo.<HttpResult<NetInfoBean.Siblings>>post(HttpConfig.BASE_URL + HttpConfig.SIBLING_INFO + "son")
-                                .params("id", nowUser.getId())
-                                .execute(new DialogCallBack<HttpResult<NetInfoBean.Siblings>>(StructureListActivity.this) {
-                                    @Override
-                                    public void onSuccess(Response<HttpResult<NetInfoBean.Siblings>> response) {
-                                        HttpResult<NetInfoBean.Siblings> httpResult = response.body();
-                                        ToastUtil.showShort(httpResult.getMsg());
-                                        if (httpResult.getStatus() == 200) {
-                                            if (nowPos == slimAdapterEx.getData().size() - 1) {
-                                                slimAdapterEx.getData().add(httpResult.getItems());
-                                                slimAdapterEx.notifyItemInserted(slimAdapterEx.getData().size() - 1);
-                                                dataBinding.loopViewpager.scrollToPosition(slimAdapterEx.getData().size() - 1);
-                                            } else {
-                                                slimAdapterEx.getData().remove(nowPos + 1);
-                                                slimAdapterEx.getData().add(nowPos + 1, httpResult.getItems());
-                                                slimAdapterEx.notifyItemChanged(nowPos + 1);
-                                                dataBinding.loopViewpager.scrollToPosition(nowPos + 1);
-                                                nowPos++;
-                                            }
-                                            if (httpResult.getItems().getUsers().size() > 0) {
-                                                down = true;
-                                                up = true;
-                                                nowUser = httpResult.getItems().getUsers().get(httpResult.getItems().getPos());
-                                            } else {
-                                                down = false;
-                                            }
-                                        }
+                                    if (httpResult.getItems().getUsers().size() > 0) {
+                                        up = true;
+                                        down = true;
+                                        nowUser = httpResult.getItems().getUsers().get(httpResult.getItems().getPos());
+                                    } else {
+                                        up = false;
                                     }
-                                });
-                    }
-                });
+                                }
+                            }
+                        });
+            }
+        });
+        ClickUtil.click(dataBinding.btSon,() -> {
+            if (down) {
+                OkGo.<HttpResult<NetInfoBean.Siblings>>post(HttpConfig.BASE_URL + HttpConfig.SIBLING_INFO + "son")
+                        .params("id", nowUser.getId())
+                        .execute(new DialogCallBack<HttpResult<NetInfoBean.Siblings>>(StructureListActivity.this) {
+                            @Override
+                            public void onSuccess(Response<HttpResult<NetInfoBean.Siblings>> response) {
+                                HttpResult<NetInfoBean.Siblings> httpResult = response.body();
+                                ToastUtil.showShort(httpResult.getMsg());
+                                if (httpResult.getStatus() == 200) {
+                                    if (nowPos == slimAdapterEx.getData().size() - 1) {
+                                        slimAdapterEx.getData().add(httpResult.getItems());
+                                        slimAdapterEx.notifyItemInserted(slimAdapterEx.getData().size() - 1);
+                                        dataBinding.loopViewpager.scrollToPosition(slimAdapterEx.getData().size() - 1);
+                                    } else {
+                                        slimAdapterEx.getData().remove(nowPos + 1);
+                                        slimAdapterEx.getData().add(nowPos + 1, httpResult.getItems());
+                                        slimAdapterEx.notifyItemChanged(nowPos + 1);
+                                        dataBinding.loopViewpager.scrollToPosition(nowPos + 1);
+                                        nowPos++;
+                                    }
+                                    if (httpResult.getItems().getUsers().size() > 0) {
+                                        down = true;
+                                        up = true;
+                                        nowUser = httpResult.getItems().getUsers().get(httpResult.getItems().getPos());
+                                    } else {
+                                        down = false;
+                                    }
+                                }
+                            }
+                        });
+            }
+        });
         update(0, "mySiblingFromFather");
     }
 

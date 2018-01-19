@@ -8,9 +8,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 
-import com.eqdd.common.BuildConfig;
 import com.eqdd.common.base.App;
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 /**
  * Created by lv on 17-10-9.
@@ -92,7 +91,7 @@ public class IntentUtil {
      * @param phoneNumber 电话号码
      */
     public static void call(Activity activity, String phoneNumber) {
-        RxPermissions.getInstance(activity).request(Manifest.permission.CALL_PHONE)
+        new RxPermissions(activity).request(Manifest.permission.CALL_PHONE)
                 .subscribe(isGrant -> {
                     if (isGrant) {
                         Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + phoneNumber));

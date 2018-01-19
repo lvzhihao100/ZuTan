@@ -12,10 +12,52 @@
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
-        <com.eqdd.common.widget.RangeTimeSeekBar
+        <FrameLayout
+            android:id="@+id/toolbar_list"
             android:layout_width="match_parent"
-            android:layout_height="300pt"
-            android:padding="30pt" />
+            android:layout_height="60pt"
+            android:background="@color/library_orange">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-bold"
+                android:text="族人"
+                android:textColor="@color/black"
+                android:textSize="30pt" />
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_add"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:layout_marginEnd="20dp"-->
+                <!--android:fontFamily="sans-serif-bold"-->
+                <!--android:gravity="center_vertical|end"-->
+                <!--android:text="添加"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="26pt" />-->
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_white"
+            android:orientation="vertical">
+
+            <com.shizhefei.view.coolrefreshview.CoolRefreshView
+                android:id="@+id/coolRefreshView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.recyclerview.swipe.SwipeMenuRecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </com.shizhefei.view.coolrefreshview.CoolRefreshView>
+        </LinearLayout>
     </LinearLayout>
 
 </layout>

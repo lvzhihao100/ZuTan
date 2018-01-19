@@ -10,12 +10,6 @@ import com.gamerole.zutan.R;
 import com.gamerole.zutan.ScanFingerActivityCustom;
 
 
-import rx.Subscriber;
-import rx.Subscription;
-import zwh.com.lib.FPerException;
-import zwh.com.lib.RxFingerPrinter;
-
-
 /**
  * @author吕志豪 .
  * @date 17-10-25  下午6:10.
@@ -26,7 +20,7 @@ import zwh.com.lib.RxFingerPrinter;
 @Route(path = RoutConfig.APP_SCAN_FINGER)
 public class ScanFingerActivity extends CommonFullTitleActivity {
 
-    private RxFingerPrinter rxfingerPrinter;
+    //    private RxFingerPrinter rxfingerPrinter;
     private ScanFingerActivityCustom dataBinding;
 
     @Override
@@ -42,45 +36,45 @@ public class ScanFingerActivity extends CommonFullTitleActivity {
     @Override
     public void initData() {
         // where this is an Activity instance
-        rxfingerPrinter = new RxFingerPrinter(this);
+//        rxfingerPrinter = new RxFingerPrinter(this);
     }
 
     @Override
     public void setView() {
 
-        // 可以在oncreat方法中执行
-        Subscription subscription =
-                rxfingerPrinter
-                        .begin()
-                        .subscribe(new Subscriber<Boolean>() {
-                            @Override
-                            public void onCompleted() {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                if (e instanceof FPerException) {
-                                    Toast.makeText(ScanFingerActivity.this, ((FPerException) e).getDisplayMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onNext(Boolean aBoolean) {
-                                if (aBoolean) {
-                                    Toast.makeText(ScanFingerActivity.this, "指纹识别成功", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(ScanFingerActivity.this, "指纹识别失败", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-        rxfingerPrinter.addSubscription(this, subscription); //不要忘记把订阅返回的subscription添加到rxfingerPrinter里
+//        // 可以在oncreat方法中执行
+//        Subscription subscription =
+//                rxfingerPrinter
+//                        .begin()
+//                        .subscribe(new Subscriber<Boolean>() {
+//                            @Override
+//                            public void onCompleted() {
+//
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                if (e instanceof FPerException) {
+//                                    Toast.makeText(ScanFingerActivity.this, ((FPerException) e).getDisplayMessage(), Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onNext(Boolean aBoolean) {
+//                                if (aBoolean) {
+//                                    Toast.makeText(ScanFingerActivity.this, "指纹识别成功", Toast.LENGTH_SHORT).show();
+//                                } else {
+//                                    Toast.makeText(ScanFingerActivity.this, "指纹识别失败", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+//        rxfingerPrinter.addSubscription(this, subscription); //不要忘记把订阅返回的subscription添加到rxfingerPrinter里
     }
 
     //
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        rxfingerPrinter.unSubscribe(this);
+//        rxfingerPrinter.unSubscribe(this);
     }
 }

@@ -17,6 +17,7 @@ public class Config {
     public static final String USER_IM_TOKEN = "userIMToken";
     public static final String IDCARD = "idCard";
     public static final String BEAN_SERIALIZABLE = "beanSerializable";
+    public static final String ID = "id";
     public static List<Scheme> schemes;
 
     public static final int SUCCESS = 1;

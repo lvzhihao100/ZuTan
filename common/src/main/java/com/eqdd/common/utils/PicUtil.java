@@ -1,6 +1,5 @@
 package com.eqdd.common.utils;
 
-import android.Manifest;
 import android.app.Activity;
 
 import com.luck.picture.lib.PictureSelector;
@@ -8,7 +7,6 @@ import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.List;
 

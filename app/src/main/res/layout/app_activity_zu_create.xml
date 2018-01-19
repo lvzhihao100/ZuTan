@@ -1,0 +1,51 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class=".ZuCreateActivityCustom" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="500pt">
+
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="200pt"
+                android:layout_height="200pt"
+                android:layout_centerInParent="true"
+                android:background="@drawable/app_add_dash_circle"
+                android:src="@mipmap/app_add" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/tv_name"
+            android:layout_width="400pt"
+            android:layout_height="80pt"
+            android:theme="@style/common_EditText"
+            android:gravity="center"
+            android:hint="添加族群名字(2~10个字)"
+            android:maxLength="10"
+            android:singleLine="true"
+            android:textSize="28pt" />
+
+        <Button
+            android:id="@+id/bt_submit"
+            android:layout_width="400pt"
+            android:layout_height="80pt"
+            android:layout_marginTop="200pt"
+            android:elevation="20pt"
+            android:text="提交"
+            android:textColor="@drawable/library_selector_5_enable_tv"
+            android:textSize="32pt"
+            android:background="@drawable/library_selector_5_enable_bt"
+            android:translationZ="20pt" />
+
+    </LinearLayout>
+</layout>

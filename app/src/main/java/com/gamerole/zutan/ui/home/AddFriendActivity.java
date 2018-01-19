@@ -4,23 +4,21 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.text.TextUtils;
-import android.widget.DatePicker;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.eqdd.common.base.CommonFullTitleActivity;
+import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ImageUtil;
 import com.eqdd.common.utils.PicUtil;
 import com.eqdd.common.utils.StringSelectUtil;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.gamerole.zutan.AddFriendActivityCustom;
 import com.gamerole.zutan.R;
-import com.jakewharton.rxbinding.view.RxView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -31,7 +29,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author吕志豪 .
@@ -69,9 +66,10 @@ public class AddFriendActivity extends CommonFullTitleActivity {
 
     @Override
     public void setView() {
-        RxView.clicks(dataBinding.rlCard)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(aVoid -> PicUtil.cut(this, 640, 412));
+        ClickUtil.click(dataBinding.rlCard,() -> {
+            PicUtil.cut(this, 640, 412);
+        });
+
         ClickUtil.click(dataBinding.btSubmit, () -> {
             if (checkParams()) {
                 OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.ADD_FRIEND)

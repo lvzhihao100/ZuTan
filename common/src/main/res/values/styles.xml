@@ -32,8 +32,6 @@
         <item name="android:textColorPrimary">@color/common_theme_red_text</item>
         <item name="android:statusBarColor">@color/common_theme_red_primary_dark</item>
         <item name="android:windowBackground">@color/common_theme_red_background</item>
-
-
     </style>
 
     <style name="common_Material_TextAppearance_Title" parent="android:TextAppearance.Material.Title">
@@ -81,6 +79,11 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
+    <style name="common_EditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/common_theme_yellow_primary</item>
+        <item name="colorControlActivated">@color/common_theme_yellow_primary</item>
     </style>
 
 </resources>

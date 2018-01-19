@@ -1,0 +1,174 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ZuGuideActivityCustom">
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/app_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/create"
+            android:layout_width="400pt"
+            android:layout_height="80pt"
+            android:layout_marginBottom="60pt"
+            android:layout_marginTop="60pt"
+            android:background="@drawable/library_selector_5_enable_bt"
+            android:elevation="20pt"
+            android:text="创建族群"
+            android:textColor="@drawable/library_selector_5_enable_tv"
+            android:textSize="32pt"
+            android:translationZ="20pt" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="80pt"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_zuId"
+                android:layout_width="270pt"
+                android:layout_height="70pt"
+                android:layout_marginEnd="20pt"
+                android:gravity="center"
+                android:hint="输入族id"
+                android:inputType="number"
+                android:textSize="28pt"
+                android:theme="@style/common_EditText" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/add"
+                android:layout_width="120pt"
+                android:layout_height="50pt"
+                android:layout_marginBottom="200pt"
+                android:background="@drawable/library_selector_5_enable_bt"
+                android:elevation="20pt"
+                android:enabled="false"
+                android:text="加入"
+                android:textColor="@drawable/library_selector_5_enable_tv"
+                android:textSize="24pt"
+                android:translationZ="20pt" />
+
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="30pt">
+
+            <ProgressBar
+                android:id="@+id/app_progressbar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="100pt"
+                android:layout_height="100pt"
+                android:indeterminateDrawable="@drawable/library_progressbar" />
+
+            <ImageView
+                android:id="@+id/iv_zu_head"
+                android:layout_width="100pt"
+                android:text="213123"
+                android:textSize="30pt"
+                android:layout_height="100pt" />
+
+            <TextView
+                android:id="@+id/tv_no_exist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="不存在"
+                android:textSize="30pt" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/scene_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <RelativeLayout
+                android:id="@+id/wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/rl_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="200pt">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/father"
+                        android:layout_width="100pt"
+                        android:layout_height="100pt"
+                        android:text="123123"
+                        android:onClick="onClick"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="160pt"
+                        android:src="@mipmap/app_cute_boy" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/mather"
+                        android:layout_width="100pt"
+                        android:layout_height="100pt"
+                        android:onClick="onClick"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="370pt"
+                        android:src="@mipmap/app_cute_girl" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_mid"
+                    android:layout_width="match_parent"
+                    android:layout_height="200pt"
+                    android:layout_below="@id/rl_top">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/old"
+                        android:layout_width="100pt"
+                        android:layout_height="100pt"
+                        android:onClick="onClick"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="60pt"
+                        android:src="@mipmap/app_cute_boy" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/me"
+                        android:layout_width="100pt"
+                        android:layout_height="100pt"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="265pt"
+                        android:src="@mipmap/app_cute_girl" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/small"
+                        android:layout_width="100pt"
+                        android:onClick="onClick"
+                        android:layout_height="100pt"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="470pt"
+                        android:src="@mipmap/app_cute_girl" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="200pt"
+                    android:layout_below="@id/rl_mid">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/son"
+                        android:layout_width="100pt"
+                        android:layout_height="100pt"
+                        android:onClick="onClick"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/app_cute_boy" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</layout>

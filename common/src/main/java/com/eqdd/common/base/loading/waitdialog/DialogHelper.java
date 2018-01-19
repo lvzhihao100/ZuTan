@@ -41,13 +41,26 @@ public class DialogHelper implements INetLoadingView {
     }
 
     @Override
+    public void showLoading(String msg, boolean isContinue) {
+        AndroidSchedulers.mainThread().createWorker().schedule(() -> {
+            dialog.setMessage(msg);
+            dialog.show();
+        });
+    }
+
+    @Override
     public void hideLoading(String msg) {
+        dialog.hide();
+    }
+
+    @Override
+    public void dismiss() {
         dialog.dismiss();
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        dialog.hide();
     }
 
 }

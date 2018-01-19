@@ -20,4 +20,7 @@ public class HttpConfig {
     public static final String NIM_CREATE = "https://api.netease.im/nimserver/user/create.action";
     public static final String GET_RONG_TOKEN = "rongTalk/token/get";
     public static final String GET_FACE_TOKEN = "face/token/get";
+    public static final String ZU_USER_PAGE_LIST = "zu/findAllZuUser";
+    public static final String APP_ZU_CREATE = "zu/create";
+    public static final String APP_ZU_QUERY = "zu/query/";
 }

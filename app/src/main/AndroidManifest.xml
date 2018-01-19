@@ -27,6 +27,20 @@
         android:supportsRtl="true"
         android:theme="@style/common_AppTheme_Yellow"
         tools:replace="android:label">
+        <receiver
+            android:name=".receiver.JpushReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
         <activity android:name=".ui.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,6 +77,9 @@
         <activity android:name=".ui.home.HomeListActivity" >
 
         </activity>
+        <activity android:name=".ui.home.UserInfoActivity" />
+        <activity android:name=".ui.home.CreateZuActivity" />
+        <activity android:name=".ui.home.ZuGuideActivity" />
         <!--<activity android:name=".ScanFingerActivity" />-->
         <meta-data
             android:name="com.amap.api.v2.apikey"

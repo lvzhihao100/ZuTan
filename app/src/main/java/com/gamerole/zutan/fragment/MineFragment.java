@@ -12,10 +12,12 @@ import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.BaseFragment;
 import com.eqdd.common.box.ItemDecorate.SectionDividerLineItemDecoration;
 import com.eqdd.common.utils.DensityUtil;
+import com.eqdd.library.LibraryOnlyRecyclerViewCustom;
 import com.eqdd.library.LibraryRecyclerViewCustom;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.number.SecondBean;
 import com.eqdd.library.bean.number.ThirdBean;
+import com.eqdd.library.bean.room.DBUtil;
 import com.gamerole.zutan.R;
 
 import java.util.ArrayList;
@@ -30,11 +32,11 @@ import java.util.ArrayList;
 
 public class MineFragment extends BaseFragment {
 
-    private LibraryRecyclerViewCustom dataBinding;
+    private LibraryOnlyRecyclerViewCustom dataBinding;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.library_activity_recyclerview;
+        return R.layout.library_activity_only_recyclerview;
     }
 
     @Override
@@ -44,20 +46,17 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
-        dataBinding.includeTitle.commonTvTitle.setText("我");
-        dataBinding.includeTitle.commonBack.setVisibility(View.GONE);
         ArrayList<Object> data = new ArrayList<>();
-        data.add(new SecondBean<Integer, String>(R.mipmap.error_picture, "吕志豪"));
-        data.add(new ThirdBean<Integer, String, String>(R.mipmap.error_picture, "我的钱包", "比特比 :0"));
-        data.add(new ThirdBean<Integer, String, String>(R.mipmap.error_picture, "我的收益", "比特比 :0"));
-        data.add(new ThirdBean<Integer, String, String>(R.mipmap.error_picture, "我的动态", "比特比 :0"));
+        data.add(new SecondBean(R.mipmap.error_picture, ""));
+        data.add(new ThirdBean(R.mipmap.error_picture, "我的钱包", "比特比 :0"));
+        data.add(new ThirdBean(R.mipmap.error_picture, "我的收益", "比特比 :0"));
+        data.add(new ThirdBean(R.mipmap.error_picture, "我的动态", "比特比 :0"));
         dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataBinding.recyclerView.addItemDecoration(new SectionDividerLineItemDecoration(getActivity(), 1, 3)
-        .setLeftDividerPadding(DensityUtil.percentW(20))
-        .setRightDividerPadding(0)
-        .setSectionHeight(DensityUtil.percentW(12)));
-        SlimAdapterEx.create().register(R.layout.library_list_item_17_head, new SlimInjector<SecondBean>() {
+                .setLeftDividerPadding(DensityUtil.percentW(20))
+                .setRightDividerPadding(0)
+                .setSectionHeight(DensityUtil.percentW(12)));
+        SlimAdapterEx slimAdapterEx = SlimAdapterEx.create().register(R.layout.library_list_item_17_head, new SlimInjector<SecondBean>() {
             @Override
             public void onInject(SecondBean data, IViewInjector injector) {
 
@@ -73,6 +72,11 @@ public class MineFragment extends BaseFragment {
             }
         }).attachTo(dataBinding.recyclerView).updateData(data);
 
+        DBUtil.getUserStatic(user -> {
+            SecondBean dataItem = (SecondBean) slimAdapterEx.getDataItem(0);
+            dataItem.setTwo(user.getName());
+            slimAdapterEx.notifyItemChanged(0);
+        });
         ItemClickSupport.addTo(dataBinding.recyclerView)
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     if (position == 0) {
@@ -84,7 +88,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public ViewDataBinding initBinding(ViewDataBinding inflate) {
-        return dataBinding = (LibraryRecyclerViewCustom) inflate;
+        return dataBinding = (LibraryOnlyRecyclerViewCustom) inflate;
     }
 
     @Override

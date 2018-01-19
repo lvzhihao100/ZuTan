@@ -13,8 +13,11 @@ import com.eqdd.common.base.BaseFragment;
 import com.eqdd.library.LibraryRecyclerViewCustom;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.room.DBUtil;
+import com.eqdd.library.bean.room.User;
 import com.gamerole.rongtalk.adapter.ConversationListAdapterEx;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
@@ -49,6 +52,7 @@ public class MsgFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        isReconnect();
 
     }
 
@@ -67,16 +71,15 @@ public class MsgFragment extends BaseFragment {
      */
     private void enterFragment() {
 
-
         if (listFragment == null) {
             listFragment = new ConversationListFragment();
             FragmentManager fm = getChildFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
-            ft.add(R.id.frameLayout, listFragment);
+            ft.add(R.id.conversationlist, listFragment);
             ft.show(listFragment);
             ft.commit();
+            listFragment.setAdapter(new ConversationListAdapterEx(RongContext.getInstance()));
         }
-        listFragment.setAdapter(new ConversationListAdapterEx(RongContext.getInstance()));
         Uri uri;
         if (isDebug) {
             uri = Uri.parse("rong://" + App.INSTANCE.getApplicationInfo().packageName).buildUpon()
@@ -113,6 +116,8 @@ public class MsgFragment extends BaseFragment {
             };
         }
         listFragment.setUri(uri);
+
+
     }
 
     /**
@@ -121,28 +126,31 @@ public class MsgFragment extends BaseFragment {
     private void isReconnect() {
 
         Intent intent = getActivity().getIntent();
-        String token = null;
-        token = DBUtil.getUser().getValue().getToken();
 
-        //push，通知或新消息过来
-        if (intent != null && intent.getData() != null && intent.getData().getScheme().equals("rong")) {
+        DBUtil.getUserStatic(o -> {
+            String token = null;
+            token = ((User) o).getToken();
+            //push，通知或新消息过来
+            if (intent != null && intent.getData() != null && intent.getData().getScheme().equals("rong")) {
 
-            //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
-            if (intent.getData().getQueryParameter("push") != null
-                    && intent.getData().getQueryParameter("push").equals("true")) {
-
-                reconnect(token);
-            } else {
-                //程序切到后台，收到消息后点击进入,会执行这里
-                if (RongIM.getInstance() == null || RongIM.getInstance().getRongIMClient() == null) {
+                //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
+                if (intent.getData().getQueryParameter("push") != null
+                        && intent.getData().getQueryParameter("push").equals("true")) {
 
                     reconnect(token);
                 } else {
-                    enterFragment();
+                    //程序切到后台，收到消息后点击进入,会执行这里
+                    if (RongIM.getInstance() == null || RongIM.getInstance().getRongIMClient() == null) {
+
+                        reconnect(token);
+                    } else {
+                        enterFragment();
+                    }
                 }
             }
-        }
-        enterFragment();
+            enterFragment();
+        });
+
     }
 
     /**

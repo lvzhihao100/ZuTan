@@ -5,21 +5,21 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.eqdd.common.R;
 import com.eqdd.common.base.loading.INetLoadingView;
-import com.eqdd.common.base.loading.waitdialog.DialogHelper;
 import com.eqdd.common.base.loading.wheelprogressdialog.WheelProgressHelper;
+import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ToastUtil;
-import com.jakewharton.rxbinding.view.RxView;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.jakewharton.rxbinding2.view.RxView;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
 
 import java.util.Date;
 import java.util.Stack;
@@ -83,7 +83,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
     @Override
     protected void onDestroy() {
 
+        netLoadingView.dismiss();
         super.onDestroy();
+
     }
 
     /**
@@ -177,29 +179,27 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
         topbar_title.setText(title);
     }
 
-    public void initTopTitleBar(int visible, String title) {
+    public void initTopTitleBar(int visible, CharSequence title) {
         ImageView back = (ImageView) findViewById(R.id.common_back);
         back.setVisibility(visible);
         if (visible == View.VISIBLE) {
             back.setOnClickListener(this);
         }
-        TextView topbar_title = (TextView) findViewById(R.id.common_tv_title);
+        TextView topbar_title = findViewById(R.id.common_tv_title);
         topbar_title.setText(title);
     }
 
-    public void initTopTitleBar(String title) {
+    public void initTopTitleBar(CharSequence title) {
         initTopTitleBar(View.VISIBLE, title);
     }
 
     public void initTopRightText(String title, View.OnClickListener onClickListener) {
-        TextView textView = (TextView) findViewById(R.id.common_tv_right);
+        TextView textView = findViewById(R.id.common_tv_right);
         textView.setText(title);
         textView.setVisibility(View.VISIBLE);
         if (onClickListener != null) {
-            RxView.clicks(textView)
-                    .throttleFirst(1, TimeUnit.SECONDS)
-                    .subscribe((o) ->
-                            onClickListener.onClick(textView));
+            ClickUtil.click(textView, () -> onClickListener.onClick(textView));
+
         }
     }
 
@@ -222,8 +222,18 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
     }
 
     @Override
+    public void showLoading(@StringRes int resId) {
+        netLoadingView.showLoading(getResources().getString(resId));
+    }
+
+    @Override
     public void hideLoading(String msg) {
         netLoadingView.hideLoading(msg);
+    }
+
+    @Override
+    public void hideLoading(@StringRes int resId) {
+        netLoadingView.hideLoading(getResources().getString(resId));
     }
 
     @Override

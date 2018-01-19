@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.base.App;
 import com.eqdd.common.base.CommonService;
+import com.eqdd.library.Iservice.rongtalk.RongTalkService;
 import com.eqdd.library.service.LibraryService;
 
 /**
@@ -24,8 +25,8 @@ public class ZuTanApplication extends Application {
     LibraryService libraryService;
     @Autowired
     CommonService commonService;
-//    @Autowired
-//    NimService nimService;
+    @Autowired
+    RongTalkService rongTalkService;
 
 
     @Override
@@ -37,9 +38,7 @@ public class ZuTanApplication extends Application {
         }
         ARouter.init(App.INSTANCE); // 尽可能早，推荐在Application中初始化
         ARouter.getInstance().inject(this);
-        libraryService.init(this);
-        commonService.init(this);
-//        nimService.init(this);
+        rongTalkService.initRongIm();
     }
 
     public boolean isApkInDebug(Context context) {

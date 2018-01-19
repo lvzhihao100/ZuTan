@@ -20,6 +20,7 @@ import com.eqdd.common.base.CommonFullTitleActivity;
 import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.DensityUtil;
 import com.eqdd.common.utils.ImageUtil;
+import com.eqdd.library.Iservice.rongtalk.RongStartService;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.Friend;
 import com.gamerole.zutan.FriendInfoTestActivityCustom;
@@ -43,6 +44,8 @@ public class FriendInfoActivity extends CommonActivity {
     private FriendInfoTestActivityCustom dataBinding;
     @Autowired
     Friend friend;
+    @Autowired
+    RongStartService rongStartService;
 
 
     @Override
@@ -140,6 +143,28 @@ public class FriendInfoActivity extends CommonActivity {
                         , DensityUtil.percentW(166), Math.max(dataBinding.ivHead.getWidth(), dataBinding.ivHead.getHeight()));
                 dataBinding.ivHead.setBackgroundColor(getResources().getColor(R.color.library_orange));
                 circularReveal.setDuration(2000);
+                circularReveal.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                        dataBinding.imageBg.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
                 circularReveal.start();
             }
 
@@ -228,5 +253,8 @@ public class FriendInfoActivity extends CommonActivity {
     @Override
     public void setView() {
 //        ImageUtil.setCircleImage(friend.getPoster(), dataBinding.ivHead);
+        ClickUtil.click(dataBinding.sendMsg, () -> {
+            rongStartService.startPrivate(FriendInfoActivity.this, "412824199203124753", friend.getName(), friend.getPoster());
+        });
     }
 }

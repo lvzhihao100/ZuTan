@@ -11,6 +11,8 @@ import com.eqdd.library.bean.room.User;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 /**
  * @author吕志豪 .
  * @date 18-1-8  上午11:21.
@@ -25,6 +27,12 @@ public interface UserDao {
 
     @Query("SELECT * FROM user WHERE idCard = (:idCard)")
     LiveData<User> getUserByIdCard(String idCard);
+
+    @Query("SELECT * FROM user WHERE idCard = (:idCard)")
+    Flowable<User> getUserByIdCardFlow(String idCard);
+
+    @Query("SELECT * FROM user WHERE idCard = (:idCard)")
+    User getUserByIdCardStatic(String idCard);
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addUser(User user);
 

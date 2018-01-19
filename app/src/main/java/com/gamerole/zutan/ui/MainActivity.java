@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.adapter.MyFragmentPagerAdapter;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.library.base.RoutConfig;
+import com.gamerole.zutan.MainActivityCustom;
 import com.gamerole.zutan.R;
 import com.gamerole.zutan.fragment.HomeFragment;
 import com.gamerole.zutan.fragment.MineFragment;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 @Route(path = RoutConfig.APP_HOME)
 public class MainActivity extends CommonActivity {
 
-    private com.gamerole.zutan.MainActivityCustom dataBinding;
+    private MainActivityCustom dataBinding;
 
 
     @Override

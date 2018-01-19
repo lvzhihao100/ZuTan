@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 默认时的图片 -->
+    <item android:drawable="@drawable/library_shape_1_hint_20" android:state_enabled="false" />
+    <!-- 选中时的图片 -->
+    <item android:drawable="@drawable/library_shape_1_primary_20" />
+
+</selector>

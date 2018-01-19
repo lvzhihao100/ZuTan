@@ -5,6 +5,7 @@ import android.arch.lifecycle.LiveData;
 import com.eqdd.common.utils.SPUtil;
 import com.eqdd.library.base.Config;
 
+import io.reactivex.Flowable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -26,7 +27,27 @@ public class DBUtil {
         return DBHelper.getInstance().getDb().getUserEntityDao().getUserByIdCard(idCard);
     }
 
+    private static Flowable<User> getUserByIdCardStatic(String idCard) {
+        return DBHelper.getInstance().getDb().getUserEntityDao().getUserByIdCardFlow(idCard);
+    }
+
     public static LiveData<User> getUser() {
         return getUserByIdCard((String) SPUtil.getParam(Config.IDCARD));
+    }
+
+    public static Flowable<User> getUserFlow() {
+        return getUserByIdCardStatic((String) SPUtil.getParam(Config.IDCARD));
+    }
+
+    public static void getUserStatic(BeanBack beanBack) {
+        Schedulers.io().scheduleDirect(() -> {
+
+            User user = DBHelper.getInstance().getDb().getUserEntityDao().getUserByIdCardStatic((String) SPUtil.getParam(Config.IDCARD));
+            beanBack.back(user);
+        });
+    }
+
+    public interface BeanBack {
+        public void back(User user);
     }
 }

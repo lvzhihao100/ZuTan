@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.base.CommonActivity;
+import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ImageUtil;
 import com.eqdd.common.utils.PicUtil;
 import com.eqdd.common.utils.SPUtil;
@@ -24,21 +26,21 @@ import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.databind.percent.WindowUtil;
 import com.eqdd.inputs.AndroidNextInputs;
 import com.eqdd.inputs.WidgetAccess;
-import com.eqdd.library.Iservice.nim.NimLoginService;
 import com.eqdd.library.Iservice.rongtalk.RongConnectService;
 import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.room.DBUtil;
 import com.eqdd.library.bean.room.User;
-import com.eqdd.library.http.DialogCallBack;
+import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
+import com.eqdd.common.http.JsonCallBack;
 import com.eqdd.library.utils.HttpUtil;
 import com.eqdd.nextinputs.StaticScheme;
 import com.eqdd.nextinputs.ValueScheme;
 import com.gamerole.zutan.LoginActivityCustom;
 import com.gamerole.zutan.R;
-import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -48,6 +50,8 @@ import com.lzy.okgo.model.Response;
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by 吕志豪 on 17-10-13  下午2:48.
@@ -67,6 +71,7 @@ public class LoginActivity extends CommonActivity {
     private String idCardPath;
     @Autowired
     RongConnectService rongConnectService;
+    private String token;
 
     @Override
     public void initBinding() {
@@ -122,18 +127,17 @@ public class LoginActivity extends CommonActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         final int screenHeight = metrics.heightPixels;
-        RxView.clicks(dataBinding.ivEye)
-                .subscribe(aVoid -> {
-                    if (!isPassShow) {
-                        isPassShow = true;
-                        dataBinding.etPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                        dataBinding.ivEye.setImageResource(R.mipmap.library_ic_eye_open);
-                    } else {
-                        isPassShow = false;
-                        dataBinding.etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        dataBinding.ivEye.setImageResource(R.mipmap.library_ic_eye_hint);
-                    }
-                });
+        ClickUtil.click(dataBinding.ivEye, () -> {
+            if (!isPassShow) {
+                isPassShow = true;
+                dataBinding.etPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                dataBinding.ivEye.setImageResource(R.mipmap.library_ic_eye_open);
+            } else {
+                isPassShow = false;
+                dataBinding.etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                dataBinding.ivEye.setImageResource(R.mipmap.library_ic_eye_hint);
+            }
+        });
         dataBinding.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             Rect r = new Rect(); //该对象代表一个矩形（rectangle）
             dataBinding.rlRoot.getWindowVisibleDisplayFrame(r); //将当前界面的尺寸传给Rect矩形
@@ -202,7 +206,6 @@ public class LoginActivity extends CommonActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         dataBinding.tvLogo.setVisibility(View.GONE);
-
                     }
 
                     @Override
@@ -274,13 +277,60 @@ public class LoginActivity extends CommonActivity {
                         HttpResult<User> httpResult = response.body();
                         ToastUtil.showShort(httpResult.getMsg());
                         if (httpResult.getStatus() == 200) {
-                            DBUtil.insertUser(httpResult.getItems());
-                            SPUtil.setParam(Config.IDCARD, httpResult.getItems().getIdCard());
-                            rongConnectService.getToken();
-                            ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
+                            rongConnectAndLocalSave(httpResult.getItems());
                         }
                     }
                 });
+    }
+
+    private void rongConnectAndLocalSave(User httpUser) {
+        DBUtil.insertUser(httpUser);
+        SPUtil.setParam(Config.IDCARD, httpUser.getIdCard());
+        DBUtil.getUserStatic(user -> {
+            if (user != null) {
+                if (!TextUtils.isEmpty(user.getToken())) {
+                    System.out.println("使用本地token" + token);
+                    rongConnectService.getToken(token, (token1, isSuccess) -> {
+                        if (isSuccess) {
+                            user.setToken(token1);
+                            DBUtil.insertUser(user);
+                            JPushInterface.setAlias(getApplicationContext(), 0, user.getIdCard());
+                            ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
+                            finish();
+
+                        }
+                    });
+                } else {
+                    System.out.println("获取服务器token中。。。");
+                    OkGo.<HttpResult<String>>post(HttpConfig.BASE_URL + HttpConfig.GET_RONG_TOKEN)
+                            .execute(new JsonCallBack<HttpResult<String>>() {
+                                @Override
+                                public void onSuccess(Response<HttpResult<String>> response) {
+                                    HttpResult<String> httpResult = response.body();
+
+                                    if (httpResult.getStatus() == 200) {
+                                        if (httpResult.getItems() != null) {
+                                            token = httpResult.getItems();
+                                            System.out.println("获取到token");
+                                            rongConnectService.getToken(token, (token1, isSuccess) -> {
+                                                user.setToken(token1);
+                                                DBUtil.insertUser(user);
+                                                ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
+                                                finish();
+                                            });
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Response<HttpResult<String>> response) {
+                                    super.onError(response);
+                                }
+                            });
+
+                }
+            }
+        });
     }
 
     @Override
@@ -302,29 +352,29 @@ public class LoginActivity extends CommonActivity {
             List<LocalMedia> localMedias = PictureSelector.obtainMultipleResult(data);
             String filePath = localMedias.get(0).isCompressed() ?
                     localMedias.get(0).getCompressPath() : localMedias.get(0).getPath();
-            OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.QUERY_USER_BY_IDCARD)
+            showLoading("正在校验身份...");
+            OkGo.<HttpResult<User>>post(HttpConfig.BASE_URL + HttpConfig.QUERY_USER_BY_IDCARD)
                     .params("idCard", dataBinding.etUsername.getText().toString())
                     .params("file", new File(filePath))
-                    .execute(new DialogCallBack<HttpResult>(LoginActivity.this) {
+                    .execute(new JsonCallBack<HttpResult<User>>() {
                         @Override
-                        public void onSuccess(Response<HttpResult> response) {
-                            HttpResult httpResult = response.body();
-                            ToastUtil.showShort(httpResult.getMsg());
+                        public void onSuccess(Response<HttpResult<User>> response) {
+                            HttpResult<User> httpResult = response.body();
                             if (httpResult.getStatus() == 200) {
-                                ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
-
-//                                HttpUtil.compareFace(LoginActivity.this, new File(filePath),
-//                                        httpResult.getItems().getFaceToken(), (isSuccess, faceToken) -> {
-//                                            if (isSuccess) {
-//                                                double v = Double.parseDouble(faceToken);
-//                                                if (v > 70) {
-//                                                    ToastUtil.showShort("登陆成功");
-//                                                }
-//                                            }
-//                                        });
+                                hideLoading("校验成功,正在登录...");
+                                rongConnectAndLocalSave(httpResult.getItems());
+                            } else {
+                                hideLoading(httpResult.getMsg());
                             }
+                        }
+
+                        @Override
+                        public void onError(Response<HttpResult<User>> response) {
+                            super.onError(response);
+                            hideLoading(R.string.COMMON_SERVER_ERROR);
                         }
                     });
         }
     }
+
 }

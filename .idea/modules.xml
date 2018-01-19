@@ -6,9 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/nim/nim.iml" filepath="$PROJECT_DIR$/nim/nim.iml" />
       <module fileurl="file://$PROJECT_DIR$/rongtalk/rongtalk.iml" filepath="$PROJECT_DIR$/rongtalk/rongtalk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/uikit/uikit.iml" filepath="$PROJECT_DIR$/uikit/uikit.iml" />
     </modules>
   </component>
 </project>

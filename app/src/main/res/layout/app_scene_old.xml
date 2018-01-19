@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="200pt">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/father"
+            android:layout_width="100pt"
+            android:layout_height="100pt"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="160pt"
+            android:src="@mipmap/app_cute_boy" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/mather"
+            android:layout_width="100pt"
+            android:layout_height="100pt"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="370pt"
+            android:src="@mipmap/app_cute_girl" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_mid"
+        android:layout_width="match_parent"
+        android:layout_height="200pt"
+        android:layout_below="@id/rl_top">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/old"
+            android:layout_width="200pt"
+            android:layout_height="200pt"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10pt"
+            android:src="@mipmap/app_cute_boy" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/me"
+            android:layout_width="100pt"
+            android:layout_height="100pt"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="265pt"
+            android:src="@mipmap/app_cute_girl" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/small"
+            android:layout_width="100pt"
+            android:layout_height="100pt"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="470pt"
+            android:src="@mipmap/app_cute_girl" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="200pt"
+        android:layout_below="@id/rl_mid">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/son"
+            android:layout_width="100pt"
+            android:layout_height="100pt"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/app_cute_boy" />
+
+
+    </RelativeLayout>
+</RelativeLayout>

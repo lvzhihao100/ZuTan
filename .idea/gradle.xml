@@ -12,9 +12,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/nim" />
             <option value="$PROJECT_DIR$/rongtalk" />
-            <option value="$PROJECT_DIR$/uikit" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

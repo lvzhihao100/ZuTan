@@ -11,15 +11,15 @@ import com.eqdd.common.adapter.slimadapter.SlimInjector;
 import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.CommonFullTitleActivity;
 import com.eqdd.common.bean.TwoBean;
+import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.PicUtil;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.http.DialogCallBack;
+import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.eqdd.library.utils.HttpUtil;
 import com.gamerole.zutan.R;
-import com.jakewharton.rxbinding.view.RxView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -77,34 +77,32 @@ public class AddRelativeActivity extends CommonFullTitleActivity {
 
     @Override
     public void setView() {
-        RxView.clicks(dataBinding.rlCard)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(aVoid -> {
+        ClickUtil.click(dataBinding.rlCard,() -> {
+
                     PicUtil.single(AddRelativeActivity.this);
-                });
-        RxView.clicks(dataBinding.btSubmit)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(aVoid -> {
-                    HashMap<String, String> maps = new HashMap<>();
-                    maps.put("name", slimAdapterEx.getDataItem(0).getTwo());
-                    maps.put("sex", slimAdapterEx.getDataItem(1).getTwo());
-                    maps.put("birth", slimAdapterEx.getDataItem(2).getTwo());
-                    maps.put("idCard", slimAdapterEx.getDataItem(3).getTwo());
-                    maps.put("race", slimAdapterEx.getDataItem(4).getTwo());
-                    maps.put("address", slimAdapterEx.getDataItem(5).getTwo());
-                    OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.ADD_RELATIVE + "father")
-                            .upJson(new JSONObject(maps))
-                            .execute(new DialogCallBack<HttpResult>(AddRelativeActivity.this) {
-                                @Override
-                                public void onSuccess(Response<HttpResult> response) {
-                                    HttpResult httpResult = response.body();
-                                    ToastUtil.showShort(httpResult.getMsg());
-                                    if (httpResult.getStatus() == 200) {
-                                        finish();
-                                    }
-                                }
-                            });
-                });
+        });   ClickUtil.click(dataBinding.btSubmit,() -> {
+
+            HashMap<String, String> maps = new HashMap<>();
+            maps.put("name", slimAdapterEx.getDataItem(0).getTwo());
+            maps.put("sex", slimAdapterEx.getDataItem(1).getTwo());
+            maps.put("birth", slimAdapterEx.getDataItem(2).getTwo());
+            maps.put("idCard", slimAdapterEx.getDataItem(3).getTwo());
+            maps.put("race", slimAdapterEx.getDataItem(4).getTwo());
+            maps.put("address", slimAdapterEx.getDataItem(5).getTwo());
+            OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.ADD_RELATIVE + "father")
+                    .upJson(new JSONObject(maps))
+                    .execute(new DialogCallBack<HttpResult>(AddRelativeActivity.this) {
+                        @Override
+                        public void onSuccess(Response<HttpResult> response) {
+                            HttpResult httpResult = response.body();
+                            ToastUtil.showShort(httpResult.getMsg());
+                            if (httpResult.getStatus() == 200) {
+                                finish();
+                            }
+                        }
+                    });
+        });
+
     }
 
     @Override

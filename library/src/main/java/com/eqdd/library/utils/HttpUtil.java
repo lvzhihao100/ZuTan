@@ -1,23 +1,23 @@
 package com.eqdd.library.utils;
 
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.eqdd.common.base.BaseActivity;
-import com.eqdd.common.utils.ToastUtil;
+import com.eqdd.library.R;
 import com.eqdd.library.bean.CompareFaceBean;
 import com.eqdd.library.bean.DetectBean;
 import com.eqdd.library.bean.FaceSetBean;
 import com.eqdd.library.bean.IDCheckBean;
-import com.eqdd.library.http.DialogCallBack;
+import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
-import com.eqdd.library.http.JsonCallBack;
+import com.eqdd.common.http.JsonCallBack;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
 import java.io.File;
 
-import javax.annotation.Nullable;
 
 /**
  * Created by 吕志豪 on 17-10-14  下午6:10.
@@ -53,6 +53,13 @@ public class HttpUtil {
                             baseActivity.hideLoading("获取原始faceToken失败");
                             detectFaceBack.back(false, null);
                         }
+                    }
+
+                    @Override
+                    public void onError(Response<DetectBean> response) {
+                        super.onError(response);
+                        baseActivity.hideLoading(R.string.COMMON_SERVER_ERROR);
+
                     }
                 });
     }
@@ -130,6 +137,13 @@ public class HttpUtil {
                             idCardBack.back(false, null);
                         }
                     }
+
+                    @Override
+                    public void onError(Response<IDCheckBean> response) {
+                        super.onError(response);
+                        baseActivity.hideLoading(R.string.COMMON_SERVER_ERROR);
+
+                    }
                 });
     }
 
@@ -155,6 +169,13 @@ public class HttpUtil {
                     public void onSuccess(Response<HttpResult<String>> response) {
                         HttpResult<String> httpResult = response.body();
                         resultObjectBack.onResultBack(httpResult.getStatus(), httpResult.getItems());
+                    }
+
+                    @Override
+                    public void onError(Response<HttpResult<String>> response) {
+                        super.onError(response);
+                        baseActivity.hideLoading(R.string.COMMON_SERVER_ERROR);
+
                     }
                 });
     }

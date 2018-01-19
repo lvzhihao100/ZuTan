@@ -26,11 +26,11 @@ public class ModelRx2DataSource<T> extends MRx2DataSource<List<T>> {
     }
 
     public interface OnLoadSource<T>{
-        Flowable<List<T>> loadSourcce(final int page, DoneActionRegister<List<T>> register);
+        Flowable<List<T>> loadSource(final int page, DoneActionRegister<List<T>> register);
     }
     private Flowable load(final int page, DoneActionRegister<List<T>> register) throws Exception {
 
-        return onLoadSource.loadSourcce(page,register)
+        return onLoadSource.loadSource(page,register)
                 .flatMap(new Function<List<T>, Flowable<List<T>>>() {
                     @Override
                     public Flowable<List<T>> apply(@NonNull List<T> s) throws Exception {

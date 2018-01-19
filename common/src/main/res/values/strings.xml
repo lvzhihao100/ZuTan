@@ -1,4 +1,5 @@
 <resources>
+    <string name="COMMON_SERVER_ERROR">服务器错误</string>
     <array name="common_sex">
         <item>男</item>
         <item>女</item>

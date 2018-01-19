@@ -16,7 +16,7 @@ import com.amap.api.maps.model.MyLocationStyle;
 import com.eqdd.common.base.BaseActivity;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.http.DialogCallBack;
+import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.gamerole.zutan.R;

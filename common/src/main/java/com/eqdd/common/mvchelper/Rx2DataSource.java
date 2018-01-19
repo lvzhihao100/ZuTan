@@ -9,9 +9,9 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
-import rx.functions.Action1;
 
 /**
  * Created by LuckyJayce on 2016/7/21.
@@ -34,8 +34,12 @@ public abstract class Rx2DataSource<DATA> implements IAsyncDataSource<DATA> {
         DisposableSubscriber<DATA> subscriber = new DisposableSubscriber<DATA>() {
             @Override
             public void onNext(DATA data) {
-                for (Action1<DATA> subscriber : register.subscribers) {
-                    subscriber.call(data);
+                for (Consumer<DATA> subscriber : register.subscribers) {
+                    try {
+                        subscriber.accept(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 sender.sendData(data);
             }
@@ -75,9 +79,9 @@ public abstract class Rx2DataSource<DATA> implements IAsyncDataSource<DATA> {
     public abstract Flowable<DATA> loadMoreRX(DoneActionRegister<DATA> register) throws Exception;
 
     public static class DoneActionRegister<DATA> {
-        private List<Action1<DATA>> subscribers = new ArrayList<>();
+        private List<Consumer<DATA>> subscribers = new ArrayList<>();
 
-        public void addAction(final Action1<DATA> doneAction) {
+        public void addAction(final Consumer<DATA> doneAction) {
             subscribers.add(doneAction);
         }
     }

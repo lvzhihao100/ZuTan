@@ -12,4 +12,5 @@ import com.alibaba.android.arouter.facade.template.IProvider;
 
 public interface RongTalkService extends IProvider {
 
+    void initRongIm();
 }

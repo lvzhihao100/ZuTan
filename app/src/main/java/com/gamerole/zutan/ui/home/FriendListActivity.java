@@ -1,13 +1,11 @@
 package com.gamerole.zutan.ui.home;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -16,20 +14,29 @@ import com.eqdd.common.adapter.slimadapter.SlimAdapterEx;
 import com.eqdd.common.adapter.slimadapter.SlimInjector;
 import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.CommonActivity;
+import com.eqdd.common.http.JsonConverter;
+import com.eqdd.common.mvchelper.ModelRx2DataSource;
+import com.eqdd.common.mvchelper.Rx2DataSource;
 import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.Friend;
 import com.eqdd.library.bean.room.DBUtil;
-import com.eqdd.library.http.DialogCallBack;
+import com.eqdd.library.bean.room.User;
+import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpPageResult;
 import com.gamerole.zutan.FriendListActivityCustom;
 import com.gamerole.zutan.R;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
+import com.lzy.okrx2.adapter.FlowableBody;
+import com.shizhefei.mvc.MVCCoolHelper;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Flowable;
 
 /**
  * @author吕志豪 .
@@ -43,16 +50,9 @@ public class FriendListActivity extends CommonActivity {
 
     private SlimAdapterEx slimAdapterEx;
     private FriendListActivityCustom dataBinding;
-
-//    @Override
-//    protected void initBinding(ViewDataBinding inflate) {
-//        dataBinding = (RecyclerViewRefreshCustom) inflate;
-//        initTopTitleBar("好友列表");
-//        initTopRightText("添加", v -> {
-//            ARouter.getInstance().build(RoutConfig.APP_ADD_FRIEND).navigation();
-//        });
-//    }
-
+    private ModelRx2DataSource<Friend> dataSource;
+    private MVCCoolHelper<List<Friend>> mvcHelper;
+    private int pageNum;
 
     @Override
     public void initBinding() {
@@ -82,35 +82,60 @@ public class FriendListActivity extends CommonActivity {
         ItemClickSupport.addTo(dataBinding.recyclerView)
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(FriendListActivity.this
-                            , new Pair<View, String>(v.findViewById(R.id.iv_poster), "shared_image_")
-                            , new Pair<View, String>(v.findViewById(R.id.tv_name), "shared_text_"));
-//
+                            , new Pair(v.findViewById(R.id.iv_poster), "shared_image_")
+                            , new Pair(v.findViewById(R.id.tv_name), "shared_text_"));
                     ARouter.getInstance()
                             .build(RoutConfig.APP_FRIEND_INFO)
                             .withObject("friend", slimAdapterEx.getDataItem(position))
                             .withOptionsCompat(activityOptionsCompat)
                             .navigation(FriendListActivity.this);
-//                    Intent intent = new Intent(FriendListActivity.this, TransitionTestActivity.class);
-//
-//                    startActivity(intent);
+
                 });
+        mvcHelper = new MVCCoolHelper<>(dataBinding.coolRefreshView);
+        dataSource = new ModelRx2DataSource<>(new ModelRx2DataSource.OnLoadSource() {
+            @Override
+            public Flowable<List> loadSource(int page, Rx2DataSource.DoneActionRegister register) {
+                pageNum = page - 1;
+                return OkGo.<HttpPageResult<Friend>>post(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
+                        .params("page", pageNum)
+                        .converter(new JsonConverter<HttpPageResult<Friend>>() {
+                            @Override
+                            public void test() {
+                                super.test();
+                            }
+                        })
+                        .adapt(new FlowableBody<>())
+                        .flatMap(listHttpResult -> {
+                            if (listHttpResult.getStatus() == 200) {
+                                return Flowable.just(listHttpResult.getItems() == null ? new ArrayList<Friend>() : listHttpResult.getItems().getContent());
+                            } else {
+                                ToastUtil.showShort(listHttpResult.getMsg());
+                                return Flowable.just(new ArrayList<>());
+                            }
+                        });
+            }
+        }, 10);
+
+        mvcHelper.setDataSource(dataSource);
+        mvcHelper.setAdapter(slimAdapterEx);
+        mvcHelper.refresh();
     }
 
     @Override
     public void setView() {
-        DBUtil.getUser().observe(this, user -> {
-            OkGo.<HttpPageResult<Friend>>get(HttpConfig.BASE_URL + HttpConfig.FRIEND_PAGE_LIST + String.format("%d/%d", user.getId(), 0))
-                    .execute(new DialogCallBack<HttpPageResult<Friend>>(FriendListActivity.this) {
-                        @Override
-                        public void onSuccess(Response<HttpPageResult<Friend>> response) {
-                            HttpPageResult<Friend> httpResult = response.body();
-                            ToastUtil.showShort(httpResult.getMsg());
-                            if (httpResult.getStatus() == 200) {
-                                slimAdapterEx.updateData(httpResult.getItems().getContent());
-                            }
-                        }
-                    });
-        });
+//        DBUtil.getUser().observe(this, user -> {
+//            OkGo.<HttpPageResult<Friend>>get(HttpConfig.BASE_URL + HttpConfig.FRIEND_PAGE_LIST + String.format("%d/%d", user.getId(), 0))
+//                    .execute(new DialogCallBack<HttpPageResult<Friend>>(FriendListActivity.this) {
+//                        @Override
+//                        public void onSuccess(Response<HttpPageResult<Friend>> response) {
+//                            HttpPageResult<Friend> httpResult = response.body();
+//                            ToastUtil.showShort(httpResult.getMsg());
+//                            if (httpResult.getStatus() == 200) {
+//                                slimAdapterEx.updateData(httpResult.getItems().getContent());
+//                            }
+//                        }
+//                    });
+//        });
 
     }
 }

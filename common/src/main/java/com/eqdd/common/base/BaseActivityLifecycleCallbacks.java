@@ -13,7 +13,7 @@ import android.view.WindowManager;
 public class BaseActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+//        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         AppManager.getAppManager().addActivity(activity);
     }
