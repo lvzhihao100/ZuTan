@@ -1,0 +1,74 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ListItem19Custom">
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120pt"
+        android:background="@color/common_white"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="80pt"
+            android:layout_height="80pt"
+            android:layout_centerVertical="true"
+            android:layout_margin="20pt"
+            tools:src="@mipmap/common_error_img" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/iv_head"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_top"
+                android:layout_width="wrap_content"
+                android:layout_height="70pt"
+                android:gravity="center_vertical|start"
+                android:textSize="30pt"
+                tools:text="吕志豪" />
+
+            <TextView
+                android:id="@+id/tv_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="50pt"
+                android:gravity="top|start"
+                android:textSize="24pt"
+                tools:text="吕志豪" />
+        </LinearLayout>
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_right"
+            android:layout_width="150pt"
+            android:layout_height="60pt"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/library_selector_5_enable_bt"
+            android:gravity="center"
+            android:textSize="26pt"
+            android:visibility="gone"
+            tools:text="接受" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="150pt"
+            android:layout_height="60pt"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:enabled="false"
+            android:gravity="center"
+            android:textSize="26pt"
+            tools:text="接受" />
+
+
+    </RelativeLayout>
+
+</layout>

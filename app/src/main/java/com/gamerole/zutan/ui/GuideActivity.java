@@ -10,6 +10,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.ActivityFrameLayoutCustom;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.common.utils.ClickUtil;
+import com.eqdd.common.utils.SPUtil;
+import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
 import com.gamerole.zutan.R;
 import com.ramotion.paperonboarding.PaperOnboardingEngine;
@@ -36,9 +38,11 @@ public class GuideActivity extends CommonActivity {
 
     @Override
     public void initData() {
-
+        if (!SPUtil.getParam(Config.GUIDE_FIRST, true)) {
+            ARouter.getInstance().build(RoutConfig.APP_LOGIN).navigation();
+            finish();
+        }
         PaperOnboardingEngine engine = new PaperOnboardingEngine(findViewById(R.id.onboardingRootView), getDataForOnboarding(), getApplicationContext());
-
         engine.setOnChangeListener((oldElementIndex, newElementIndex) -> {
             if (newElementIndex == 2) {
                 TransitionManager.beginDelayedTransition(dataBinding.onboardingRootView);
@@ -49,12 +53,12 @@ public class GuideActivity extends CommonActivity {
             }
         });
         ClickUtil.click(dataBinding.btEnter, () -> {
+            SPUtil.setParam(Config.GUIDE_FIRST, false);
             ARouter.getInstance().build(RoutConfig.APP_LOGIN).navigation();
             finish();
         });
     }
 
-    // Just example data for Onboarding
     private ArrayList<PaperOnboardingPage> getDataForOnboarding() {
         // prepare data
         PaperOnboardingPage scr1 = new PaperOnboardingPage("Hotels", "All hotels and hostels are sorted by hospitality rating",

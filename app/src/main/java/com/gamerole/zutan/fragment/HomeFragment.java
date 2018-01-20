@@ -51,8 +51,9 @@ public class HomeFragment extends BaseFragment {
 
         ArrayList<Object> data = new ArrayList<>();
 
-        data.add(new ThirdBean(R.mipmap.error_picture, "我参与的家族", "比特比 :0"));
-        data.add(new ThirdBean(R.mipmap.error_picture, "我的友圈", "比特比 :0"));
+        data.add(new ThirdBean(R.mipmap.error_picture, "我参与的家族", ""));
+        data.add(new ThirdBean(R.mipmap.error_picture, "我的友圈", ""));
+        data.add(new ThirdBean(R.mipmap.error_picture, "新成员", ""));
         dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataBinding.recyclerView.addItemDecoration(new SectionDividerLineItemDecoration(getActivity(), 1, 3)
                 .setLeftDividerPadding(DensityUtil.percentW(20))
@@ -80,6 +81,8 @@ public class HomeFragment extends BaseFragment {
                         ARouter.getInstance().build(RoutConfig.APP_HOME_LIST).navigation();
                     } else if (position == 1) {
                         ARouter.getInstance().build(RoutConfig.APP_FRIEND_LIST).navigation();
+                    } else if (position == 2) {
+
                     }
                 });
 

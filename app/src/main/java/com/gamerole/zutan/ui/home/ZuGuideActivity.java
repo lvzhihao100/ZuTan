@@ -15,21 +15,27 @@ import android.view.ViewGroup;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.base.CommonFullTitleActivity;
+import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.common.http.JsonConverter;
 import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ImageUtil;
+import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RequestConfig;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.Zu;
+import com.eqdd.library.bean.room.DBUtil;
+import com.eqdd.library.bean.room.User;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.gamerole.zutan.R;
 import com.gamerole.zutan.ZuGuideActivityCustom;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
 import com.lzy.okrx2.adapter.ObservableBody;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -55,6 +61,9 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
     private boolean isImageBigger;
     private int primarySize;
     private boolean aBoolean;
+    private boolean isEnable;
+    private User applyToUser;
+    private int relation;
 
     @Override
     protected void initBinding(ViewDataBinding inflate) {
@@ -81,20 +90,14 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
             ARouter.getInstance().build(RoutConfig.APP_ZU_CREATE).navigation(ZuGuideActivity.this, RequestConfig.APP_ZU_CREATE);
 
         });
-//        ClickUtil.click(dataBinding.add, () -> {
-//            ARouter.getInstance()
-//                    .build(RoutConfig.APP_ZU_ENTER)
-//                    .withInt(Config.ID, Integer.parseInt(dataBinding.etZuId.getText().toString().trim()))
-//                    .navigation(ZuGuideActivity.this, RequestConfig.APP_ZU_ENTER);
-//        });
-        RxTextView.textChangeEvents(dataBinding.etZuId)
-                .subscribe(textViewTextChangeEvent -> {
-                    if (textViewTextChangeEvent.count() > 0) {
-                        dataBinding.add.setEnabled(true);
-                    } else {
-                        dataBinding.add.setEnabled(false);
-                    }
-                });
+//        RxTextView.textChangeEvents(dataBinding.etZuId)
+//                .subscribe(textViewTextChangeEvent -> {
+//                    if (textViewTextChangeEvent.count() > 0) {
+//                        dataBinding.add.setEnabled(true);
+//                    } else {
+//                        dataBinding.add.setEnabled(false);
+//                    }
+//                });
         RxTextView.textChangeEvents(dataBinding.etZuId)
                 .filter(textViewTextChangeEvent -> textViewTextChangeEvent.count() > 0)
                 .debounce(800, TimeUnit.MILLISECONDS)
@@ -129,18 +132,35 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
         ClickUtil.click(dataBinding.ivZuHead, () -> {
             ARouter.getInstance().build(RoutConfig.APP_HOME_LIST).withInt(Config.ID, id).navigation(ZuGuideActivity.this, RequestConfig.APP_USER_LIST);
         });
-        Random random = new Random(System.currentTimeMillis());
-        aBoolean = random.nextBoolean();
-        System.out.println(aBoolean);
-        if (aBoolean) {
-            dataBinding.wrapper.setVisibility(View.GONE);
-            initScene();
-            clickScene();
-        } else {
-            dataBinding.wrapper.setVisibility(View.VISIBLE);
-            primarySize = dataBinding.father.getLayoutParams().width;
+        ClickUtil.click(dataBinding.apply, () -> {
+            OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.APP_ZU_APPLY_ENTER)
+                    .params("applyTo", applyToUser.getIdCard())
+                    .params("relationShip", relation)
+                    .execute(new DialogCallBack<HttpResult>(ZuGuideActivity.this) {
+                        @Override
+                        public void onSuccess(Response<HttpResult> response) {
+                            HttpResult httpResult = response.body();
+                            if (httpResult.getStatus() == 200) {
 
-        }
+                            }
+                        }
+                    });
+        });
+        DBUtil.getUserStatic(user -> {
+            ImageUtil.setImage(user.getPhoto(), dataBinding.me);
+        });
+        dataBinding.wrapper.setVisibility(View.GONE);
+//        Random random = new Random(System.currentTimeMillis());
+//        aBoolean = random.nextBoolean();
+//        System.out.println(aBoolean);
+//        if (aBoolean) {
+//            dataBinding.wrapper.setVisibility(View.GONE);
+//            initScene();
+//            clickScene();
+//        } else {
+
+
+//        }
     }
 
     @Override
@@ -149,6 +169,23 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
         TransitionManager.beginDelayedTransition(dataBinding.sceneRoot, TransitionInflater.from(this).inflateTransition(R.transition.app_explode_and_changebounds));
         //next scene 此时通过代码已改变了scene statue
         changeScene(v);
+        switch (v.getId()) {
+            case R.id.father:
+                relation = Config.RELATION_FATHER;
+                break;
+            case R.id.mather:
+                relation = Config.RELATION_MATHER;
+                break;
+            case R.id.old:
+                relation = Config.RELATION_ELDER;
+                break;
+            case R.id.small:
+                relation = Config.RELATION_YOUNGER;
+                break;
+            case R.id.son:
+                relation = Config.RELATION_SON;
+                break;
+        }
     }
 
     private void changeScene(View view) {
@@ -166,6 +203,7 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
         for (View view : views) {
             view.setVisibility(view.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
         }
+        dataBinding.apply.setEnabled(!dataBinding.apply.isEnabled());
     }
 
     /**
@@ -219,7 +257,14 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
                 setResult(Config.SUCCESS);
                 finish();
             } else if (requestCode == RequestConfig.APP_USER_LIST) {
-
+                applyToUser = (User) data.getSerializableExtra(Config.BEAN_SERIALIZABLE);
+                dataBinding.wrapper.setVisibility(View.VISIBLE);
+                primarySize = dataBinding.father.getLayoutParams().width;
+                ImageUtil.setImage(applyToUser.getPhoto(), dataBinding.father);
+                ImageUtil.setImage(applyToUser.getPhoto(), dataBinding.mather);
+                ImageUtil.setImage(applyToUser.getPhoto(), dataBinding.old);
+                ImageUtil.setImage(applyToUser.getPhoto(), dataBinding.small);
+                ImageUtil.setImage(applyToUser.getPhoto(), dataBinding.son);
             }
         }
     }

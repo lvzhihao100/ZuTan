@@ -18,6 +18,7 @@ import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.number.SecondBean;
 import com.eqdd.library.bean.number.ThirdBean;
 import com.eqdd.library.bean.room.DBUtil;
+import com.eqdd.library.utils.LogoutUtil;
 import com.gamerole.zutan.R;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class MineFragment extends BaseFragment {
         data.add(new ThirdBean(R.mipmap.error_picture, "我的钱包", "比特比 :0"));
         data.add(new ThirdBean(R.mipmap.error_picture, "我的收益", "比特比 :0"));
         data.add(new ThirdBean(R.mipmap.error_picture, "我的动态", "比特比 :0"));
+        data.add("退出");
         dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataBinding.recyclerView.addItemDecoration(new SectionDividerLineItemDecoration(getActivity(), 1, 3)
                 .setLeftDividerPadding(DensityUtil.percentW(20))
@@ -61,7 +63,7 @@ public class MineFragment extends BaseFragment {
             public void onInject(SecondBean data, IViewInjector injector) {
 
                 injector.text(R.id.tv_name, (String) data.getTwo())
-                        .imageCircle(R.id.iv_head, (Integer) data.getOne());
+                        .imageCircle(R.id.iv_head, data.getOne());
             }
         }).register(R.layout.library_list_item_18, new SlimInjector<ThirdBean>() {
             @Override
@@ -70,11 +72,19 @@ public class MineFragment extends BaseFragment {
                         .text(R.id.tv_right, (String) data.getThree())
                         .image(R.id.iv_head, (Integer) data.getOne());
             }
+        }).registerDefault(R.layout.library_list_item_exit, new SlimInjector() {
+            @Override
+            public void onInject(Object data, IViewInjector injector) {
+                injector.clicked(R.id.exit, v -> {
+                    LogoutUtil.logout();
+                });
+            }
         }).attachTo(dataBinding.recyclerView).updateData(data);
 
         DBUtil.getUserStatic(user -> {
             SecondBean dataItem = (SecondBean) slimAdapterEx.getDataItem(0);
             dataItem.setTwo(user.getName());
+            dataItem.setOne(user.getPhoto());
             slimAdapterEx.notifyItemChanged(0);
         });
         ItemClickSupport.addTo(dataBinding.recyclerView)

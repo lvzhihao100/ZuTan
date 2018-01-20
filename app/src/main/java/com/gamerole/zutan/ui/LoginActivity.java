@@ -17,6 +17,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.eqdd.common.base.App;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ImageUtil;
@@ -82,6 +83,9 @@ public class LoginActivity extends CommonActivity {
     @Override
     public void initData() {
         ARouter.getInstance().inject(this);
+        if (!SPUtil.getParam(Config.IDCARD, "").equals("")) {
+            autoLogin();
+        }
         inputs = new AndroidNextInputs();
         inputsAll = new AndroidNextInputs();
         access = new WidgetAccess(this);
@@ -94,36 +98,29 @@ public class LoginActivity extends CommonActivity {
                 .add(access.findEditText(R.id.et_password))
                 .with(StaticScheme.Required(), ValueScheme.RangeLength(6, 18));
 
-//        RxPermissions.getInstance(LoginActivity.this)
-//                .request(Manifest.permission.ACCESS_COARSE_LOCATION,
-//                        Manifest.permission.ACCESS_FINE_LOCATION,
-//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                        Manifest.permission.READ_EXTERNAL_STORAGE,
-//                        Manifest.permission.READ_PHONE_STATE)
-//                .subscribe(isGranted -> {
-//                    if (isGranted) {
-//                        ARouter.getInstance().build(RoutConfig.APP_SHOW_MAP).navigation();
-//                    } else {
-//                        PermissionTipUtil.tip(LoginActivity.this, "位置");
-//                    }
-//                });
+    }
+
+    private void autoLogin() {
+        DBUtil.getUserStatic(user -> {
+            initAndEnter(user, user.getToken());
+        });
+    }
+
+    private void initAndEnter(User user, String token) {
+        rongConnectService.getToken(token, (token1, isSuccess) -> {
+            if (isSuccess) {
+                user.setToken(token1);
+                DBUtil.insertUser(user);
+                JPushInterface.setAlias(App.INSTANCE, 0, user.getIdCard());
+                ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
+                finish();
+            }
+        });
     }
 
     @Override
     public void setView() {
-//        RxPermissions.getInstance(LoginActivity.this)
-//                .request(Manifest.permission.ACCESS_COARSE_LOCATION,
-//                        Manifest.permission.ACCESS_FINE_LOCATION,
-//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                        Manifest.permission.READ_EXTERNAL_STORAGE,
-//                        Manifest.permission.READ_PHONE_STATE)
-//                .subscribe(isGranted -> {
-//                    if (isGranted) {
-//                        ARouter.getInstance().build(RoutConfig.APP_SHOW_MAP).navigation();
-//                    } else {
-//                        PermissionTipUtil.tip(LoginActivity.this, "位置");
-//                    }
-//                });
+
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         final int screenHeight = metrics.heightPixels;
@@ -268,69 +265,62 @@ public class LoginActivity extends CommonActivity {
     }
 
     private void requestLogin() {
+        showLoading("帐号密码验证中...");
         OkGo.<HttpResult<User>>post(HttpConfig.BASE_URL + HttpConfig.LOGIN)
                 .params("idCard", dataBinding.etUsername.getText().toString())
                 .params("password", dataBinding.etPassword.getText().toString())
-                .execute(new DialogCallBack<HttpResult<User>>(LoginActivity.this) {
+                .execute(new JsonCallBack<HttpResult<User>>() {
                     @Override
                     public void onSuccess(Response<HttpResult<User>> response) {
                         HttpResult<User> httpResult = response.body();
-                        ToastUtil.showShort(httpResult.getMsg());
                         if (httpResult.getStatus() == 200) {
+                            showLoading("验证成功");
                             rongConnectAndLocalSave(httpResult.getItems());
                         }
+                    }
+
+                    @Override
+                    public void onError(Response<HttpResult<User>> response) {
+                        super.onError(response);
+                        hideLoading(R.string.COMMON_SERVER_ERROR);
                     }
                 });
     }
 
-    private void rongConnectAndLocalSave(User httpUser) {
-        DBUtil.insertUser(httpUser);
-        SPUtil.setParam(Config.IDCARD, httpUser.getIdCard());
-        DBUtil.getUserStatic(user -> {
-            if (user != null) {
-                if (!TextUtils.isEmpty(user.getToken())) {
-                    System.out.println("使用本地token" + token);
-                    rongConnectService.getToken(token, (token1, isSuccess) -> {
-                        if (isSuccess) {
-                            user.setToken(token1);
-                            DBUtil.insertUser(user);
-                            JPushInterface.setAlias(getApplicationContext(), 0, user.getIdCard());
-                            ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
-                            finish();
+    private void rongConnectAndLocalSave(User user) {
+        SPUtil.setParam(Config.IDCARD, user.getIdCard());
+        if (!TextUtils.isEmpty(user.getToken())) {
+            System.out.println("使用本地token" + token);
+            hideLoading("登陆中");
+            initAndEnter(user, user.getToken());
+        } else {
+            System.out.println("获取服务器token中。。。");
+            showLoading("获取服务器聊天令牌中...");
+            OkGo.<HttpResult<String>>post(HttpConfig.BASE_URL + HttpConfig.GET_RONG_TOKEN)
+                    .execute(new JsonCallBack<HttpResult<String>>() {
+                        @Override
+                        public void onSuccess(Response<HttpResult<String>> response) {
+                            HttpResult<String> httpResult = response.body();
+                            if (httpResult.getStatus() == 200) {
+                                if (httpResult.getItems() != null) {
+                                    token = httpResult.getItems();
+                                    System.out.println("获取到token");
+                                    showLoading("服务器聊天令牌获取成功");
+                                    hideLoading("登陆中");
+                                    initAndEnter(user, token);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onError(Response<HttpResult<String>> response) {
+                            super.onError(response);
+                            hideLoading(R.string.COMMON_SERVER_ERROR);
 
                         }
                     });
-                } else {
-                    System.out.println("获取服务器token中。。。");
-                    OkGo.<HttpResult<String>>post(HttpConfig.BASE_URL + HttpConfig.GET_RONG_TOKEN)
-                            .execute(new JsonCallBack<HttpResult<String>>() {
-                                @Override
-                                public void onSuccess(Response<HttpResult<String>> response) {
-                                    HttpResult<String> httpResult = response.body();
 
-                                    if (httpResult.getStatus() == 200) {
-                                        if (httpResult.getItems() != null) {
-                                            token = httpResult.getItems();
-                                            System.out.println("获取到token");
-                                            rongConnectService.getToken(token, (token1, isSuccess) -> {
-                                                user.setToken(token1);
-                                                DBUtil.insertUser(user);
-                                                ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
-                                                finish();
-                                            });
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onError(Response<HttpResult<String>> response) {
-                                    super.onError(response);
-                                }
-                            });
-
-                }
-            }
-        });
+        }
     }
 
     @Override

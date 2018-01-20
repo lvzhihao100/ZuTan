@@ -33,6 +33,8 @@ public class JpushReceiver extends BroadcastReceiver {
             System.out.println("接受到推送下来的自定义消息");
             String ex = bundle.getString(JPushInterface.EXTRA_EXTRA);
             System.out.println(ex);
+            String msg = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+            System.out.println(msg);
 
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             System.out.println("接受到推送下来的通知");

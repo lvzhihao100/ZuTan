@@ -22,25 +22,25 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
 
     @Override
     public void onAttach(Context context) {
-        System.out.println(getClass().getSimpleName() + "onAttach" + "on");
+//        System.out.println(getClass().getSimpleName() + "onAttach" + "on");
         super.onAttach(context);
-        System.out.println(getClass().getSimpleName() + "onAttach" + "off");
+//        System.out.println(getClass().getSimpleName() + "onAttach" + "off");
 
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        System.out.println(getClass().getSimpleName() + "onCreate" + "on");
+//        System.out.println(getClass().getSimpleName() + "onCreate" + "on");
 
         super.onCreate(savedInstanceState);
-        System.out.println(getClass().getSimpleName() + "onCreate" + "off");
+//        System.out.println(getClass().getSimpleName() + "onCreate" + "off");
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        System.out.println(getClass().getSimpleName() + "onCreateView" + "on");
+//        System.out.println(getClass().getSimpleName() + "onCreateView" + "on");
 
         if (fragmentCustom == null) {
             fragmentCustom = initBinding(DataBindingUtil.inflate(inflater, getLayoutId(), null, false));
@@ -56,58 +56,58 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
 
     @Override
     public void onStart() {
-        System.out.println(getClass().getSimpleName() + "onStart" + "on");
+//        System.out.println(getClass().getSimpleName() + "onStart" + "on");
 
         super.onStart();
-        System.out.println(getClass().getSimpleName() + "onStart" + "off");
+//        System.out.println(getClass().getSimpleName() + "onStart" + "off");
 
     }
 
     @Override
     public void onResume() {
-        System.out.println(getClass().getSimpleName() + "onResume" + "on");
+//        System.out.println(getClass().getSimpleName() + "onResume" + "on");
 
         super.onResume();
-        System.out.println(getClass().getSimpleName() + "onResume" + "off");
+//        System.out.println(getClass().getSimpleName() + "onResume" + "off");
 
     }
 
     @Override
     public void onPause() {
-        System.out.println(getClass().getSimpleName() + "onPause" + "on");
+//        System.out.println(getClass().getSimpleName() + "onPause" + "on");
 
         super.onPause();
-        System.out.println(getClass().getSimpleName() + "onPause" + "off");
+//        System.out.println(getClass().getSimpleName() + "onPause" + "off");
 
     }
 
     @Override
     public void onStop() {
-        System.out.println(getClass().getSimpleName() + "onStop" + "on");
+//        System.out.println(getClass().getSimpleName() + "onStop" + "on");
         super.onStop();
-        System.out.println(getClass().getSimpleName() + "onStop" + "off");
+//        System.out.println(getClass().getSimpleName() + "onStop" + "off");
     }
 
     @Override
     public void onDestroyView() {
-        System.out.println(getClass().getSimpleName() + "onDestroyView" + "on");
+//        System.out.println(getClass().getSimpleName() + "onDestroyView" + "on");
 
         super.onDestroyView();
-        System.out.println(getClass().getSimpleName() + "onDestroyView" + "off");
+//        System.out.println(getClass().getSimpleName() + "onDestroyView" + "off");
     }
 
     @Override
     public void onDestroy() {
-        System.out.println(getClass().getSimpleName() + "onDestroy" + "on");
+//        System.out.println(getClass().getSimpleName() + "onDestroy" + "on");
         super.onDestroy();
-        System.out.println(getClass().getSimpleName() + "onDestroy" + "off");
+//        System.out.println(getClass().getSimpleName() + "onDestroy" + "off");
     }
 
     @Override
     public void onDetach() {
-        System.out.println(getClass().getSimpleName() + "onDetach" + "on");
+//        System.out.println(getClass().getSimpleName() + "onDetach" + "on");
         super.onDetach();
-        System.out.println(getClass().getSimpleName() + "onDetach" + "off");
+//        System.out.println(getClass().getSimpleName() + "onDetach" + "off");
     }
 
     protected abstract int getLayoutId();

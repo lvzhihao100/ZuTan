@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.StreamCorruptedException;
 
 public class SPUtil {
@@ -30,12 +31,11 @@ public class SPUtil {
      * @param key
      * @param object
      */
-    public static void setParam(String key, Object object) {
+    public static void setParam(String key, Serializable object) {
         if (object == null) {
             return;
         }
-        SharedPreferences sp = App.INSTANCE.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
+        SharedPreferences.Editor editor = init();
 
 
         //创建字节输出流
@@ -100,6 +100,59 @@ public class SPUtil {
             }
         }
         return null;
+    }
+
+
+    private static SharedPreferences.Editor init() {
+        SharedPreferences sp = App.INSTANCE.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sp.edit();
+    }
+    public static boolean getParam(String key, boolean defValue) {
+        SharedPreferences sp = App.INSTANCE.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sp.getBoolean(key, defValue);
+    }
+
+    public static boolean setParam(String key, boolean value) {
+        SharedPreferences.Editor editor = init();
+        editor.putBoolean(key, value);
+        return editor.commit();
+    }
+
+    public static int getParam(String key, int defValue) {
+        SharedPreferences sp = App.INSTANCE.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sp.getInt(key, defValue);
+    }
+    public static boolean setParam(String key, int value) {
+        SharedPreferences.Editor editor = init();
+        editor.putInt(key, value);
+        return editor.commit();
+    }
+    public static String getParam(String key, String defValue) {
+        SharedPreferences sp = App.INSTANCE.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sp.getString(key, defValue);
+    }
+    public static boolean setParam(String key, String value) {
+        SharedPreferences.Editor editor = init();
+        editor.putString(key, value);
+        return editor.commit();
+    }
+    public static float getParam(String key, float defValue) {
+        SharedPreferences sp = App.INSTANCE.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sp.getFloat(key, defValue);
+    }
+    public static boolean setParam(String key, float value) {
+        SharedPreferences.Editor editor = init();
+        editor.putFloat(key, value);
+        return editor.commit();
+    }
+    public static long getParam(String key, long defValue) {
+        SharedPreferences sp = App.INSTANCE.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return sp.getLong(key, defValue);
+    }
+    public static boolean setParam(String key, long value) {
+        SharedPreferences.Editor editor = init();
+        editor.putLong(key, value);
+        return editor.commit();
     }
 }
 

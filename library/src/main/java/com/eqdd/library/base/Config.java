@@ -13,11 +13,18 @@ import java.util.List;
  */
 public class Config {
 
+    public static final int RELATION_FATHER = 0;
+    public static final int RELATION_MATHER = 1;
+    public static final int RELATION_ELDER = 2;
+    public static final int RELATION_YOUNGER = 3;
+    public static final int RELATION_SON = 4;
+
     public static final String USER_ACCOUNT = "userAccount";
     public static final String USER_IM_TOKEN = "userIMToken";
     public static final String IDCARD = "idCard";
     public static final String BEAN_SERIALIZABLE = "beanSerializable";
     public static final String ID = "id";
+    public static final String GUIDE_FIRST = "guideFirst";
     public static List<Scheme> schemes;
 
     public static final int SUCCESS = 1;

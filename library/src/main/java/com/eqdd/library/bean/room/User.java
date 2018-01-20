@@ -1,9 +1,10 @@
 package com.eqdd.library.bean.room;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+
+import java.io.Serializable;
 
 /**
  * @author吕志豪 .
@@ -13,7 +14,7 @@ import android.arch.persistence.room.PrimaryKey;
  * 简书 :http://www.jianshu.com/u/6e525b929aac
  */
 @Entity(indices = {@Index(value = "idCard", unique = true)})
-public class User {
+public class User implements Serializable{
 
     /**
      * address : string

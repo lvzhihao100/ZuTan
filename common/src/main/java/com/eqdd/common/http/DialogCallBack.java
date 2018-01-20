@@ -27,7 +27,6 @@ public abstract class DialogCallBack<T> extends JsonCallBack<T> {
     public void onFinish() {
         super.onFinish();
         baseActivity.hideLoading();
-
     }
 
     @Override

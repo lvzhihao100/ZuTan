@@ -34,6 +34,7 @@ public class RoutConfig {
     public static final String APP_ZU_CREATE = APP + "zu/create";
     public static final String APP_ZU_GUIDE = APP + "zu/guide";
     public static final String APP_ZU_ENTER = APP + "zu/enter";
+    public static final String APP_ZU_APPLY_LIST = APP + "zu/applyList";
 
     public static final String NIM = "/nim";
     public static final String NIM_APPLICATION = NIM + APPLICATION;

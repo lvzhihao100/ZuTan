@@ -52,7 +52,7 @@ import io.reactivex.Flowable;
 public class HomeListActivity extends CommonActivity {
 
 
-    private SlimAdapterEx slimAdapterEx;
+    private SlimAdapterEx<User> slimAdapterEx;
     private HomeListActivityCustom dataBinding;
     private MVCCoolHelper<List<User>> mvcHelper;
     private ModelRx2DataSource<User> dataSource;
@@ -88,15 +88,22 @@ public class HomeListActivity extends CommonActivity {
         }).attachTo(dataBinding.recyclerView).updateData(new ArrayList());
         ItemClickSupport.addTo(dataBinding.recyclerView)
                 .setOnItemClickListener((recyclerView, position, v) -> {
-                    ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeListActivity.this
-                            , new Pair(v.findViewById(R.id.iv_poster), "shared_image_")
-                            , new Pair(v.findViewById(R.id.tv_name), "shared_text_"));
+                    if (id > 0) {
+                        Intent intent = new Intent();
+                        intent.putExtra(Config.BEAN_SERIALIZABLE, slimAdapterEx.getDataItem(position));
+                        setResult(Config.SUCCESS, intent);
+                        finish();
+                    } else {
+                        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeListActivity.this
+                                , new Pair(v.findViewById(R.id.iv_poster), "shared_image_")
+                                , new Pair(v.findViewById(R.id.tv_name), "shared_text_"));
 //
-                    ARouter.getInstance()
-                            .build(RoutConfig.APP_USER_INFO)
-                            .withObject("user", slimAdapterEx.getDataItem(position))
-                            .withOptionsCompat(activityOptionsCompat)
-                            .navigation(HomeListActivity.this);
+                        ARouter.getInstance()
+                                .build(RoutConfig.APP_USER_INFO)
+                                .withObject("user", slimAdapterEx.getDataItem(position))
+                                .withOptionsCompat(activityOptionsCompat)
+                                .navigation(HomeListActivity.this);
+                    }
                 });
         mvcHelper = new MVCCoolHelper<>(dataBinding.coolRefreshView);
         dataSource = new ModelRx2DataSource<>(new ModelRx2DataSource.OnLoadSource() {
@@ -105,6 +112,7 @@ public class HomeListActivity extends CommonActivity {
                 pageNum = page - 1;
                 return OkGo.<HttpPageResult<User>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
                         .params("page", pageNum)
+                        .params("zuId", id)
                         .converter(new JsonConverter<HttpPageResult<User>>() {
                             @Override
                             public void test() {

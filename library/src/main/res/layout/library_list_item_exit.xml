@@ -1,0 +1,24 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".ListItemExitCustom" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/exit"
+            android:layout_width="400pt"
+            android:layout_height="80pt"
+            android:layout_marginBottom="40pt"
+            android:layout_marginTop="100pt"
+            android:background="@drawable/library_selector_5_enable_bt"
+            android:elevation="20pt"
+            android:gravity="center"
+            android:text="退出登陆"
+            android:textColor="@drawable/library_selector_5_enable_tv"
+            android:textSize="32pt"
+            android:translationZ="20pt" />
+    </LinearLayout>
+</layout>

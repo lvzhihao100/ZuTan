@@ -23,4 +23,5 @@ public class HttpConfig {
     public static final String ZU_USER_PAGE_LIST = "zu/findAllZuUser";
     public static final String APP_ZU_CREATE = "zu/create";
     public static final String APP_ZU_QUERY = "zu/query/";
+    public static final String APP_ZU_APPLY_ENTER = "zu/applyEnter";
 }

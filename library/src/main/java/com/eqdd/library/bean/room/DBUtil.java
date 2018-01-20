@@ -5,7 +5,15 @@ import android.arch.lifecycle.LiveData;
 import com.eqdd.common.utils.SPUtil;
 import com.eqdd.library.base.Config;
 
+import org.reactivestreams.Subscription;
+
+import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -32,22 +40,22 @@ public class DBUtil {
     }
 
     public static LiveData<User> getUser() {
-        return getUserByIdCard((String) SPUtil.getParam(Config.IDCARD));
+        return getUserByIdCard( SPUtil.getParam(Config.IDCARD,""));
     }
 
     public static Flowable<User> getUserFlow() {
-        return getUserByIdCardStatic((String) SPUtil.getParam(Config.IDCARD));
+        return getUserByIdCardStatic( SPUtil.getParam(Config.IDCARD,""));
     }
 
     public static void getUserStatic(BeanBack beanBack) {
-        Schedulers.io().scheduleDirect(() -> {
-
-            User user = DBHelper.getInstance().getDb().getUserEntityDao().getUserByIdCardStatic((String) SPUtil.getParam(Config.IDCARD));
-            beanBack.back(user);
-        });
+        Observable.just(1)
+                .subscribeOn(Schedulers.io())
+                .map(integer -> DBHelper.getInstance().getDb().getUserEntityDao().getUserByIdCardStatic( SPUtil.getParam(Config.IDCARD,"")))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(user -> beanBack.back(user));
     }
 
     public interface BeanBack {
-        public void back(User user);
+         void back(User user);
     }
 }

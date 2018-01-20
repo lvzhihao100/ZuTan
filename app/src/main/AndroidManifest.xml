@@ -70,7 +70,6 @@
         <activity android:name=".ui.home.AddFriendActivity" />
         <activity android:name=".ui.home.FriendListActivity" />
         <activity android:name=".ui.home.FriendInfoActivity" />
-        <activity android:name=".ui.home.FriendInfoTestActivity"  />
         <activity android:name=".ui.home.TransitionTestActivity" >
 
         </activity>
@@ -80,6 +79,7 @@
         <activity android:name=".ui.home.UserInfoActivity" />
         <activity android:name=".ui.home.CreateZuActivity" />
         <activity android:name=".ui.home.ZuGuideActivity" />
+        <activity android:name=".ui.home.ApplyListActivity" />
         <!--<activity android:name=".ScanFingerActivity" />-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
