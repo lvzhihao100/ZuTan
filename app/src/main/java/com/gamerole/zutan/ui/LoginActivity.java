@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ArrayAdapter;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -49,10 +50,13 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cn.jpush.android.api.JPushInterface;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by 吕志豪 on 17-10-13  下午2:48.
@@ -97,6 +101,21 @@ public class LoginActivity extends CommonActivity {
                 .with(StaticScheme.Required(), StaticScheme.ChineseIDCard())
                 .add(access.findEditText(R.id.et_password))
                 .with(StaticScheme.Required(), ValueScheme.RangeLength(6, 18));
+        ArrayList<String> tips = new ArrayList<>();
+        DBUtil.getAllUser()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(users -> {
+                    System.out.println(users);
+                    for (User user : users) {
+                        tips.add(user.getIdCard());
+                    }
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, tips);
+
+                    dataBinding.etUsername.setAdapter(arrayAdapter);
+
+                }, System.out::println);
+
 
     }
 
@@ -111,6 +130,7 @@ public class LoginActivity extends CommonActivity {
             if (isSuccess) {
                 user.setToken(token1);
                 DBUtil.insertUser(user);
+                SPUtil.setParam(Config.IDCARD, user.getIdCard());
                 JPushInterface.setAlias(App.INSTANCE, 0, user.getIdCard());
                 ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
                 finish();
@@ -276,6 +296,9 @@ public class LoginActivity extends CommonActivity {
                         if (httpResult.getStatus() == 200) {
                             showLoading("验证成功");
                             rongConnectAndLocalSave(httpResult.getItems());
+                        } else {
+                            hideLoading(httpResult.getMsg());
+
                         }
                     }
 
@@ -288,7 +311,6 @@ public class LoginActivity extends CommonActivity {
     }
 
     private void rongConnectAndLocalSave(User user) {
-        SPUtil.setParam(Config.IDCARD, user.getIdCard());
         if (!TextUtils.isEmpty(user.getToken())) {
             System.out.println("使用本地token" + token);
             hideLoading("登陆中");
@@ -309,6 +331,9 @@ public class LoginActivity extends CommonActivity {
                                     hideLoading("登陆中");
                                     initAndEnter(user, token);
                                 }
+                            } else {
+                                hideLoading(httpResult.getMsg());
+
                             }
                         }
 

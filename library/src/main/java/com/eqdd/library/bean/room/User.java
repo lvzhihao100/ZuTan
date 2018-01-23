@@ -146,4 +146,23 @@ public class User implements Serializable{
     public void setSex(String sex) {
         this.sex = sex;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", birth='" + birth + '\'' +
+                ", faceToken='" + faceToken + '\'' +
+                ", facesetToken='" + facesetToken + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", race='" + race + '\'' +
+                ", sex='" + sex + '\'' +
+                ", token='" + token + '\'' +
+                ", photo='" + photo + '\'' +
+                ", zuId=" + zuId +
+                '}';
+    }
 }

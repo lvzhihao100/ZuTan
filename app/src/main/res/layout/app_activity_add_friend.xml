@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class=".AddFriendActivityCustom">
 
@@ -16,29 +17,28 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="500pt"
-                android:layout_height="300pt"
+                android:layout_height="400pt"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20pt">
+                android:layout_marginTop="20pt"
+                app:cardBackgroundColor="@color/library_orange"
+                app:cardCornerRadius="40pt"
+                app:cardElevation="40pt">
 
-                <RelativeLayout
-                    android:id="@+id/rl_card"
-                    android:layout_width="450pt"
-                    android:layout_height="310pt"
+                <ImageView
+                    android:id="@+id/iv_photo"
+                    android:layout_width="230pt"
+                    android:layout_height="230pt"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10pt"
-                    android:background="@mipmap/app_id_card_exam">
-
-                    <ImageView
-                        android:id="@+id/iv_photo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </RelativeLayout>
+                    android:layout_margin="50pt"
+                    android:src="@mipmap/app_cute_girl" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
+                    android:layout_margin="20pt"
                     android:text="请上传头像"
+                    android:textColor="@color/common_white"
                     android:textSize="30pt" />
             </android.support.v7.widget.CardView>
 
@@ -47,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardView"
+                android:layout_marginTop="20pt"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -182,14 +183,13 @@
                         android:textColor="@color/common_gray8"
                         android:textSize="24pt" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/et_race"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:gravity="center_vertical|start"
                         android:hint="未知"
-
                         android:lines="1"
                         android:nextFocusDown="@id/et_address"
                         android:textColor="@android:color/black"
@@ -233,7 +233,7 @@
                 android:layout_below="@id/ll_edit"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20pt"
-                android:background="@drawable/library_shape_3_gradient_14"
+                android:background="@drawable/library_selector_5_enable_bt"
                 android:elevation="10dp"
                 android:text="提交"
                 android:textColor="@color/common_white"

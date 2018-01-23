@@ -90,14 +90,6 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
             ARouter.getInstance().build(RoutConfig.APP_ZU_CREATE).navigation(ZuGuideActivity.this, RequestConfig.APP_ZU_CREATE);
 
         });
-//        RxTextView.textChangeEvents(dataBinding.etZuId)
-//                .subscribe(textViewTextChangeEvent -> {
-//                    if (textViewTextChangeEvent.count() > 0) {
-//                        dataBinding.add.setEnabled(true);
-//                    } else {
-//                        dataBinding.add.setEnabled(false);
-//                    }
-//                });
         RxTextView.textChangeEvents(dataBinding.etZuId)
                 .filter(textViewTextChangeEvent -> textViewTextChangeEvent.count() > 0)
                 .debounce(800, TimeUnit.MILLISECONDS)
@@ -108,7 +100,8 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
                     dataBinding.appProgressbar.setVisibility(View.VISIBLE);
                 })
                 .flatMap(textViewTextChangeEvent ->
-                        OkGo.<HttpResult<Zu>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY + textViewTextChangeEvent.text())
+                        OkGo.<HttpResult<Zu>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY)
+                                .params("id", Long.parseLong(textViewTextChangeEvent.text().toString()))
                                 .converter(new JsonConverter<HttpResult<Zu>>() {
                                     @Override
                                     public void test() {
@@ -148,6 +141,7 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
         });
         DBUtil.getUserStatic(user -> {
             ImageUtil.setImage(user.getPhoto(), dataBinding.me);
+
         });
         dataBinding.wrapper.setVisibility(View.GONE);
 //        Random random = new Random(System.currentTimeMillis());

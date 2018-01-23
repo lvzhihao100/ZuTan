@@ -58,19 +58,56 @@ public class UserInfoActivity extends CommonActivity {
         getWindow().setSharedElementEnterTransition(initSharedElementEnterTransition());
         getWindow().setSharedElementExitTransition(null);
         getWindow().setSharedElementReturnTransition(null);
-        getWindow().setReturnTransition(TransitionInflater.from(this).inflateTransition(R.transition.app_return_slide));
+        getWindow().setReturnTransition(null);
+//        getWindow().setReturnTransition(initReturnTransition());
+    }
+
+    private Transition initReturnTransition() {
+        Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.app_return_slide);
+        transition.addListener(new Transition.TransitionListener() {
+            @Override
+            public void onTransitionStart(Transition transition) {
+                transition.removeListener(this);
+//                Animator circularReveal = ViewAnimationUtils.createCircularReveal(dataBinding.rlPhoto, dataBinding.rlPhoto.getWidth() / 2, dataBinding.rlPhoto.getHeight() / 2
+//                        , Math.max(dataBinding.rlPhoto.getWidth(), dataBinding.rlPhoto.getHeight()), DensityUtil.percentW(180));
+////                dataBinding.ivHead.setBackgroundColor(getResources().getColor(R.color.library_orange));
+//                circularReveal.setDuration(2000);
+//                circularReveal.start();
+            }
+
+            @Override
+            public void onTransitionEnd(Transition transition) {
+
+            }
+
+            @Override
+            public void onTransitionCancel(Transition transition) {
+
+            }
+
+            @Override
+            public void onTransitionPause(Transition transition) {
+
+            }
+
+            @Override
+            public void onTransitionResume(Transition transition) {
+
+            }
+        });
+        return transition;
     }
 
     private Transition initSharedElementEnterTransition() {
-        final Transition sharedTransition = TransitionInflater.from(this).inflateTransition(R.transition.app_changebounds_with_arcmotion);
+        Transition sharedTransition = TransitionInflater.from(this).inflateTransition(R.transition.app_changebounds_with_arcmotion);
         sharedTransition.addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
-                sharedTransition.removeListener(this);
+                transition.removeListener(this);
                 ImageUtil.setImage(user.getPhoto(), dataBinding.ivHead);
                 Animator circularReveal = ViewAnimationUtils.createCircularReveal(dataBinding.ivHead, dataBinding.ivHead.getWidth() / 2, dataBinding.ivHead.getHeight() / 2
-                        , DensityUtil.percentW(166), Math.max(dataBinding.ivHead.getWidth(), dataBinding.ivHead.getHeight()));
-                dataBinding.ivHead.setBackgroundColor(getResources().getColor(R.color.library_orange));
+                        , DensityUtil.percentW(180), Math.max(dataBinding.ivHead.getWidth(), dataBinding.ivHead.getHeight()));
+//                dataBinding.ivHead.setBackgroundColor(getResources().getColor(R.color.library_orange));
                 circularReveal.setDuration(2000);
                 circularReveal.addListener(new Animator.AnimatorListener() {
                     @Override
@@ -81,7 +118,7 @@ public class UserInfoActivity extends CommonActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
 
-                        dataBinding.imageBg.setVisibility(View.INVISIBLE);
+//                        dataBinding.imageBg.setVisibility(View.INVISIBLE);
                     }
 
                     @Override

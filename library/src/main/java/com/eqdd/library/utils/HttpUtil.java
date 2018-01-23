@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.eqdd.common.base.BaseActivity;
+import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.R;
 import com.eqdd.library.bean.CompareFaceBean;
 import com.eqdd.library.bean.DetectBean;
@@ -178,6 +179,20 @@ public class HttpUtil {
 
                     }
                 });
+    }
+
+    public static void randomPhoto(ResultObjectBack resultObjectBack) {
+        OkGo.<HttpResult>get(HttpConfig.BASE_URL + HttpConfig.APP_RANDOM_PHOTO)
+                .execute(new JsonCallBack<HttpResult>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult> response) {
+                        HttpResult httpResult = response.body();
+                        if (httpResult.getStatus() == 200) {
+                            resultObjectBack.onResultBack(200, httpResult.getItems());
+                        }
+                    }
+                });
+
     }
 
     public interface CheckIDCardBack {

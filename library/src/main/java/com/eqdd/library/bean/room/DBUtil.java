@@ -7,6 +7,8 @@ import com.eqdd.library.base.Config;
 
 import org.reactivestreams.Subscription;
 
+import java.util.List;
+
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
@@ -41,6 +43,9 @@ public class DBUtil {
 
     public static LiveData<User> getUser() {
         return getUserByIdCard( SPUtil.getParam(Config.IDCARD,""));
+    }
+    public static Flowable<List<User>> getAllUser() {
+        return DBHelper.getInstance().getDb().getUserEntityDao().getAll();
     }
 
     public static Flowable<User> getUserFlow() {

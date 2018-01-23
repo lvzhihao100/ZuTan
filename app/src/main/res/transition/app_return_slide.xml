@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="800">
-    <slide android:slideEdge="right">
+    android:duration="2000">
+    <slide
+        android:duration="1000"
+        android:slideEdge="right"
+        android:startDelay="1000">
         <targets>
-            <target android:targetId="@id/toolBar"></target>
-            <target android:targetId="@android:id/statusBarBackground"></target>
+            <target android:targetId="@id/toolBar" />
+            <target android:targetId="@android:id/statusBarBackground" />
         </targets>
     </slide>
 
     <slide
+        android:duration="500"
         android:slideEdge="right"
-        android:startDelay="500">
+        android:startDelay="1500">
         <targets>
-            <target android:targetId="@id/viewPager"></target>
+            <target android:targetId="@id/viewPager" />
         </targets>
     </slide>
-    <slide
-        android:slideEdge="right"
-        android:startDelay="300">
+    <!--<slide-->
+    <!--android:slideEdge="right"-->
+    <!--android:startDelay="300">-->
+    <!--<targets>-->
+    <!--<target android:targetId="@+id/rl_photo" />-->
+    <!--</targets>-->
+    <!--</slide>-->
+    <explode >
         <targets>
             <target android:targetId="@+id/rl_photo" />
         </targets>
-    </slide>
-    <fade android:startDelay="300">
+    </explode>
+    <fade
+        android:duration="700"
+        android:startDelay="1300">
         <targets>
-            <target android:targetId="@+id/send_msg"></target>
+            <target android:targetId="@+id/send_msg" />
         </targets>
     </fade>
 </transitionSet>

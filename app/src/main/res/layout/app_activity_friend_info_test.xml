@@ -62,22 +62,21 @@
         <RelativeLayout
             android:id="@+id/rl_photo"
             android:layout_width="match_parent"
-            android:layout_height="412pt"
+            android:layout_height="360pt"
             android:layout_below="@id/toolBar"
             android:transitionGroup="true">
 
             <View
                 android:id="@+id/image_bg"
                 android:layout_width="match_parent"
-                android:layout_height="412pt"
-                android:background="@color/color_orange" />
+                android:layout_height="360pt"
+                android:background="@color/library_orange" />
 
             <ImageView
                 android:id="@+id/iv_head"
                 android:layout_width="match_parent"
-                android:layout_height="412pt"
+                android:layout_height="360pt"
                 android:layout_centerInParent="true"
-                android:scaleType="centerCrop"
                 android:transitionName="shared_image_" />
 
             <FrameLayout

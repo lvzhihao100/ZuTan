@@ -14,4 +14,5 @@ public class RequestConfig {
     public static final int APP_ZU_ENTER = 1003;
     public static final int APP_ZU_GUIDE = 1004;
     public static final int APP_USER_LIST = 1005;
+    public static final int APP_ADD_FRIEND = 1006;
 }

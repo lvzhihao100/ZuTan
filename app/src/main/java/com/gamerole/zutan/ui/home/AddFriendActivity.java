@@ -14,9 +14,11 @@ import com.eqdd.common.utils.ImageUtil;
 import com.eqdd.common.utils.PicUtil;
 import com.eqdd.common.utils.StringSelectUtil;
 import com.eqdd.common.utils.ToastUtil;
+import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
+import com.eqdd.library.utils.HttpUtil;
 import com.gamerole.zutan.AddFriendActivityCustom;
 import com.gamerole.zutan.R;
 import com.luck.picture.lib.PictureSelector;
@@ -39,7 +41,6 @@ import java.util.List;
  */
 @Route(path = RoutConfig.APP_ADD_FRIEND)
 public class AddFriendActivity extends CommonFullTitleActivity {
-
     private AddFriendActivityCustom dataBinding;
     private String filepath;
     private String msg;
@@ -66,10 +67,12 @@ public class AddFriendActivity extends CommonFullTitleActivity {
 
     @Override
     public void setView() {
-        ClickUtil.click(dataBinding.rlCard,() -> {
-            PicUtil.cut(this, 640, 412);
+        HttpUtil.randomPhoto((status, object) -> {
+            ImageUtil.setCircleImage(object, dataBinding.ivPhoto);
         });
-
+        ClickUtil.click(dataBinding.ivPhoto, () -> {
+            PicUtil.cut(this, 640, 360);
+        });
         ClickUtil.click(dataBinding.btSubmit, () -> {
             if (checkParams()) {
                 OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.ADD_FRIEND)
@@ -86,6 +89,7 @@ public class AddFriendActivity extends CommonFullTitleActivity {
                                 HttpResult httpResult = response.body();
                                 ToastUtil.showShort(httpResult.getMsg());
                                 if (httpResult.getStatus() == 200) {
+                                    setResult(Config.SUCCESS);
                                     finish();
                                 }
                             }
@@ -112,13 +116,13 @@ public class AddFriendActivity extends CommonFullTitleActivity {
                     instance.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                     String date = new SimpleDateFormat("yyyy-MM-dd").format(instance.getTime());
                     dataBinding.etBirth.setText(date);
-                }, -1, -1, -1);
+                }, 1990, 1, 1);
             }
             dateChoose.show();
         });
         ClickUtil.click(dataBinding.etRace, () -> {
             if (raceChoose == null) {
-                raceChoose = StringSelectUtil.single(this, R.array.common_sex, (dialog, itemView, which, text) -> {
+                raceChoose = StringSelectUtil.single(this, R.array.common_race, (dialog, itemView, which, text) -> {
                     dataBinding.etRace.setText(text);
                     return true;
                 });
@@ -142,7 +146,7 @@ public class AddFriendActivity extends CommonFullTitleActivity {
             List<LocalMedia> localMedias = PictureSelector.obtainMultipleResult(data);
             filepath = localMedias.get(0).isCompressed() ?
                     localMedias.get(0).getCompressPath() : localMedias.get(0).getPath();
-            ImageUtil.setImage(filepath, dataBinding.ivPhoto);
+            ImageUtil.setCircleImage(filepath, dataBinding.ivPhoto);
         }
     }
 }

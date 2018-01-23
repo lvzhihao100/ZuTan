@@ -1,5 +1,6 @@
 package com.gamerole.zutan.ui.home;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,17 +20,15 @@ import com.eqdd.common.mvchelper.ModelRx2DataSource;
 import com.eqdd.common.mvchelper.Rx2DataSource;
 import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ToastUtil;
+import com.eqdd.library.base.Config;
+import com.eqdd.library.base.RequestConfig;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.Friend;
-import com.eqdd.library.bean.room.DBUtil;
-import com.eqdd.library.bean.room.User;
-import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpPageResult;
 import com.gamerole.zutan.FriendListActivityCustom;
 import com.gamerole.zutan.R;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
 import com.lzy.okrx2.adapter.FlowableBody;
 import com.shizhefei.mvc.MVCCoolHelper;
 
@@ -58,7 +57,7 @@ public class FriendListActivity extends CommonActivity {
     public void initBinding() {
         dataBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_friend_list);
         ClickUtil.click(dataBinding.tvAdd, () -> {
-            ARouter.getInstance().build(RoutConfig.APP_ADD_FRIEND).navigation();
+            ARouter.getInstance().build(RoutConfig.APP_ADD_FRIEND).navigation(FriendListActivity.this, RequestConfig.APP_ADD_FRIEND);
         });
     }
 
@@ -96,7 +95,7 @@ public class FriendListActivity extends CommonActivity {
             @Override
             public Flowable<List> loadSource(int page, Rx2DataSource.DoneActionRegister register) {
                 pageNum = page - 1;
-                return OkGo.<HttpPageResult<Friend>>post(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
+                return OkGo.<HttpPageResult<Friend>>get(HttpConfig.BASE_URL + HttpConfig.FRIEND_PAGE_LIST)
                         .params("page", pageNum)
                         .converter(new JsonConverter<HttpPageResult<Friend>>() {
                             @Override
@@ -137,5 +136,13 @@ public class FriendListActivity extends CommonActivity {
 //                    });
 //        });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RequestConfig.APP_ADD_FRIEND && resultCode == Config.SUCCESS) {
+            mvcHelper.refresh();
+        }
     }
 }

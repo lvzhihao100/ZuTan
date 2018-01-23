@@ -45,6 +45,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseVi
         setView();
     }
 
+    public void setNetLoadingView(INetLoadingView netLoadingView) {
+        this.netLoadingView = netLoadingView;
+    }
 
     /**
      * 绑定初始化,加载网络数据时，root要赋值

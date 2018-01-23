@@ -11,16 +11,19 @@ import com.eqdd.common.adapter.slimadapter.SlimInjector;
 import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.BaseFragment;
 import com.eqdd.common.box.ItemDecorate.SectionDividerLineItemDecoration;
+import com.eqdd.common.http.JsonCallBack;
 import com.eqdd.common.utils.DensityUtil;
 import com.eqdd.library.LibraryOnlyRecyclerViewCustom;
-import com.eqdd.library.LibraryRecyclerViewCustom;
-import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
+import com.eqdd.library.bean.Zu;
 import com.eqdd.library.bean.number.SecondBean;
 import com.eqdd.library.bean.number.ThirdBean;
 import com.eqdd.library.bean.room.DBUtil;
-import com.eqdd.library.bean.room.User;
+import com.eqdd.library.http.HttpConfig;
+import com.eqdd.library.http.HttpResult;
 import com.gamerole.zutan.R;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 
@@ -48,10 +51,8 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
         ArrayList<Object> data = new ArrayList<>();
-
-        data.add(new ThirdBean(R.mipmap.error_picture, "我参与的家族", ""));
+        data.add(new ThirdBean(R.mipmap.error_picture, "我的家族", ""));
         data.add(new ThirdBean(R.mipmap.error_picture, "我的友圈", ""));
         data.add(new ThirdBean(R.mipmap.error_picture, "新成员", ""));
         dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -59,22 +60,21 @@ public class HomeFragment extends BaseFragment {
                 .setLeftDividerPadding(DensityUtil.percentW(20))
                 .setRightDividerPadding(0)
                 .setSectionHeight(DensityUtil.percentW(12)));
-        SlimAdapterEx.create().register(R.layout.library_list_item_17_head, new SlimInjector<SecondBean>() {
+        SlimAdapterEx slimAdapterEx = SlimAdapterEx.create().register(R.layout.library_list_item_17_head, new SlimInjector<SecondBean>() {
             @Override
             public void onInject(SecondBean data, IViewInjector injector) {
 
                 injector.text(R.id.tv_name, (String) data.getTwo())
-                        .imageCircle(R.id.iv_head, (Integer) data.getOne());
+                        .imageCircle(R.id.iv_head, data.getOne());
             }
         }).register(R.layout.library_list_item_18, new SlimInjector<ThirdBean>() {
             @Override
             public void onInject(ThirdBean data, IViewInjector injector) {
                 injector.text(R.id.tv_left, (String) data.getTwo())
                         .text(R.id.tv_right, (String) data.getThree())
-                        .image(R.id.iv_head, (Integer) data.getOne());
+                        .imageCircle(R.id.iv_head, data.getOne());
             }
         }).attachTo(dataBinding.recyclerView).updateData(data);
-
         ItemClickSupport.addTo(dataBinding.recyclerView)
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     if (position == 0) {
@@ -82,9 +82,22 @@ public class HomeFragment extends BaseFragment {
                     } else if (position == 1) {
                         ARouter.getInstance().build(RoutConfig.APP_FRIEND_LIST).navigation();
                     } else if (position == 2) {
-
+                        ARouter.getInstance().build(RoutConfig.APP_ZU_APPLY_LIST).navigation();
                     }
                 });
+        DBUtil.getUserStatic(user -> OkGo.<HttpResult<Zu>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY)
+                .params("id", user.getZuId())
+                .execute(new JsonCallBack<HttpResult<Zu>>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult<Zu>> response) {
+                        HttpResult<Zu> httpResult = response.body();
+                        if (httpResult.getStatus() == 200) {
+                            ThirdBean dataItem = (ThirdBean) slimAdapterEx.getDataItem(0);
+                            dataItem.setOne(httpResult.getItems().getLogo());
+                            slimAdapterEx.notifyItemChanged(0);
+                        }
+                    }
+                }));
 
     }
 

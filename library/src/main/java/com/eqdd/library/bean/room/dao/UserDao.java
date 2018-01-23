@@ -23,7 +23,7 @@ import io.reactivex.Flowable;
 @Dao
 public interface UserDao {
     @Query("SELECT * FROM user")
-    List<User> getAll();
+    Flowable<List<User>> getAll();
 
     @Query("SELECT * FROM user WHERE idCard = (:idCard)")
     LiveData<User> getUserByIdCard(String idCard);

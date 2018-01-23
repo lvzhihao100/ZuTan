@@ -16,11 +16,9 @@
         <ImageView
             android:id="@+id/iv_poster"
             android:layout_width="match_parent"
-            android:layout_height="412pt"
-            android:padding="40pt"
+            android:layout_height="360pt"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:paddingBottom="1dp" />
+            android:layout_margin="40pt" />
 
         <View
             android:id="@+id/view_avatar_overlay"

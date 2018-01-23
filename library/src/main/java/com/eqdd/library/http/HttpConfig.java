@@ -7,6 +7,7 @@ package com.eqdd.library.http;
 public class HttpConfig {
 
     public final static String BASE_URL = "http://192.168.1.137:8069/";
+//    public final static String BASE_URL = "http://47.93.6.211:8069/";
     public final static String REGISTER = "user/register";
     public final static String LOGIN = "user/login";
     public final static String QUERY_USER_BY_IDCARD = "user/queryFaceToken";
@@ -16,12 +17,14 @@ public class HttpConfig {
     public static final String GET_USERS_LOCATION = "user/locations/";
 
     public static final String ADD_FRIEND = "friend/add";
-    public static final String FRIEND_PAGE_LIST = "friend/findAll/";
+    public static final String FRIEND_PAGE_LIST = "friend/findAll";
     public static final String NIM_CREATE = "https://api.netease.im/nimserver/user/create.action";
     public static final String GET_RONG_TOKEN = "rongTalk/token/get";
     public static final String GET_FACE_TOKEN = "face/token/get";
     public static final String ZU_USER_PAGE_LIST = "zu/findAllZuUser";
     public static final String APP_ZU_CREATE = "zu/create";
-    public static final String APP_ZU_QUERY = "zu/query/";
+    public static final String APP_ZU_QUERY = "zu/query";
     public static final String APP_ZU_APPLY_ENTER = "zu/applyEnter";
+    public static final String APP_RANDOM_PHOTO = "app/randomPhoto";
+    public static final String APP_APPLY_USER = "zu/apply";
 }
