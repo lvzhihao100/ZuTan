@@ -4,7 +4,7 @@
 
     <application >
 
-        <activity android:name=".ui.ListItemActivity" />
+        <activity android:name=".ui.ListItemActivity" android:theme="@style/common_AppTheme_Yellow"/>
     </application>
 
 </manifest>

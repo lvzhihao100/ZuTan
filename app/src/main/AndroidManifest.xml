@@ -25,8 +25,11 @@
         android:label="@string/app_label_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/common_AppTheme_Yellow"
-        tools:replace="android:label">
+        tools:replace="android:icon, android:theme,android:label"
+        android:theme="@style/common_BaseTheme">
+        <!--<meta-data-->
+            <!--android:name="Gang-AppKey"-->
+            <!--android:value="Cc14pVb4pfDC3+ruDEbiog==" />-->
         <receiver
             android:name=".receiver.JpushReceiver"
             android:enabled="true">
@@ -41,49 +44,54 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </receiver>
-        <activity android:name=".ui.GuideActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name=".ui.GuideActivity" android:theme="@style/common_AppTheme_Yellow">
 
         </activity>
-        <activity android:name=".ui.ScanFingerActivity">
+        <activity android:name=".ui.LoginActivity" android:theme="@style/common_AppTheme_Yellow">
+
+        </activity>
+        <activity android:name=".ui.ScanFingerActivity" android:theme="@style/common_AppTheme_Yellow">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
 
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".ui.StructureListActivity" />
-        <activity android:name=".ui.AddRelativeActivity" />
-        <activity android:name=".ui.TestActivity">
+        <activity android:name=".ui.RegisterActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.StructureListActivity" android:theme="@style/common_AppTheme_Yellow" />
+        <activity android:name=".ui.AddRelativeActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.TestActivity" android:theme="@style/common_AppTheme_Yellow">
 
         </activity>
-        <activity android:name=".ui.ShowMapActivity" />
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.AddSimpleRelativeActivity" />
-        <activity android:name=".ui.home.AddFriendActivity" />
-        <activity android:name=".ui.home.FriendListActivity" />
-        <activity android:name=".ui.home.FriendInfoActivity" />
-        <activity android:name=".ui.home.TransitionTestActivity" >
+        <activity android:name=".ui.ShowMapActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.MainActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.AddSimpleRelativeActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.home.AddFriendActivity" android:theme="@style/common_AppTheme_Yellow" />
+        <activity android:name=".ui.home.FriendListActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.home.FriendInfoActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.home.TransitionTestActivity" android:theme="@style/common_AppTheme_Yellow">
 
         </activity>
-        <activity android:name=".ui.home.HomeListActivity" >
+        <activity android:name=".ui.home.HomeListActivity" android:theme="@style/common_AppTheme_Yellow">
 
         </activity>
-        <activity android:name=".ui.home.UserInfoActivity" />
-        <activity android:name=".ui.home.CreateZuActivity" />
-        <activity android:name=".ui.home.ZuGuideActivity" />
-        <activity android:name=".ui.home.ApplyListActivity" />
+        <activity android:name=".ui.home.UserInfoActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.home.CreateZuActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.home.ZuGuideActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.home.ApplyListActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.home.ZuInfoActivity" android:theme="@style/common_AppTheme_Yellow_TRANS"/>
+        <activity android:name=".ui.SplashActivity" android:theme="@style/common_AppTheme_Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!--<activity android:name=".ScanFingerActivity" />-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="26918ca145759f6881797c317365adaa" />
         <service android:name="com.amap.api.location.APSService" />
+        <service android:name=".service.LocationService" />
     </application>
 </manifest>

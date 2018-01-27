@@ -1,0 +1,125 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ZuInfoActivityCustom">
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:colorPrimary"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:translationZ="10pt">
+
+            <ImageView
+                android:layout_width="80pt"
+                android:layout_height="80pt"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/common_back_white" />
+        </LinearLayout>
+
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/theme_yellow_primary"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/theme_yellow_primary"
+                app:expandedTitleMarginBottom="70pt"
+                app:expandedTitleMarginEnd="70pt"
+                app:expandedTitleMarginStart="70pt"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:statusBarScrim="@color/theme_yellow_primary_dark">
+
+                <ImageView
+                    android:id="@+id/iv_poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="360pt"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"
+                    tools:src="@mipmap/app_login_bg" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_margin="0pt"
+                    android:padding="0pt"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:titleMarginStart="80pt" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_white"
+            android:fitsSystemWindows="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/common_white"
+                android:orientation="vertical">
+
+                <com.coorchice.library.SuperTextView
+                    android:id="@+id/tv_watch_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:colorPrimary"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="2"
+                    android:paddingBottom="30pt"
+                    android:paddingStart="60pt"
+                    android:textSize="26pt"
+                    android:textStyle="bold"
+                    app:solid="#00ffffff"
+                    app:text_fill_color="@color/white"
+                    app:text_stroke="true"
+                    app:text_stroke_color="@color/hint_color"
+                    app:text_stroke_width="1dp"
+                    tools:text="族群名字" />
+
+                <TextView
+                    android:id="@+id/tv_member"
+                    android:layout_width="match_parent"
+                    android:layout_height="70pt"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="20pt"
+                    android:text="组成员"
+                    android:textSize="30pt" />
+                <TextView
+                    android:id="@+id/tv_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="70pt"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="20pt"
+                    android:text="地图"
+                    android:textSize="30pt" />
+
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</layout>

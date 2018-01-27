@@ -23,16 +23,13 @@ import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RequestConfig;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.bean.Friend;
 import com.eqdd.library.bean.room.DBUtil;
-import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.library.bean.room.User;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpPageResult;
 import com.gamerole.zutan.HomeListActivityCustom;
 import com.gamerole.zutan.R;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
 import com.lzy.okrx2.adapter.FlowableBody;
 import com.shizhefei.mvc.MVCCoolHelper;
 
@@ -58,7 +55,7 @@ public class HomeListActivity extends CommonActivity {
     private ModelRx2DataSource<User> dataSource;
     private int pageNum;
     @Autowired
-    int id;
+    long id;
 
     @Override
     public void initBinding() {

@@ -1,4 +1,7 @@
-package com.eqdd.library.bean;
+package com.eqdd.library.bean.room;
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 /**
  * @author吕志豪 .
@@ -7,7 +10,7 @@ package com.eqdd.library.bean;
  * E-Mail：1030753080@qq.com
  * 简书 :http://www.jianshu.com/u/6e525b929aac
  */
-
+@Entity
 public class Zu {
 
 
@@ -21,21 +24,21 @@ public class Zu {
      * createUserId : 3
      * holderUserId : 3
      */
-
-    private int id;
+    @PrimaryKey
+    private Long id;
     private String name;
     private String watchword;
     private String logo;
     private String createTime;
     private String poster;
-    private int createUserId;
-    private int holderUserId;
+    private long createUserId;
+    private long holderUserId;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,7 +50,7 @@ public class Zu {
         this.name = name;
     }
 
-    public Object getWatchword() {
+    public String getWatchword() {
         return watchword;
     }
 
@@ -79,19 +82,20 @@ public class Zu {
         this.poster = poster;
     }
 
-    public int getCreateUserId() {
+    public long getCreateUserId() {
         return createUserId;
     }
 
-    public void setCreateUserId(int createUserId) {
+    public void setCreateUserId(long createUserId) {
         this.createUserId = createUserId;
     }
 
-    public int getHolderUserId() {
+    public long getHolderUserId() {
         return holderUserId;
     }
 
-    public void setHolderUserId(int holderUserId) {
+
+    public void setHolderUserId(long holderUserId) {
         this.holderUserId = holderUserId;
     }
 }

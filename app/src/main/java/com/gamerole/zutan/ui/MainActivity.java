@@ -4,15 +4,25 @@ import android.databinding.DataBindingUtil;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.adapter.MyFragmentPagerAdapter;
 import com.eqdd.common.base.CommonActivity;
+import com.eqdd.common.http.JsonCallBack;
+import com.eqdd.library.Iservice.rongtalk.RongRefreshService;
 import com.eqdd.library.base.RoutConfig;
+import com.eqdd.library.bean.number.ThirdBean;
+import com.eqdd.library.bean.room.DBUtil;
+import com.eqdd.library.bean.room.Zu;
+import com.eqdd.library.http.HttpConfig;
+import com.eqdd.library.http.HttpResult;
 import com.gamerole.zutan.MainActivityCustom;
 import com.gamerole.zutan.R;
 import com.gamerole.zutan.fragment.HomeFragment;
 import com.gamerole.zutan.fragment.MineFragment;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 
@@ -20,6 +30,8 @@ import java.util.ArrayList;
 public class MainActivity extends CommonActivity {
 
     private MainActivityCustom dataBinding;
+    @Autowired
+    RongRefreshService rongRefreshService;
 
 
     @Override
@@ -29,6 +41,24 @@ public class MainActivity extends CommonActivity {
 
     @Override
     public void initData() {
+        ARouter.getInstance().inject(this);
+        DBUtil.getUser().observe(this, user -> {
+            rongRefreshService.setCurrentUser(user);
+            rongRefreshService.refreshUserCache(user);
+        });
+        DBUtil.getUserStatic(user -> OkGo.<HttpResult<Zu>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY)
+                .params("id", user.getZuId())
+                .execute(new JsonCallBack<HttpResult<Zu>>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult<Zu>> response) {
+                        HttpResult<Zu> httpResult = response.body();
+                        if (httpResult.getStatus() == 200) {
+                            Zu zu = httpResult.getItems();
+                            DBUtil.insertZu(zu);
+                        }
+                    }
+                }));
+
     }
 
     @Override

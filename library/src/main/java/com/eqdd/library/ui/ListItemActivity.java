@@ -8,8 +8,8 @@ import com.eqdd.common.adapter.slimadapter.SlimAdapterEx;
 import com.eqdd.common.adapter.slimadapter.SlimInjector;
 import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.CommonFullTitleActivity;
-import com.eqdd.library.R;
 import com.eqdd.library.LibraryRecyclerViewCustom;
+import com.eqdd.library.R;
 import com.eqdd.library.base.RoutConfig;
 
 import java.util.ArrayList;

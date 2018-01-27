@@ -1,6 +1,15 @@
 <resources>
 
+    <style name="common_BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
 
+    </style>
+    <style name="common_transformer" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/common_anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/common_anim_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/common_back_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/common_back_exit</item>
+    </style>
     <style name="common_AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/common_ColorPrimary</item>
@@ -15,6 +24,8 @@
         <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:titleTextAppearance">@style/common_Material_TextAppearance_Title</item>
+        <!--转场动画-->
+        <item name="android:windowAnimationStyle">@style/common_transformer</item>
 
     </style>
 
@@ -71,6 +82,23 @@
         <item name="android:statusBarColor">@color/common_theme_yellow_primary_dark</item>
         <item name="android:windowBackground">@color/common_theme_yellow_background</item>
         <item name="android:colorAccent">@color/common_theme_yellow_accent</item>
+    </style>
+
+    <style name="common_AppTheme_Yellow_TRANS" parent="common_AppTheme">
+        <item name="android:colorPrimary">@color/common_theme_yellow_primary</item>
+        <item name="android:colorPrimaryDark">@color/common_theme_yellow_primary</item>
+        <item name="android:textColorPrimary">@color/common_theme_yellow_text</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/common_theme_yellow_background</item>
+        <item name="android:colorAccent">@color/common_theme_yellow_accent</item>
+    </style>
+
+    <style name="common_AppTheme_Splash" parent="common_AppTheme">
+        <item name="android:background">@drawable/common_splash_bg</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="common_CDialog">

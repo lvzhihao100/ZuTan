@@ -14,7 +14,7 @@ public class HttpConfig {
     public final static String ADD_RELATIVE = "user/addRelative/";
     public final static String NET_INFO = "user/netInfo/";
     public final static String SIBLING_INFO = "user/relative/";
-    public static final String GET_USERS_LOCATION = "user/locations/";
+    public static final String GET_USERS_LOCATION = "user/locations";
 
     public static final String ADD_FRIEND = "friend/add";
     public static final String FRIEND_PAGE_LIST = "friend/findAll";
@@ -27,4 +27,9 @@ public class HttpConfig {
     public static final String APP_ZU_APPLY_ENTER = "zu/applyEnter";
     public static final String APP_RANDOM_PHOTO = "app/randomPhoto";
     public static final String APP_APPLY_USER = "zu/apply";
+    public static final String APP_AGREE_ENTER_ZU = "zu/dealApply";
+    public static final String RONG_GET_USER = "rongTalk/user/get";
+    public static final String RONG_GET_GROUP = "rongTalk/group/get";
+    public static final String RONG_GET_GROUP_USER = "rongTalk/groupUser/get";
+    public static final String APP_UPDATE_LOCATION = "user/updateLocation";
 }

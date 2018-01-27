@@ -99,6 +99,7 @@ dependencies {
 
     compile project(':library')
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
+
     /*##################融云聊天####################*/
     implementation 'com.github.lvzhihao100:MyIMKit:1.2.0'
     implementation 'com.github.lvzhihao100:MyCallKit:1.0'

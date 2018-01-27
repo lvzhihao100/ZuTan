@@ -18,17 +18,17 @@
 
         </activity>
         <activity android:name=".ViewPagerActivity">
-
-        </activity>
-        <activity android:name=".RecyclerViewMapActivity">
-
-        </activity>
-        <activity android:name=".RecyclerViewLayoutActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".RecyclerViewMapActivity">
+
+        </activity>
+        <activity android:name=".RecyclerViewLayoutActivity">
+
         </activity>
         <activity android:name=".MeizuItemDecorateActivity" >
 

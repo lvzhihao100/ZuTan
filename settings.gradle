@@ -1,1 +1,1 @@
-include ':app', ':common', ':library', ':rongtalk'/*, ':nim', ':uikit'*/
+include ':app', ':common', ':library', ':rongtalk'/*, ':GangSdk'*//*, ':nim', ':uikit'*/,'demo'

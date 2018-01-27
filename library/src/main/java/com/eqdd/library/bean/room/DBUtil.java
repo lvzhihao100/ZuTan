@@ -5,17 +5,11 @@ import android.arch.lifecycle.LiveData;
 import com.eqdd.common.utils.SPUtil;
 import com.eqdd.library.base.Config;
 
-import org.reactivestreams.Subscription;
-
 import java.util.List;
 
-import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -33,6 +27,12 @@ public class DBUtil {
         });
     }
 
+    public static void insertZu(Zu zu) {
+        Schedulers.io().scheduleDirect(() -> {
+            DBHelper.getInstance().getDb().getZuEntityDao().addZu(zu);
+        });
+    }
+
     public static LiveData<User> getUserByIdCard(String idCard) {
         return DBHelper.getInstance().getDb().getUserEntityDao().getUserByIdCard(idCard);
     }
@@ -42,25 +42,42 @@ public class DBUtil {
     }
 
     public static LiveData<User> getUser() {
-        return getUserByIdCard( SPUtil.getParam(Config.IDCARD,""));
+        return getUserByIdCard(SPUtil.getParam(Config.IDCARD, ""));
     }
+
     public static Flowable<List<User>> getAllUser() {
         return DBHelper.getInstance().getDb().getUserEntityDao().getAll();
     }
 
     public static Flowable<User> getUserFlow() {
-        return getUserByIdCardStatic( SPUtil.getParam(Config.IDCARD,""));
+        return getUserByIdCardStatic(SPUtil.getParam(Config.IDCARD, ""));
     }
 
-    public static void getUserStatic(BeanBack beanBack) {
+    public static void getUserStatic(UserBack userBack) {
         Observable.just(1)
                 .subscribeOn(Schedulers.io())
-                .map(integer -> DBHelper.getInstance().getDb().getUserEntityDao().getUserByIdCardStatic( SPUtil.getParam(Config.IDCARD,"")))
+                .map(integer -> DBHelper.getInstance().getDb().getUserEntityDao().getUserByIdCardStatic(SPUtil.getParam(Config.IDCARD, "")))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(user -> beanBack.back(user));
+                .subscribe(user -> userBack.back(user));
     }
 
-    public interface BeanBack {
-         void back(User user);
+    public static LiveData<Zu> getZuLiveData() {
+        return DBHelper.getInstance().getDb().getZuEntityDao().getZuLiveData();
+    }
+
+    public static void getZu(ZuBack zuBack) {
+        Observable.just(1)
+                .subscribeOn(Schedulers.io())
+                .map(integer -> DBHelper.getInstance().getDb().getZuEntityDao().getZu())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(zu -> zuBack.back(zu));
+    }
+
+    public interface UserBack {
+        void back(User user);
+    }
+
+    public interface ZuBack {
+        void back(Zu zu);
     }
 }

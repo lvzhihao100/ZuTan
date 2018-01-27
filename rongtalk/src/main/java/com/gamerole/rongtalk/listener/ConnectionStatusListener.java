@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.eqdd.common.base.AppManager;
+import com.eqdd.library.bean.room.DBUtil;
 import com.eqdd.library.utils.LogoutUtil;
 import com.gamerole.rongtalk.RouteService.RongConnectServiceImpl;
 
@@ -39,7 +41,11 @@ public class ConnectionStatusListener implements RongIMClient.ConnectionStatusLi
                     builder.setCancelable(false);
                     builder.setPositiveButton("重新登陆", (dialog, which) -> {
                         dialog.dismiss();
-                        activity.startService(new Intent(activity, RongConnectServiceImpl.class));
+                        DBUtil.getUserStatic(user -> {
+                            new RongConnectServiceImpl().getToken(user.getToken(), (token, isSuccess) -> {
+
+                            });
+                        });
 
                     });
                     builder.setNegativeButton("退出", (DialogInterface dialog, int which) -> {

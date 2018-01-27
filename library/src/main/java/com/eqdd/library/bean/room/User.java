@@ -29,7 +29,7 @@ public class User implements Serializable{
      * sex : string
      */
     @PrimaryKey
-    private int id;
+    private long id;
     private String address;
     private String birth;
     private String faceToken;
@@ -41,7 +41,17 @@ public class User implements Serializable{
     private String sex;
     private String token;
     private String photo;
+    private String catongImg;
+
     private int zuId;
+
+    public String getCatongImg() {
+        return catongImg;
+    }
+
+    public void setCatongImg(String catongImg) {
+        this.catongImg = catongImg;
+    }
 
     public int getZuId() {
         return zuId;
@@ -99,11 +109,11 @@ public class User implements Serializable{
         this.facesetToken = facesetToken;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

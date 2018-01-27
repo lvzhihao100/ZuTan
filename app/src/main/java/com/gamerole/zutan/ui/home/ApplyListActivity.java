@@ -18,6 +18,7 @@ import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.ApplyUserBean;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
+import com.eqdd.library.utils.HttpUtil;
 import com.gamerole.zutan.R;
 import com.gamerole.zutan.utils.RelationUtil;
 import com.lzy.okgo.OkGo;
@@ -40,6 +41,7 @@ import io.reactivex.Flowable;
 public class ApplyListActivity extends CommonFullTitleActivity {
 
     private RecyclerViewRefreshCustom dataBinding;
+    private MVCCoolHelper<List<ApplyUserBean>> mvcHelper;
 
     @Override
     protected void initBinding(ViewDataBinding inflate) {
@@ -67,9 +69,16 @@ public class ApplyListActivity extends CommonFullTitleActivity {
                         .text(R.id.bt_right, "同意")
                         .text(R.id.tv_right, data.getStatus())
                         .clicked(R.id.bt_right, v -> {
-
+                            showLoading("正在加入族群");
+                            HttpUtil.agreeEnterZuApply(data.getId(), (status, object) -> {
+                                if (status==200) {
+                                    hideLoading("操作成功");
+                                    mvcHelper.refresh();
+                                }else {
+                                    hideLoading((String) object);
+                                }
+                            });
                         });
-
             }
         }).attachTo(dataBinding.recyclerView).updateData(new ArrayList());
         ModelRx2DataSource<ApplyUserBean> dataSource = new ModelRx2DataSource<>(new ModelRx2DataSource.OnLoadSource() {
@@ -93,7 +102,7 @@ public class ApplyListActivity extends CommonFullTitleActivity {
                         });
             }
         });
-        MVCCoolHelper<List<ApplyUserBean>> mvcHelper = new MVCCoolHelper<>(dataBinding.coolRefreshView);
+        mvcHelper = new MVCCoolHelper<>(dataBinding.coolRefreshView);
         mvcHelper.setDataSource(dataSource);
         mvcHelper.setAdapter(slimAdapterEx);
         mvcHelper.refresh();

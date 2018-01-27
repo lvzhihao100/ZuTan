@@ -1,7 +1,6 @@
 package com.gamerole.zutan.livedata;
 
 import android.arch.lifecycle.LiveData;
-import android.content.Context;
 import android.support.annotation.MainThread;
 import android.util.Log;
 
@@ -25,7 +24,6 @@ public class LocationLiveData extends LiveData<AMapLocation> {
     private static LocationLiveData sInstance;
     private static long time = 1000 * 60 * 5;
 
-    public static final String TAG = LocationLiveData.class.getSimpleName();
 
     @MainThread
     private LocationLiveData() {
@@ -51,14 +49,12 @@ public class LocationLiveData extends LiveData<AMapLocation> {
     @Override
     protected void onActive() {
         super.onActive();
-        Log.d(TAG, "onActive: 调用了");
         startLocation();
     }
 
     @Override
     protected void onInactive() {
         super.onInactive();
-        Log.d(TAG, "onInactive: 调用了");
     }
 
     /**
@@ -85,7 +81,7 @@ public class LocationLiveData extends LiveData<AMapLocation> {
     private AMapLocationClientOption getDefaultOption() {
         AMapLocationClientOption mOption = new AMapLocationClientOption();
         mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
-        mOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
         mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
         mOption.setInterval(1000 * 60 * 5);//可选，设置定位间隔。默认为2秒
         mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
@@ -105,7 +101,6 @@ public class LocationLiveData extends LiveData<AMapLocation> {
         if (null != loc) {
             postValue(loc);
         } else {
-
         }
     };
 

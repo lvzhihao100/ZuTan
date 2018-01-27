@@ -29,8 +29,8 @@ public class RongStartServiceImpl implements RongStartService {
 
 
     @Override
-    public void startGroup(Context context, String guid, String title) {
-        RongIM.getInstance().startGroupChat(context, guid, title);
+    public void startGroup(Context context, String zuId, String title) {
+        RongIM.getInstance().startGroupChat(context, zuId, title);
 
     }
 

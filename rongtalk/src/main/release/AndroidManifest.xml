@@ -11,6 +11,7 @@
         <activity
             android:name=".ui.ConversationListActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/common_AppTheme_Yellow"
             android:windowSoftInputMode="stateHidden|adjustResize">
 
             <intent-filter>
@@ -28,6 +29,7 @@
         <activity
             android:name=".ui.SubConversationListActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/common_AppTheme_Yellow"
             android:windowSoftInputMode="stateHidden|adjustResize">
 
             <intent-filter>
@@ -45,6 +47,7 @@
         <activity
             android:name=".ui.ConversationActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/common_AppTheme_Yellow"
             android:windowSoftInputMode="stateHidden|adjustResize">
 
             <intent-filter>

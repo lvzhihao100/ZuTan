@@ -1,0 +1,47 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ListItem20Custom">
+
+    </data>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="200pt"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30pt"
+        android:layout_marginStart="30pt"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="#393F4E"
+        app:cardUseCompatPadding="true"
+        app:contentPaddingTop="10pt">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="150pt"
+                android:layout_height="150pt"
+                android:layout_gravity="center"
+                android:layout_marginEnd="30pt"
+                android:layout_marginStart="30pt"
+                tools:src="@mipmap/app_cute_girl" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/common_white"
+                android:textSize="30pt"
+                tools:text="吕志豪" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>
+

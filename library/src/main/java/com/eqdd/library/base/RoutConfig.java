@@ -35,6 +35,7 @@ public class RoutConfig {
     public static final String APP_ZU_GUIDE = APP + "zu/guide";
     public static final String APP_ZU_ENTER = APP + "zu/enter";
     public static final String APP_ZU_APPLY_LIST = APP + "zu/applyList";
+    public static final String APP_ZU_INFO = APP + "zu/info";
 
     public static final String NIM = "/nim";
     public static final String NIM_APPLICATION = NIM + APPLICATION;
@@ -49,4 +50,5 @@ public class RoutConfig {
     public static final String RONGTALK_SERVICE_LOGOUT = RONGTALK + SERVICE + "/logout";
     public static final String RONGTALK_FRAGMENT_MSG = RONGTALK+FRAGMENT+"/msg";
     public static final String RONGTALK_SERVICE_START = RONGTALK+SERVICE+"/start";
+    public static final String RONGTALK_SERVICE_REFRESH = RONGTALK + SERVICE + "/refresh";
 }

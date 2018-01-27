@@ -9,13 +9,13 @@
         android:id="@+id/rl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/common_transparent">
+        android:background="?android:colorPrimary">
 
-        <ImageView
-            android:id="@+id/iv_bg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_bg"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:scaleType="centerCrop" />-->
 
         <LinearLayout
             android:id="@+id/ll_container"

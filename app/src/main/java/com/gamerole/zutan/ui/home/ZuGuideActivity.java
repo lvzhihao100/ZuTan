@@ -2,9 +2,6 @@ package com.gamerole.zutan.ui.home;
 
 import android.content.Intent;
 import android.databinding.ViewDataBinding;
-import android.os.SystemClock;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.transition.ChangeBounds;
 import android.transition.Scene;
 import android.transition.TransitionInflater;
@@ -19,11 +16,10 @@ import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.common.http.JsonConverter;
 import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ImageUtil;
-import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RequestConfig;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.bean.Zu;
+import com.eqdd.library.bean.room.Zu;
 import com.eqdd.library.bean.room.DBUtil;
 import com.eqdd.library.bean.room.User;
 import com.eqdd.library.http.HttpConfig;
@@ -35,8 +31,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.lzy.okrx2.adapter.ObservableBody;
 
-import java.io.Serializable;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -52,7 +46,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class ZuGuideActivity extends CommonFullTitleActivity {
 
     private ZuGuideActivityCustom dataBinding;
-    private int id;
+    private long id;
     private Scene sceneFa;
     private Scene sceneMa;
     private Scene sceneOld;
@@ -123,7 +117,7 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
                     }
                 });
         ClickUtil.click(dataBinding.ivZuHead, () -> {
-            ARouter.getInstance().build(RoutConfig.APP_HOME_LIST).withInt(Config.ID, id).navigation(ZuGuideActivity.this, RequestConfig.APP_USER_LIST);
+            ARouter.getInstance().build(RoutConfig.APP_HOME_LIST).withLong(Config.ID, id).navigation(ZuGuideActivity.this, RequestConfig.APP_USER_LIST);
         });
         ClickUtil.click(dataBinding.apply, () -> {
             OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.APP_ZU_APPLY_ENTER)

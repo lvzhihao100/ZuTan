@@ -42,6 +42,7 @@ import com.eqdd.nextinputs.StaticScheme;
 import com.eqdd.nextinputs.ValueScheme;
 import com.gamerole.zutan.LoginActivityCustom;
 import com.gamerole.zutan.R;
+import com.gamerole.zutan.service.LocationService;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -51,6 +52,7 @@ import com.lzy.okgo.model.Response;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -81,7 +83,7 @@ public class LoginActivity extends CommonActivity {
     @Override
     public void initBinding() {
         dataBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_login);
-        ImageUtil.flurImage(R.mipmap.app_login_bg, dataBinding.ivBg, 25);
+//        ImageUtil.setImage(R.mipmap.app_login_bg, dataBinding.ivBg);
     }
 
     @Override
@@ -131,7 +133,13 @@ public class LoginActivity extends CommonActivity {
                 user.setToken(token1);
                 DBUtil.insertUser(user);
                 SPUtil.setParam(Config.IDCARD, user.getIdCard());
-                JPushInterface.setAlias(App.INSTANCE, 0, user.getIdCard());
+                JPushInterface.setAlias(App.INSTANCE, 0, user.getId()+"");
+                if (user.getZuId() != 0) {
+                    HashSet<String> tags = new HashSet<>();
+                    tags.add(user.getZuId() + "");
+                    JPushInterface.setTags(App.INSTANCE, 1, tags);
+                }
+                startService(new Intent(this,LocationService.class));
                 ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
                 finish();
             }

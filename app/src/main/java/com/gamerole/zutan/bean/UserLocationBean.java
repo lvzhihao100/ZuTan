@@ -24,11 +24,11 @@ public class UserLocationBean {
 
     private String catongImg;
     private String address;
-    private int locationId;
+    private long locationId;
     private double latitude;
     private String name;
-    private long updateTime;
-    private int userId;
+    private String updateTime;
+    private long userId;
     private double longitude;
 
     public String getCatongImg() {
@@ -47,11 +47,11 @@ public class UserLocationBean {
         this.address = address;
     }
 
-    public int getLocationId() {
+    public long getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(int locationId) {
+    public void setLocationId(long locationId) {
         this.locationId = locationId;
     }
 
@@ -71,19 +71,19 @@ public class UserLocationBean {
         this.name = name;
     }
 
-    public long getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(long updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -91,7 +91,7 @@ public class UserLocationBean {
         return longitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 }

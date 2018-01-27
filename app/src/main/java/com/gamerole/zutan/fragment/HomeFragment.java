@@ -4,6 +4,7 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.adapter.ItemClickSupport;
 import com.eqdd.common.adapter.slimadapter.SlimAdapterEx;
@@ -13,9 +14,10 @@ import com.eqdd.common.base.BaseFragment;
 import com.eqdd.common.box.ItemDecorate.SectionDividerLineItemDecoration;
 import com.eqdd.common.http.JsonCallBack;
 import com.eqdd.common.utils.DensityUtil;
+import com.eqdd.library.Iservice.rongtalk.RongStartService;
 import com.eqdd.library.LibraryOnlyRecyclerViewCustom;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.bean.Zu;
+import com.eqdd.library.bean.room.Zu;
 import com.eqdd.library.bean.number.SecondBean;
 import com.eqdd.library.bean.number.ThirdBean;
 import com.eqdd.library.bean.room.DBUtil;
@@ -39,6 +41,10 @@ public class HomeFragment extends BaseFragment {
 
     private LibraryOnlyRecyclerViewCustom dataBinding;
 
+    @Autowired
+    RongStartService rongStartService;
+    private Zu zu;
+
     @Override
     protected int getLayoutId() {
         return R.layout.library_activity_only_recyclerview;
@@ -51,6 +57,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        ARouter.getInstance().inject(this);
         ArrayList<Object> data = new ArrayList<>();
         data.add(new ThirdBean(R.mipmap.error_picture, "我的家族", ""));
         data.add(new ThirdBean(R.mipmap.error_picture, "我的友圈", ""));
@@ -78,7 +85,11 @@ public class HomeFragment extends BaseFragment {
         ItemClickSupport.addTo(dataBinding.recyclerView)
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     if (position == 0) {
-                        ARouter.getInstance().build(RoutConfig.APP_HOME_LIST).navigation();
+                        if (zu == null) {
+                            ARouter.getInstance().build(RoutConfig.APP_HOME_LIST).navigation();
+                        } else {
+                            rongStartService.startGroup(getActivity(), zu.getId() + "", zu.getName());
+                        }
                     } else if (position == 1) {
                         ARouter.getInstance().build(RoutConfig.APP_FRIEND_LIST).navigation();
                     } else if (position == 2) {
@@ -92,12 +103,18 @@ public class HomeFragment extends BaseFragment {
                     public void onSuccess(Response<HttpResult<Zu>> response) {
                         HttpResult<Zu> httpResult = response.body();
                         if (httpResult.getStatus() == 200) {
-                            ThirdBean dataItem = (ThirdBean) slimAdapterEx.getDataItem(0);
-                            dataItem.setOne(httpResult.getItems().getLogo());
-                            slimAdapterEx.notifyItemChanged(0);
+
                         }
                     }
                 }));
+        DBUtil.getZuLiveData().observe(this, zu -> {
+            if (zu != null) {
+                HomeFragment.this.zu = zu;
+                ThirdBean dataItem = (ThirdBean) slimAdapterEx.getDataItem(0);
+                dataItem.setOne(zu.getLogo());
+                slimAdapterEx.notifyItemChanged(0);
+            }
+        });
 
     }
 

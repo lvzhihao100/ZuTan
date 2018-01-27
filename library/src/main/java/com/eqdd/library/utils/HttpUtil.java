@@ -1,8 +1,10 @@
 package com.eqdd.library.utils;
 
+import android.location.Location;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.amap.api.location.AMapLocation;
 import com.eqdd.common.base.BaseActivity;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.R;
@@ -17,7 +19,10 @@ import com.eqdd.common.http.JsonCallBack;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.HashMap;
 
 
 /**
@@ -193,6 +198,45 @@ public class HttpUtil {
                     }
                 });
 
+    }
+
+    public static void agreeEnterZuApply(long id, ResultObjectBack resultObjectBack) {
+        OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.APP_AGREE_ENTER_ZU)
+                .params("id", id)
+                .params("isAgree", true)
+                .execute(new JsonCallBack<HttpResult>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult> response) {
+                        HttpResult httpResult = response.body();
+                        if (httpResult.getStatus() == 200) {
+                            resultObjectBack.onResultBack(200, httpResult.getItems());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<HttpResult> response) {
+                        super.onError(response);
+                        resultObjectBack.onResultBack(response.code(), response.getException().toString());
+
+                    }
+                });
+    }
+
+    public static void updateLocation(Location aMapLocation, String province, String city, String county, String address) {
+        HashMap<String, Object> maps = new HashMap<>();
+        maps.put("latitude", aMapLocation.getLatitude());
+        maps.put("longitude", aMapLocation.getLongitude());
+        maps.put("province", province);
+        maps.put("city", city);
+        maps.put("county", county);
+        maps.put("address", address);
+        OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.APP_UPDATE_LOCATION)
+                .upJson(new JSONObject(maps))
+                .execute(new JsonCallBack<HttpResult>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult> response) {
+                    }
+                });
     }
 
     public interface CheckIDCardBack {
