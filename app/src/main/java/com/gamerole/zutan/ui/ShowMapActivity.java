@@ -1,52 +1,55 @@
 package com.gamerole.zutan.ui;
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.SparseArray;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.utils.overlay.SmoothMoveMarker;
 import com.autonavi.amap.mapcore.Inner_3dMap_location;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
+import com.eqdd.common.adapter.ItemClickSupport;
 import com.eqdd.common.adapter.slimadapter.SlimAdapterEx;
 import com.eqdd.common.adapter.slimadapter.SlimAdapterExReverse;
 import com.eqdd.common.adapter.slimadapter.SlimInjector;
 import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
-import com.eqdd.common.base.App;
 import com.eqdd.common.base.BaseActivity;
-import com.eqdd.common.http.JsonCallBack;
 import com.eqdd.common.http.JsonConverter;
+import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.ImageUtil;
 import com.eqdd.common.utils.ToastUtil;
+import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.library.bean.room.DBUtil;
+import com.eqdd.library.bean.room.User;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.eqdd.library.utils.HttpUtil;
+import com.gamerole.zutan.AppListItem21Custom;
 import com.gamerole.zutan.R;
 import com.gamerole.zutan.ShowMapActivityCustom;
-import com.gamerole.zutan.ZuTanApplication;
 import com.gamerole.zutan.bean.UserLocationBean;
 import com.gamerole.zutan.box.PagerMapSnapHelper;
-import com.gamerole.zutan.livedata.LocationLiveData;
+import com.gamerole.zutan.ui.home.HomeListActivity;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
 import com.lzy.okrx2.adapter.FlowableBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
 
@@ -63,8 +66,11 @@ public class ShowMapActivity extends BaseActivity {
     private ShowMapActivityCustom dataBinding;
     private AMap aMap;
     private boolean isFirst = true;
-    private SlimAdapterEx<UserLocationBean> slimAdapterEx;
-    private ArrayList<UserLocationBean> userLocationBeans = new ArrayList<>();
+    private SlimAdapterEx<User> slimAdapterEx;
+    private ArrayList<User> userLocationBeans = new ArrayList<>();
+    private SparseArray<Marker> makers = new SparseArray();
+    private Map<Long, Integer> userPos = new HashMap<>();
+    private long zuId;
 
     @Override
     public void initBinding() {
@@ -103,22 +109,28 @@ public class ShowMapActivity extends BaseActivity {
                 HttpUtil.updateLocation(location, inLocation.getProvince(), inLocation.getCity(), inLocation.getDistrict(), inLocation.getAddress());
             }
         });
-        DBUtil.getUserStatic(user -> getAllLocation(user.getZuId()));
+        DBUtil.getUserStatic(user -> getAllUser(user.getZuId()));
         dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         dataBinding.recyclerView.scrollToPosition(5000);
         PagerMapSnapHelper linearSnapHelper = new PagerMapSnapHelper();
         linearSnapHelper.attachToRecyclerView(dataBinding.recyclerView);
         linearSnapHelper.setOnPosChange(curPos -> {
-            UserLocationBean dataItem = slimAdapterEx.getDataItem(curPos % slimAdapterEx.getData().size());
+            User dataItem = slimAdapterEx.getDataItem(curPos % slimAdapterEx.getData().size());
             //参数依次是：视角调整区域的中心点坐标、希望调整到的缩放级别、俯仰角0°~45°（垂直与地图时为0）、偏航角 0~360° (正北方为0)
-            CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(dataItem.getLatitude(), dataItem.getLongitude()), 16, 30, 0));
-            aMap.animateCamera(mCameraUpdate);
+            Marker marker = makers.get(userPos.get(dataItem.getId()));
+            if (marker != null) {
+//                marker.setVisible(true);
+                CameraUpdate mCameraUpdate = CameraUpdateFactory.newLatLng(marker.getPosition());
+                aMap.animateCamera(mCameraUpdate);
+            } else {
+                ToastUtil.showShort("位置信息未上传");
+            }
         });
+        ClickUtil.click(dataBinding.btRefresh, this::updateLocationView);
     }
 
-    private void getAllLocation(long zuId) {
-        userLocationBeans.clear();
+    private void updateLocationView() {
         OkGo.<HttpResult<List<UserLocationBean>>>get(HttpConfig.BASE_URL + HttpConfig.GET_USERS_LOCATION)
                 .params("zuId", zuId)
                 .converter(new JsonConverter<HttpResult<List<UserLocationBean>>>() {
@@ -129,33 +141,75 @@ public class ShowMapActivity extends BaseActivity {
                 }).adapt(new FlowableBody<>())
                 .flatMap(listHttpResult -> Flowable.fromIterable(listHttpResult.getItems()))
                 .filter(userLocationBean -> userLocationBean.getLocationId() > 0)
-                .subscribe(this::refreshLocation, System.out::print, () -> {
+                .subscribe(this::refreshLocation, System.out::print, () -> ToastUtil.showShort("已刷新"));
+    }
+
+    private void getAllUser(long zuId) {
+        this.zuId = zuId;
+        userLocationBeans.clear();
+        OkGo.<HttpResult<List<User>>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
+                .params("page", -1)
+                .converter(new JsonConverter<HttpResult<List<User>>>() {
+                    @Override
+                    public void test() {
+                        super.test();
+                    }
+                }).adapt(new FlowableBody<>())
+                .flatMap(listHttpResult -> Flowable.fromIterable(listHttpResult.getItems()))
+                .subscribe(this::updateView, System.out::print, () -> {
                     if (slimAdapterEx == null) {
-                        slimAdapterEx = SlimAdapterExReverse.create().register(R.layout.app_list_item_20, new SlimInjector<UserLocationBean>() {
+                        slimAdapterEx = SlimAdapterExReverse.create().register(R.layout.app_list_item_20, new SlimInjector<User>() {
                             @Override
-                            public void onInject(UserLocationBean data, IViewInjector injector) {
-                                injector.image(R.id.iv_head, data.getCatongImg())
+                            public void onInject(User data, IViewInjector injector) {
+                                injector.imageCircle(R.id.iv_head, data.getPhoto())
                                         .text(R.id.tv_name, data.getName());
                             }
                         }).attachTo(dataBinding.recyclerView).updateData(userLocationBeans);
+                        ItemClickSupport.addTo(dataBinding.recyclerView)
+                                .setOnItemClickListener((recyclerView, position, v) -> {
+                                    ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(ShowMapActivity.this
+                                            , new Pair(v.findViewById(R.id.iv_head), "shared_image_")
+                                            , new Pair(v.findViewById(R.id.tv_name), "shared_text_"));
+                                    ARouter.getInstance()
+                                            .build(RoutConfig.APP_USER_INFO)
+                                            .withObject(Config.USER, slimAdapterEx.getDataItem(position% slimAdapterEx.getData().size()))
+                                            .withOptionsCompat(activityOptionsCompat)
+                                            .navigation(ShowMapActivity.this);
+                                });
                     } else {
                         slimAdapterEx.updateData(userLocationBeans);
                     }
-
                 });
     }
 
-    private void refreshLocation(UserLocationBean item) {
+    private void updateView(User item) {
         userLocationBeans.add(item);
-        MarkerOptions markerOption = new MarkerOptions();
-        markerOption.position(new LatLng(item.getLatitude(), item.getLongitude()));
-        markerOption.title(item.getAddress()).snippet(item.getName());
-        ImageUtil.bitmap(item.getCatongImg(), bitmap -> {
-            markerOption.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
-            // 将Marker设置为贴地显示，可以双指下拉地图查看效果
-            markerOption.setFlat(true);//设置marker平贴地图效果
-            aMap.addMarker(markerOption);
-        });
+        userPos.put(item.getId(), userLocationBeans.indexOf(item));
+    }
+
+    private void refreshLocation(UserLocationBean item) {
+        if (item.getLocationId() > 0 && userPos.get(item.getUserId()) > -1) {
+            Marker smoothMoveMarker = makers.get(userPos.get(item.getUserId()));
+            if (smoothMoveMarker == null) {
+                AppListItem21Custom inflate = DataBindingUtil.inflate(getLayoutInflater(), R.layout.app_list_item_21, null, false);
+                ImageUtil.setCircleImageReady(item.getCatongImg(), drawable -> {
+
+                    MarkerOptions markerOption = new MarkerOptions();
+                    markerOption.title(item.getAddress()).snippet(item.getUpdateTime());
+                    inflate.ivHead.setImageDrawable(drawable);
+                    inflate.tvName.setText(item.getName());
+                    markerOption.icon(BitmapDescriptorFactory.fromView(inflate.getRoot()));
+                    // 将Marker设置为贴地显示，可以双指下拉地图查看效果
+                    markerOption.setFlat(true);//设置marker平贴地图效果
+                    markerOption.position(new LatLng(item.getLatitude(), item.getLongitude()));
+//                    markerOption.visible(false);
+                    Marker marker = aMap.addMarker(markerOption);
+                    makers.put(userPos.get(item.getUserId()), marker);
+                });
+            } else {
+                smoothMoveMarker.setPosition(new LatLng(item.getLatitude(), item.getLongitude()));
+            }
+        }
     }
 
     @Override

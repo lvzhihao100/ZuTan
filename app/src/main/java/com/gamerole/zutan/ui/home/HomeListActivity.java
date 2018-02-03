@@ -56,6 +56,8 @@ public class HomeListActivity extends CommonActivity {
     private int pageNum;
     @Autowired
     long id;
+    @Autowired
+    boolean isSelect=false;
 
     @Override
     public void initBinding() {
@@ -85,7 +87,7 @@ public class HomeListActivity extends CommonActivity {
         }).attachTo(dataBinding.recyclerView).updateData(new ArrayList());
         ItemClickSupport.addTo(dataBinding.recyclerView)
                 .setOnItemClickListener((recyclerView, position, v) -> {
-                    if (id > 0) {
+                    if (isSelect) {
                         Intent intent = new Intent();
                         intent.putExtra(Config.BEAN_SERIALIZABLE, slimAdapterEx.getDataItem(position));
                         setResult(Config.SUCCESS, intent);

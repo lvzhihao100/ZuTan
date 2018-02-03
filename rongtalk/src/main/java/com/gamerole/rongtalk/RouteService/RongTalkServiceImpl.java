@@ -59,7 +59,7 @@ public class RongTalkServiceImpl implements RongTalkService {
              * @param state 是否携带用户信息，true 携带，false 不携带。
              */
             RongIM.getInstance().setMessageAttachedUserInfo(true);
-//            RongIMClient.init(context);
+//            RongIMClient.init(contex
         }
         RongIM.setConnectionStatusListener(new ConnectionStatusListener());
         RongIM.setOnReceiveMessageListener(new ReceiveMessageListener());

@@ -28,8 +28,12 @@ public class HttpConfig {
     public static final String APP_RANDOM_PHOTO = "app/randomPhoto";
     public static final String APP_APPLY_USER = "zu/apply";
     public static final String APP_AGREE_ENTER_ZU = "zu/dealApply";
+    public static final String APP_GET_USER = "user/info";
     public static final String RONG_GET_USER = "rongTalk/user/get";
     public static final String RONG_GET_GROUP = "rongTalk/group/get";
     public static final String RONG_GET_GROUP_USER = "rongTalk/groupUser/get";
     public static final String APP_UPDATE_LOCATION = "user/updateLocation";
+    public static final String APP_UPDATE_USER_PHOTO = "user/updatePhotoWithLocal";
+    public static final String APP_UPDATE_USER_CATONG = "user/updateCatongWithLocal";
+    public static final String APP_UPDATE_FRIEND_PHOTO = "friend/updatePhotoWithLocal";
 }

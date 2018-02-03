@@ -7,6 +7,7 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
+        android:background="@color/theme_yellow_primary"
         android:layout_height="match_parent">
 
         <TextView
@@ -16,6 +17,18 @@
             android:background="@color/common_ColorPrimary"
             android:text="TV"
             app:layout_behavior="com.gamerole.zutan.behavior.FistBehavior" />
+        <!--<com.gamerole.zutan.widget.WaterView-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_width="200pt"-->
+            <!--android:paddingLeft="20pt"-->
+            <!--android:background="#00ffffff"-->
+            <!--android:paddingRight="20pt"-->
+            <!--android:layout_height="300pt" />-->
+        <com.gamerole.zutan.widget.ThreeCircleView
+            android:layout_width="200pt"
+            android:layout_gravity="center_vertical"
+            android:background="#00ffffff"
+            android:layout_height="140pt" />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="200pt"

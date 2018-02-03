@@ -21,7 +21,7 @@ public class RoutConfig {
     public static final String APP_TEST = APP + "/test";
     public static final String APP_SHOW_MAP = APP + "/showMap";
     public static final String APP_HOME = APP + "/home";
-    public static final String APP_ADD_SIMPLE_RELATIVE = APP + "/addSimpleRelative";
+    public static final String APP_USER_CARD = APP + "/userCard";
     public static final String APP_GUIDE = APP + "/guide";
     public static final String APP_LOGIN = APP + "/login";
     public static final String APP_ADD_FRIEND = APP + "/addFriend";

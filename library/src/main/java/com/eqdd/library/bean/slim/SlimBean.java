@@ -10,7 +10,19 @@ package com.eqdd.library.bean.slim;
 
 public class SlimBean {
     String title;
+    String content;
     int pos;
+
+    public SlimBean(String title, String content, int pos) {
+        this.title = title;
+        this.content = content;
+        this.pos = pos;
+    }
+
+    public SlimBean(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 
     public SlimBean(String title) {
         this.title = title;
@@ -22,6 +34,15 @@ public class SlimBean {
 
     public SlimBean setTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public SlimBean setContent(String content) {
+        this.content = content;
         return this;
     }
 

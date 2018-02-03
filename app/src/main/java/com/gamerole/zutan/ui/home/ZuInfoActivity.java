@@ -46,6 +46,7 @@ public class ZuInfoActivity extends CommonActivity {
             ClickUtil.click(dataBinding.tvMember, () -> ARouter.getInstance().build(RoutConfig.APP_HOME_LIST).navigation());
             ClickUtil.click(dataBinding.tvMap, () -> ARouter.getInstance().build(RoutConfig.APP_SHOW_MAP).navigation());
         });
+        ClickUtil.click(dataBinding.ivBack, this::onBackPressed);
 
     }
 }

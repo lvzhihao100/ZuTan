@@ -1,7 +1,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data class=".AddSimpleRelativeActivityCustom" />
+    <data class=".UserCardActivityCustom" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,17 +56,17 @@
             android:layout_height="wrap_content"
             android:background="@color/white" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:layout_width="400pt"
-            android:layout_height="80pt"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="35pt"
-            android:background="@drawable/library_selector_2"
-            android:elevation="20pt"
-            android:text="完成"
-            android:textColor="@color/common_white"
-            android:textSize="30pt"
-            android:translationZ="10pt" />
+        <!--<android.support.v7.widget.AppCompatButton-->
+            <!--android:layout_width="400pt"-->
+            <!--android:layout_height="80pt"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_margin="35pt"-->
+            <!--android:background="@drawable/library_selector_2"-->
+            <!--android:elevation="20pt"-->
+            <!--android:text="完成"-->
+            <!--android:textColor="@color/common_white"-->
+            <!--android:textSize="30pt"-->
+            <!--android:translationZ="10pt" />-->
 
     </LinearLayout>
 </layout>

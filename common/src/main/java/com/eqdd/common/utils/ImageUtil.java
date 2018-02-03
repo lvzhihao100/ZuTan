@@ -1,6 +1,7 @@
 package com.eqdd.common.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -52,6 +53,15 @@ public class ImageUtil {
         GlideApp.with(App.INSTANCE).load(url).apply(optionsCircle).into(imageView);
     }
 
+    public static void setCircleImageReady(Object url,DrawableBack drawableBack) {
+        GlideApp.with(App.INSTANCE).load(url).apply(optionsCircle).into(new SimpleTarget<Drawable>() {
+            @Override
+            public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+                drawableBack.back(resource);
+            }
+        });
+    }
+
     public static void setImage(Object url, ImageView imageView) {
         GlideApp.with(App.INSTANCE).load(url).apply(optionsNormal).into(imageView);
 
@@ -82,5 +92,8 @@ public class ImageUtil {
 
     public interface BitmapBack {
         void back(Bitmap bitmap);
+    }
+    public interface DrawableBack {
+        void back(Drawable drawable);
     }
 }

@@ -1,7 +1,6 @@
 package com.eqdd.library.bean;
 
 
-import java.util.Date;
 
 public class Friend {
 
@@ -16,14 +15,14 @@ public class Friend {
     private String sex;
 
 
-    private Date birth;
+    private String birth;
 
     private String address;
 
     private String race;
 
 
-    private Date createTime;
+    private String createTime;
 
     private String poster;
 
@@ -64,13 +63,6 @@ public class Friend {
         this.sex = sex;
     }
 
-    public Date getBirth() {
-        return birth;
-    }
-
-    public void setBirth(Date birth) {
-        this.birth = birth;
-    }
 
     public String getAddress() {
         return address;
@@ -88,12 +80,22 @@ public class Friend {
         this.race = race;
     }
 
-    public Date getCreateTime() {
+    public String getBirth() {
+        return birth;
+    }
+
+    public Friend setBirth(String birth) {
+        this.birth = birth;
+        return this;
+    }
+
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public Friend setCreateTime(String createTime) {
         this.createTime = createTime;
+        return this;
     }
 
     public String getPoster() {

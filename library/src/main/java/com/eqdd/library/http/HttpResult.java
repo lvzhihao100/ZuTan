@@ -1,10 +1,12 @@
 package com.eqdd.library.http;
 
+import java.io.Serializable;
+
 /**
  * Created by lvzhihao on 17-7-4.
  */
 
-public class HttpResult<T> {
+public class HttpResult<T> implements Serializable {
     String msg;
     int status;
     T items;

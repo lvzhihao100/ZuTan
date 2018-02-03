@@ -135,29 +135,28 @@ public class ConversationActivity extends CommonFullTitleActivity {
                     });
             return null;
         });
-        RongIM.getInstance().setGroupMembersProvider((s, iGroupMemberCallback) -> {
-            OkGo.<HttpResult<List<User>>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
-                    .params("page", -1)
-                    .execute(new JsonCallBack<HttpResult<List<User>>>() {
-                        @Override
-                        public void onSuccess(Response<HttpResult<List<User>>> response) {
-                            HttpResult<List<User>> httpResult = response.body();
-                            if (httpResult.getStatus() == 200) {
-                                ArrayList<UserInfo> userInfos = new ArrayList<>();
-                                Flowable.fromIterable(httpResult.getItems())
-                                        .map(user -> {
-                                            UserInfo userInfo = new UserInfo(user.getId() + "", user.getName(), Uri.parse(user.getCatongImg()));
-                                            RongIM.getInstance().refreshUserInfoCache(userInfo);
-                                            RongUserInfoManager.getInstance().setUserInfo(userInfo);
-                                            return userInfo;
-                                        })
-                                        .subscribe(userInfos::add,
-                                                System.out::println,
-                                                () -> iGroupMemberCallback.onGetGroupMembersResult(userInfos));
+        RongIM.getInstance().setGroupMembersProvider((s, iGroupMemberCallback) ->
+                OkGo.<HttpResult<List<User>>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
+                .params("page", -1)
+                .execute(new JsonCallBack<HttpResult<List<User>>>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult<List<User>>> response) {
+                        HttpResult<List<User>> httpResult = response.body();
+                        if (httpResult.getStatus() == 200) {
+                            ArrayList<UserInfo> userInfos = new ArrayList<>();
+                            Flowable.fromIterable(httpResult.getItems())
+                                    .map(user -> {
+                                        UserInfo userInfo = new UserInfo(user.getId() + "", user.getName(), Uri.parse(user.getCatongImg()));
+                                        RongIM.getInstance().refreshUserInfoCache(userInfo);
+                                        RongUserInfoManager.getInstance().setUserInfo(userInfo);
+                                        return userInfo;
+                                    })
+                                    .subscribe(userInfos::add,
+                                            System.out::println,
+                                            () -> iGroupMemberCallback.onGetGroupMembersResult(userInfos));
 
-                            }
                         }
-                    });
-        });
+                    }
+                }));
     }
 }

@@ -117,7 +117,10 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
                     }
                 });
         ClickUtil.click(dataBinding.ivZuHead, () -> {
-            ARouter.getInstance().build(RoutConfig.APP_HOME_LIST).withLong(Config.ID, id).navigation(ZuGuideActivity.this, RequestConfig.APP_USER_LIST);
+            ARouter.getInstance().build(RoutConfig.APP_HOME_LIST)
+                    .withLong(Config.ID, id)
+                    .withBoolean(Config.IS_SELECT, true)
+                    .navigation(ZuGuideActivity.this, RequestConfig.APP_USER_LIST);
         });
         ClickUtil.click(dataBinding.apply, () -> {
             OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.APP_ZU_APPLY_ENTER)

@@ -1,4 +1,4 @@
-package com.gamerole.zutan.livedata;
+package com.eqdd.library.livedata;
 
 import android.support.annotation.MainThread;
 

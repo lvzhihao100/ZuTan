@@ -23,7 +23,6 @@ public abstract class Rx2DataSource<DATA> implements IAsyncDataSource<DATA> {
         DoneActionRegister<DATA> register = new DoneActionRegister<>();
         return load(sender, refreshRX(register), register);
     }
-
     @Override
     public final RequestHandle loadMore(ResponseSender<DATA> sender) throws Exception {
         DoneActionRegister<DATA> register = new DoneActionRegister<>();
@@ -46,7 +45,7 @@ public abstract class Rx2DataSource<DATA> implements IAsyncDataSource<DATA> {
 
             @Override
             public void onError(Throwable e) {
-               System.out.println("Rx2DataSource->onError");
+                System.out.println("Rx2DataSource->onError" + e);
                 sender.sendError(new Exception(e));
             }
 
@@ -62,9 +61,9 @@ public abstract class Rx2DataSource<DATA> implements IAsyncDataSource<DATA> {
         return new RequestHandle() {
             @Override
             public void cancle() {
-                    if (!subscriber.isDisposed()){
-                        subscriber.dispose();
-                    }
+                if (!subscriber.isDisposed()) {
+                    subscriber.dispose();
+                }
             }
 
             @Override

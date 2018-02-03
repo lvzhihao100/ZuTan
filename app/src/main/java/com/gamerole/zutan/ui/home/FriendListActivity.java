@@ -59,6 +59,7 @@ public class FriendListActivity extends CommonActivity {
         ClickUtil.click(dataBinding.tvAdd, () -> {
             ARouter.getInstance().build(RoutConfig.APP_ADD_FRIEND).navigation(FriendListActivity.this, RequestConfig.APP_ADD_FRIEND);
         });
+
     }
 
     @Override
@@ -68,7 +69,6 @@ public class FriendListActivity extends CommonActivity {
         DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.library_list_divider));
         dataBinding.recyclerView.addItemDecoration(divider);
-
         slimAdapterEx = SlimAdapterEx.create().register(R.layout.library_list_item_63, new SlimInjector<Friend>() {
             @Override
             public void onInject(Friend data, IViewInjector injector) {

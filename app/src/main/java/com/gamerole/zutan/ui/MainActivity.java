@@ -12,7 +12,6 @@ import com.eqdd.common.base.CommonActivity;
 import com.eqdd.common.http.JsonCallBack;
 import com.eqdd.library.Iservice.rongtalk.RongRefreshService;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.bean.number.ThirdBean;
 import com.eqdd.library.bean.room.DBUtil;
 import com.eqdd.library.bean.room.Zu;
 import com.eqdd.library.http.HttpConfig;
@@ -22,6 +21,7 @@ import com.gamerole.zutan.R;
 import com.gamerole.zutan.fragment.HomeFragment;
 import com.gamerole.zutan.fragment.MineFragment;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
@@ -47,10 +47,22 @@ public class MainActivity extends CommonActivity {
             rongRefreshService.refreshUserCache(user);
         });
         DBUtil.getUserStatic(user -> OkGo.<HttpResult<Zu>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY)
+                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
+                .cacheKey(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY + user.getZuId())
                 .params("id", user.getZuId())
                 .execute(new JsonCallBack<HttpResult<Zu>>() {
                     @Override
                     public void onSuccess(Response<HttpResult<Zu>> response) {
+                        HttpResult<Zu> httpResult = response.body();
+                        if (httpResult.getStatus() == 200) {
+                            Zu zu = httpResult.getItems();
+                            DBUtil.insertZu(zu);
+                        }
+                    }
+
+                    @Override
+                    public void onCacheSuccess(Response<HttpResult<Zu>> response) {
+                        super.onCacheSuccess(response);
                         HttpResult<Zu> httpResult = response.body();
                         if (httpResult.getStatus() == 200) {
                             Zu zu = httpResult.getItems();

@@ -1,0 +1,51 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".AppListItem21Custom">
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="150pt"
+        android:layout_height="120pt">
+
+        <com.gamerole.zutan.widget.ThreeCircleView
+            android:layout_width="140pt"
+            android:layout_height="80pt"
+            android:layout_alignParentBottom="true"
+            android:background="#00ffffff" />
+
+        <com.gamerole.zutan.widget.WaterView
+            android:id="@+id/water_bg"
+            android:layout_width="70pt"
+            android:layout_height="80pt"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="10pt"
+            android:background="#00ffffff"
+            android:paddingRight="10pt" />
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="50pt"
+            android:layout_height="50pt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8pt"
+            android:src="@mipmap/app_cute_girl" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="80pt"
+            android:layout_height="35pt"
+            android:layout_below="@id/water_bg"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/library_selector_5_enable_bt"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="吕志豪"
+            android:textSize="20pt" />
+
+
+    </RelativeLayout>
+
+
+</layout>
+

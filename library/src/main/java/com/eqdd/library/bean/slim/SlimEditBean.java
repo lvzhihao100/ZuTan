@@ -9,18 +9,17 @@ package com.eqdd.library.bean.slim;
  */
 
 public class SlimEditBean extends SlimBean{
-    String content;
+
+
+    public SlimEditBean(String title, String content, int pos) {
+        super(title, content, pos);
+    }
+
+    public SlimEditBean(String title, String content) {
+        super(title, content);
+    }
 
     public SlimEditBean(String title) {
         super(title);
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public SlimEditBean setContent(String content) {
-        this.content = content;
-        return this;
     }
 }

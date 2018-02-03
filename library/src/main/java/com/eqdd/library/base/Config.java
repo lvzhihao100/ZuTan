@@ -25,6 +25,8 @@ public class Config {
     public static final String BEAN_SERIALIZABLE = "beanSerializable";
     public static final String ID = "id";
     public static final String GUIDE_FIRST = "guideFirst";
+    public static final String IS_SELECT = "isSelect";
+    public static final String USER = "user";
     public static List<Scheme> schemes;
 
     public static final int SUCCESS = 1;

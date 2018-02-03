@@ -8,14 +8,18 @@ import com.amap.api.location.AMapLocation;
 import com.eqdd.common.base.BaseActivity;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.R;
+import com.eqdd.library.base.Config;
 import com.eqdd.library.bean.CompareFaceBean;
 import com.eqdd.library.bean.DetectBean;
 import com.eqdd.library.bean.FaceSetBean;
+import com.eqdd.library.bean.Friend;
 import com.eqdd.library.bean.IDCheckBean;
 import com.eqdd.common.http.DialogCallBack;
+import com.eqdd.library.bean.room.User;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.eqdd.common.http.JsonCallBack;
+import com.facebook.stetho.common.ListUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 
@@ -23,6 +27,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -54,7 +59,11 @@ public class HttpUtil {
                     public void onSuccess(Response<DetectBean> response) {
                         DetectBean httpResult = response.body();
                         if (TextUtils.isEmpty(httpResult.getError_message())) {
-                            detectFaceBack.back(true, httpResult.getFaces().get(0).getFace_token());
+                            if (httpResult.getFaces() == null || httpResult.getFaces().size() == 0) {
+                                baseActivity.hideLoading("身份证头像不清楚,识别失败");
+                            } else {
+                                detectFaceBack.back(true, httpResult.getFaces().get(0).getFace_token());
+                            }
                         } else {
                             baseActivity.hideLoading("获取原始faceToken失败");
                             detectFaceBack.back(false, null);
@@ -181,7 +190,6 @@ public class HttpUtil {
                     public void onError(Response<HttpResult<String>> response) {
                         super.onError(response);
                         baseActivity.hideLoading(R.string.COMMON_SERVER_ERROR);
-
                     }
                 });
     }
@@ -235,6 +243,85 @@ public class HttpUtil {
                 .execute(new JsonCallBack<HttpResult>() {
                     @Override
                     public void onSuccess(Response<HttpResult> response) {
+                    }
+                });
+    }
+
+    public static void updateUserPhoto(BaseActivity baseActivity, String imgPath, ResultObjectBack resultObjectBack) {
+        baseActivity.showLoading("图片更新中...");
+        OkGo.<HttpResult<User>>post(HttpConfig.BASE_URL + HttpConfig.APP_UPDATE_USER_PHOTO)
+                .params("file", new File(imgPath))
+                .execute(new JsonCallBack<HttpResult<User>>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult<User>> response) {
+                        HttpResult<User> httpResult = response.body();
+                        if (httpResult.getStatus() == 200) {
+                            baseActivity.hideLoading("更新图片成功");
+                            resultObjectBack.onResultBack(200, httpResult.getItems());
+                        } else {
+                            baseActivity.hideLoading("更新图片失败");
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<HttpResult<User>> response) {
+                        super.onError(response);
+                        baseActivity.hideLoading(response.getException().toString());
+
+                    }
+                });
+    }
+
+    public static void updateFriendPhoto(BaseActivity baseActivity, long id, String imgPath, ResultObjectBack resultObjectBack) {
+        baseActivity.showLoading("图片更新中...");
+        OkGo.<HttpResult<Friend>>post(HttpConfig.BASE_URL + HttpConfig.APP_UPDATE_FRIEND_PHOTO)
+                .params("file", new File(imgPath))
+                .params("id", id)
+                .execute(new JsonCallBack<HttpResult<Friend>>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult<Friend>> response) {
+                        HttpResult<Friend> httpResult = response.body();
+                        if (httpResult.getStatus() == 200) {
+                            baseActivity.hideLoading("更新图片成功");
+                            resultObjectBack.onResultBack(200, httpResult.getItems());
+                        } else {
+                            baseActivity.hideLoading("更新图片失败");
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<HttpResult<Friend>> response) {
+                        super.onError(response);
+                        baseActivity.hideLoading(response.getException().toString());
+
+                    }
+                });
+    }
+
+    public static void updateUserCatong(BaseActivity baseActivity, String imgPath, ResultObjectBack resultObjectBack) {
+        baseActivity.showLoading("图片更新中...");
+        OkGo.<HttpResult<User>>post(HttpConfig.BASE_URL + HttpConfig.APP_UPDATE_USER_CATONG)
+                .params("file", new File(imgPath))
+                .execute(new JsonCallBack<HttpResult<User>>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult<User>> response) {
+                        HttpResult<User> httpResult = response.body();
+                        if (httpResult.getStatus() == 200) {
+                            baseActivity.hideLoading("更新图片成功");
+                            resultObjectBack.onResultBack(200, httpResult.getItems());
+                        } else {
+                            baseActivity.hideLoading("更新图片失败");
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<HttpResult<User>> response) {
+                        super.onError(response);
+                        baseActivity.hideLoading(response.getException().toString());
+
                     }
                 });
     }

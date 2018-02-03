@@ -65,7 +65,7 @@
         </activity>
         <activity android:name=".ui.ShowMapActivity" android:theme="@style/common_AppTheme_Yellow"/>
         <activity android:name=".ui.MainActivity" android:theme="@style/common_AppTheme_Yellow"/>
-        <activity android:name=".ui.AddSimpleRelativeActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.UserCardActivity" android:theme="@style/common_AppTheme_Yellow"/>
         <activity android:name=".ui.home.AddFriendActivity" android:theme="@style/common_AppTheme_Yellow" />
         <activity android:name=".ui.home.FriendListActivity" android:theme="@style/common_AppTheme_Yellow"/>
         <activity android:name=".ui.home.FriendInfoActivity" android:theme="@style/common_AppTheme_Yellow"/>
@@ -92,6 +92,6 @@
             android:name="com.amap.api.v2.apikey"
             android:value="26918ca145759f6881797c317365adaa" />
         <service android:name="com.amap.api.location.APSService" />
-        <service android:name=".service.LocationService" />
+        <service android:name="com.eqdd.library.service.LocationService" />
     </application>
 </manifest>

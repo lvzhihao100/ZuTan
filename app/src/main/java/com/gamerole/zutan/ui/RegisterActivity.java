@@ -94,7 +94,6 @@ public class RegisterActivity extends CommonFullTitleActivity {
                 } else {
                     hideLoading(R.string.COMMON_SERVER_ERROR);
                 }
-
             });
         });
     }
@@ -113,6 +112,7 @@ public class RegisterActivity extends CommonFullTitleActivity {
         maps.put("isCheck", true);
         OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.REGISTER)
                 .upJson(new JSONObject(maps))
+                .retryCount(0)
                 .execute(new JsonCallBack<HttpResult>() {
                     @Override
                     public void onSuccess(Response<HttpResult> response) {

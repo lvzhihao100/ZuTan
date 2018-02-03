@@ -1,5 +1,7 @@
 package com.eqdd.library.utils;
 
+import android.content.Intent;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.base.App;
 import com.eqdd.common.base.AppManager;
@@ -8,6 +10,7 @@ import com.eqdd.library.Iservice.rongtalk.RongLogoutService;
 import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.room.DBUtil;
+import com.eqdd.library.service.LocationService;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -27,8 +30,9 @@ public class LogoutUtil {
         JPushInterface.clearLocalNotifications(App.INSTANCE);
         JPushInterface.deleteAlias(App.INSTANCE, 0);
         JPushInterface.cleanTags(App.INSTANCE, 0);
-        SPUtil.setParam(Config.IDCARD,"");
+        SPUtil.setParam(Config.IDCARD, "");
         AppManager.getAppManager().finishAllActivity();
+        App.INSTANCE.stopService(new Intent(App.INSTANCE, LocationService.class));
         ARouter.getInstance().build(RoutConfig.APP_LOGIN).navigation();
     }
 }

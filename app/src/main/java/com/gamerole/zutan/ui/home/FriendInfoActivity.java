@@ -1,31 +1,41 @@
 package com.gamerole.zutan.ui.home;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
-import android.view.View;
 import android.view.ViewAnimationUtils;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.eqdd.common.adapter.ItemClickSupport;
 import com.eqdd.common.adapter.MyFragmentPagerAdapter;
+import com.eqdd.common.adapter.slimadapter.SlimAdapterEx;
+import com.eqdd.common.adapter.slimadapter.SlimInjector;
+import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.CommonActivity;
-import com.eqdd.common.base.CommonFullTitleActivity;
 import com.eqdd.common.utils.ClickUtil;
 import com.eqdd.common.utils.DensityUtil;
 import com.eqdd.common.utils.ImageUtil;
+import com.eqdd.common.utils.PicUtil;
 import com.eqdd.library.Iservice.rongtalk.RongStartService;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.Friend;
-import com.gamerole.zutan.FriendInfoTestActivityCustom;
+import com.eqdd.library.bean.room.DBUtil;
+import com.eqdd.library.bean.room.User;
+import com.eqdd.library.utils.HttpUtil;
+import com.gamerole.zutan.FriendInfoActivityCustom;
 import com.gamerole.zutan.R;
 import com.gamerole.zutan.fragment.HomeFragment;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,16 +51,17 @@ import java.util.List;
 @Route(path = RoutConfig.APP_FRIEND_INFO)
 public class FriendInfoActivity extends CommonActivity {
 
-    private FriendInfoTestActivityCustom dataBinding;
+    private FriendInfoActivityCustom dataBinding;
     @Autowired
     Friend friend;
     @Autowired
     RongStartService rongStartService;
+    private MaterialDialog dialog;
 
 
     @Override
     public void initBinding() {
-        dataBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_friend_info_test);
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_friend_info);
 
     }
 
@@ -58,19 +69,11 @@ public class FriendInfoActivity extends CommonActivity {
     public void initData() {
         ARouter.getInstance().inject(this);
         initView();
-//        getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.app_slide_and_fade));
         getWindow().setEnterTransition(initContentEnterTransition());
-//        Slide slide=new Slide();
-//        slide.setDuration(500);
-//        slide.setSlideEdge(Gravity.LEFT);
-//        getWindow().setEnterTransition(slide);
-//        getWindow().setReenterTransition(new Explode().setDuration(600));
         getWindow().setSharedElementEnterTransition(initSharedElementEnterTransition());
-        getWindow().setSharedElementExitTransition(null);
-        getWindow().setSharedElementReturnTransition(null);
+        getWindow().setSharedElementExitTransition(initSharedElementExitTransition());
+        getWindow().setSharedElementReturnTransition(initSharedElementExitTransition());
         getWindow().setReturnTransition(TransitionInflater.from(this).inflateTransition(R.transition.app_return_slide));
-
-
     }
 
     private Transition initSharedElementExitTransition() {
@@ -81,10 +84,9 @@ public class FriendInfoActivity extends CommonActivity {
                 transition.removeListener(this);
                 Animator circularReveal = ViewAnimationUtils.createCircularReveal(dataBinding.ivHead, dataBinding.ivHead.getWidth() / 2, dataBinding.ivHead.getHeight() / 2
                         , dataBinding.ivHead.getWidth(), DensityUtil.percentW(166));
-                dataBinding.ivHead.setBackgroundColor(getResources().getColor(R.color.library_orange));
+//                dataBinding.ivHead.setBackgroundColor(getResources().getColor(R.color.library_orange));
                 circularReveal.setDuration(1000);
                 circularReveal.start();
-                circularReveal.setupEndValues();
                 circularReveal.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -93,7 +95,7 @@ public class FriendInfoActivity extends CommonActivity {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-
+                        ImageUtil.setCircleImage(friend.getPoster(), dataBinding.ivHead);
                     }
 
                     @Override
@@ -110,7 +112,6 @@ public class FriendInfoActivity extends CommonActivity {
 
             @Override
             public void onTransitionEnd(Transition transition) {
-                dataBinding.ivHead.setVisibility(View.INVISIBLE);
 
             }
 
@@ -141,30 +142,7 @@ public class FriendInfoActivity extends CommonActivity {
                 ImageUtil.setImage(friend.getPoster(), dataBinding.ivHead);
                 Animator circularReveal = ViewAnimationUtils.createCircularReveal(dataBinding.ivHead, dataBinding.ivHead.getWidth() / 2, dataBinding.ivHead.getHeight() / 2
                         , DensityUtil.percentW(166), Math.max(dataBinding.ivHead.getWidth(), dataBinding.ivHead.getHeight()));
-                dataBinding.ivHead.setBackgroundColor(getResources().getColor(R.color.library_orange));
                 circularReveal.setDuration(2000);
-                circularReveal.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-
-                        dataBinding.imageBg.setVisibility(View.INVISIBLE);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                });
                 circularReveal.start();
             }
 
@@ -193,13 +171,6 @@ public class FriendInfoActivity extends CommonActivity {
 
     private Transition initContentEnterTransition() {
         Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.app_slide_and_fade);
-//        Slide topSlide = new Slide(Gravity.RIGHT);
-////        topSlide.setStartDelay(1000);
-//        topSlide.setDuration(5000);
-//        topSlide.addTarget(dataBinding.back);
-//
-//        TransitionSet transitionSet = new TransitionSet()
-//                .addTransition(topSlide);
         transition.addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
@@ -209,7 +180,6 @@ public class FriendInfoActivity extends CommonActivity {
             @Override
             public void onTransitionEnd(Transition transition) {
                 transition.removeListener(this);
-//                liney_bottom.setTransitionGroup(true);
                 dataBinding.sendMsg.animate()
                         .scaleY(1)
                         .scaleX(1)
@@ -244,17 +214,59 @@ public class FriendInfoActivity extends CommonActivity {
         dataBinding.viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), titles, fragments));
         dataBinding.slidingTabLayout.setViewPager(dataBinding.viewPager);
         dataBinding.slidingTabLayout.getTitleView(0).setTransitionName("shared_text_");
-        ClickUtil.click(dataBinding.back, () -> {
-            onBackPressed();
-        });
+        ClickUtil.click(dataBinding.back, () -> onBackPressed());
     }
 
 
     @Override
     public void setView() {
-//        ImageUtil.setCircleImage(friend.getPoster(), dataBinding.ivHead);
         ClickUtil.click(dataBinding.sendMsg, () -> {
             rongStartService.startPrivate(FriendInfoActivity.this, "412824199203124753", friend.getName(), friend.getPoster());
         });
+
+        ClickUtil.click(dataBinding.ivHead, () -> {
+            if (dialog == null) {
+                dialog = getDialog();
+            }
+            dialog.show();
+        });
+
+    }
+
+    private MaterialDialog getDialog() {
+        ArrayList<Object> objects = new ArrayList<>();
+        objects.add("更改封面");
+        SlimAdapterEx slimAdapterEx = SlimAdapterEx.create().registerDefault(R.layout.library_list_item_25, new SlimInjector() {
+            @Override
+            public void onInject(Object data, IViewInjector injector) {
+
+                injector.text(R.id.tv_content, (String) data);
+            }
+        }).updateData(objects);
+        MaterialDialog build = new MaterialDialog.Builder(this)
+                .adapter(slimAdapterEx, new LinearLayoutManager(this))
+                .build();
+        ItemClickSupport.addTo(build.getRecyclerView())
+                .setOnItemClickListener((recyclerView, position, v) -> {
+                    if (position == 0) {
+                        dialog.dismiss();
+                        PicUtil.cut(FriendInfoActivity.this, 630, 360);
+                    }
+                });
+        return build;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == PictureConfig.CHOOSE_REQUEST) {
+            List<LocalMedia> localMedia = PictureSelector.obtainMultipleResult(data);
+            HttpUtil.updateFriendPhoto(FriendInfoActivity.this, friend.getId(),localMedia.get(0).getCompressPath(), (status, object) -> {
+                if (status == 200) {
+                    Friend friend = (Friend) object;
+                    ImageUtil.setImage(friend.getPoster(), dataBinding.ivHead);
+                }
+            });
+
+        }
     }
 }

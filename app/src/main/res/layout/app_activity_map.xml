@@ -7,21 +7,35 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
         android:clipToPadding="true"
         android:fitsSystemWindows="true">
-
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_refresh"
+            android:layout_width="120pt"
+            android:background="@drawable/library_selector_5_enable_bt"
+            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30pt"
+            android:elevation="1pt"
+            android:translationZ="20pt"
+            android:layout_marginTop="100pt"
+            android:text="刷新位置"
+            android:textSize="22pt"
+            android:layout_height="40pt" />
         <com.amap.api.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="visible" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:background="@android:color/transparent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="50pt"
+            android:background="@android:color/transparent"
             android:translationZ="10pt" />
     </RelativeLayout>
 </layout>

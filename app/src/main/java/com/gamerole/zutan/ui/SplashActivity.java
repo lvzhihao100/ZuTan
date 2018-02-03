@@ -15,7 +15,7 @@ import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.room.DBUtil;
 import com.gamerole.zutan.R;
 import com.gamerole.zutan.databinding.AppActivitySplashBinding;
-import com.gamerole.zutan.service.LocationService;
+import com.eqdd.library.service.LocationService;
 
 import java.util.HashSet;
 

@@ -13,7 +13,7 @@ import com.eqdd.common.base.BaseFragment;
 import com.eqdd.common.box.ItemDecorate.SectionDividerLineItemDecoration;
 import com.eqdd.common.utils.DensityUtil;
 import com.eqdd.library.LibraryOnlyRecyclerViewCustom;
-import com.eqdd.library.LibraryRecyclerViewCustom;
+import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.number.SecondBean;
 import com.eqdd.library.bean.number.ThirdBean;
@@ -75,9 +75,7 @@ public class MineFragment extends BaseFragment {
         }).registerDefault(R.layout.library_list_item_exit, new SlimInjector() {
             @Override
             public void onInject(Object data, IViewInjector injector) {
-                injector.clicked(R.id.exit, v -> {
-                    LogoutUtil.logout();
-                });
+                injector.clicked(R.id.exit, v -> LogoutUtil.logout());
             }
         }).attachTo(dataBinding.recyclerView).updateData(data);
 
@@ -86,13 +84,13 @@ public class MineFragment extends BaseFragment {
             dataItem.setTwo(user.getName());
             dataItem.setOne(user.getPhoto());
             slimAdapterEx.notifyItemChanged(0);
+            ItemClickSupport.addTo(dataBinding.recyclerView)
+                    .setOnItemClickListener((recyclerView, position, v) -> {
+                        if (position == 0) {
+                            ARouter.getInstance().build(RoutConfig.APP_USER_CARD).withLong(Config.ID, user.getId()).navigation();
+                        }
+                    });
         });
-        ItemClickSupport.addTo(dataBinding.recyclerView)
-                .setOnItemClickListener((recyclerView, position, v) -> {
-                    if (position == 0) {
-                        ARouter.getInstance().build(RoutConfig.APP_ADD_SIMPLE_RELATIVE).navigation();
-                    }
-                });
 
     }
 

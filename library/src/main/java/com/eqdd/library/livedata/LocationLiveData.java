@@ -1,8 +1,7 @@
-package com.gamerole.zutan.livedata;
+package com.eqdd.library.livedata;
 
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.MainThread;
-import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;

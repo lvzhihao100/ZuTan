@@ -20,6 +20,7 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 public class PagerMapSnapHelper extends PagerSnapHelper {
     private OnPosChange onPosChange;
     private int curPos;
+    private int gap=500;
 
     public void setOnPosChange(OnPosChange onPosChange) {
         this.onPosChange = onPosChange;
@@ -36,14 +37,14 @@ public class PagerMapSnapHelper extends PagerSnapHelper {
                 for (int i = 0; i < childCount; i++) {
                     View childAt = recyclerView.getChildAt(i);
 
-                    int left = childAt.getLeft();
-                    if (left <= childAt.getWidth()) {
-                        childAt.setTranslationY((childAt.getWidth() - left) * 200 / childAt.getWidth());
-                    } else if (left >= childAt.getWidth() && left <= childAt.getWidth() * 2) {
-                        childAt.setTranslationY((left - childAt.getWidth()) * 200 / childAt.getWidth());
-                    } else {
-                        childAt.setTranslationY(200);
-                    }
+                    int left = (childAt.getLeft() + childAt.getRight()) >> 1;
+                    if (left <= WindowUtil.csw / 2) {
+                        childAt.setTranslationY((WindowUtil.csw / 2 - left) * gap / WindowUtil.csw / 2);
+                    } else if (left >= WindowUtil.csw / 2/* && left <= WindowUtil.csw / 2 * 2*/) {
+                        childAt.setTranslationY((left - WindowUtil.csw / 2) * gap / WindowUtil.csw / 2);
+                    }/* else {
+                        childAt.setTranslationY(gap);
+                    }*/
                 }
             }
 
@@ -89,7 +90,7 @@ public class PagerMapSnapHelper extends PagerSnapHelper {
 
     private void changePos(int centerPos) {
         if (curPos != centerPos) {
-            curPos=centerPos;
+            curPos = centerPos;
             onPosChange.change(centerPos);
         }
     }

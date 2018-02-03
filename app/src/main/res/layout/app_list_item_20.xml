@@ -8,7 +8,7 @@
 
 
     <android.support.v7.widget.CardView
-        android:layout_width="200pt"
+        android:layout_width="420pt"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30pt"
         android:layout_marginStart="30pt"
@@ -19,28 +19,29 @@
         app:cardUseCompatPadding="true"
         app:contentPaddingTop="10pt">
 
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="420pt"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
+                android:transitionName="shared_image_"
                 android:id="@+id/iv_head"
-                android:layout_width="150pt"
-                android:layout_height="150pt"
-                android:layout_gravity="center"
-                android:layout_marginEnd="30pt"
-                android:layout_marginStart="30pt"
-                tools:src="@mipmap/app_cute_girl" />
+                android:layout_width="360pt"
+                android:layout_height="360pt"
+                android:layout_gravity="center_horizontal"
+                tools:src="@tools:sample/avatars" />
 
             <TextView
+                android:transitionName="shared_text_"
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50pt"
                 android:gravity="center"
                 android:textColor="@color/common_white"
-                android:textSize="30pt"
-                tools:text="吕志豪" />
+                android:textSize="26pt"
+                tools:text="@tools:sample/full_names" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </layout>

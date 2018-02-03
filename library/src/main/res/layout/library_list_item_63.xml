@@ -18,7 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="360pt"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="40pt" />
+            android:layout_marginBottom="40pt"
+            android:layout_marginTop="40pt"
+            tools:src="@tools:sample/avatars" />
 
         <View
             android:id="@+id/view_avatar_overlay"
