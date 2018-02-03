@@ -56,11 +56,11 @@ public class SplashActivity extends CommonActivity {
                     DBUtil.insertUser(user);
                     SPUtil.setParam(Config.IDCARD, user.getIdCard());
                     JPushInterface.setAlias(App.INSTANCE, 0, user.getId() + "");
-                    if (user.getZuId() != 0) {
-                        HashSet<String> tags = new HashSet<>();
-                        tags.add(user.getZuId() + "");
-                        JPushInterface.setTags(App.INSTANCE, 1, tags);
-                    }
+//                    if (user.getZuId() != 0) {
+//                        HashSet<String> tags = new HashSet<>();
+//                        tags.add(user.getZuId() + "");
+//                        JPushInterface.setTags(App.INSTANCE, 1, tags);
+//                    }
                     startService(new Intent(this,LocationService.class));
                     ARouter.getInstance().build(RoutConfig.APP_HOME).navigation();
                     finish();

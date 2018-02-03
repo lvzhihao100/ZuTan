@@ -72,7 +72,7 @@
         <activity android:name=".ui.home.TransitionTestActivity" android:theme="@style/common_AppTheme_Yellow">
 
         </activity>
-        <activity android:name=".ui.home.HomeListActivity" android:theme="@style/common_AppTheme_Yellow">
+        <activity android:name=".ui.home.ZuUserListActivity" android:theme="@style/common_AppTheme_Yellow">
 
         </activity>
         <activity android:name=".ui.home.UserInfoActivity" android:theme="@style/common_AppTheme_Yellow"/>
@@ -87,6 +87,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.home.ZuListActivity" />
         <!--<activity android:name=".ScanFingerActivity" />-->
         <meta-data
             android:name="com.amap.api.v2.apikey"

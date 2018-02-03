@@ -58,29 +58,20 @@ public class CreateZuActivity extends CommonFullTitleActivity {
     public void setView() {
 
         dataBinding.btSubmit.setEnabled(false);
-        ClickUtil.click(dataBinding.btSubmit, () -> {
-            OkGo.<HttpResult<Long>>post(HttpConfig.BASE_URL + HttpConfig.APP_ZU_CREATE)
-                    .params("file", new File(filePath))
-                    .params("name", dataBinding.tvName.getText().toString().trim())
-                    .execute(new DialogCallBack<HttpResult<Long>>(CreateZuActivity.this) {
-                        @Override
-                        public void onSuccess(Response<HttpResult<Long>> response) {
-                            HttpResult<Long> httpResult = response.body();
-                            if (httpResult.getStatus() == 200) {
-                                DBUtil.getUserStatic(o -> {
-                                    o.setZuId(httpResult.getItems().intValue());
-                                    DBUtil.insertUser(o);
-                                    setResult(Config.SUCCESS);
-                                    finish();
-                                });
-
-                            }
+        ClickUtil.click(dataBinding.btSubmit, () -> OkGo.<HttpResult<Long>>post(HttpConfig.BASE_URL + HttpConfig.APP_ZU_CREATE)
+                .params("file", new File(filePath))
+                .params("name", dataBinding.tvName.getText().toString().trim())
+                .execute(new DialogCallBack<HttpResult<Long>>(CreateZuActivity.this) {
+                    @Override
+                    public void onSuccess(Response<HttpResult<Long>> response) {
+                        HttpResult<Long> httpResult = response.body();
+                        if (httpResult.getStatus() == 200) {
+                            setResult(Config.SUCCESS);
+                            finish();
                         }
-                    });
-        });
-        ClickUtil.click(dataBinding.ivHead, () -> {
-            PicUtil.single(CreateZuActivity.this);
-        });
+                    }
+                }));
+        ClickUtil.click(dataBinding.ivHead, () -> PicUtil.single(CreateZuActivity.this));
         RxTextView.textChangeEvents(dataBinding.tvName)
                 .subscribe(textViewTextChangeEvent -> {
                     if (textViewTextChangeEvent.text().length() >= 2 && filePath != null) {

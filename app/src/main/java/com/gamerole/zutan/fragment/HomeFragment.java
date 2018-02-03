@@ -12,7 +12,6 @@ import com.eqdd.common.adapter.slimadapter.SlimInjector;
 import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.BaseFragment;
 import com.eqdd.common.box.ItemDecorate.SectionDividerLineItemDecoration;
-import com.eqdd.common.http.JsonCallBack;
 import com.eqdd.common.utils.DensityUtil;
 import com.eqdd.library.Iservice.rongtalk.RongStartService;
 import com.eqdd.library.LibraryOnlyRecyclerViewCustom;
@@ -22,11 +21,7 @@ import com.eqdd.library.bean.room.Zu;
 import com.eqdd.library.bean.number.SecondBean;
 import com.eqdd.library.bean.number.ThirdBean;
 import com.eqdd.library.bean.room.DBUtil;
-import com.eqdd.library.http.HttpConfig;
-import com.eqdd.library.http.HttpResult;
 import com.gamerole.zutan.R;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 
@@ -86,28 +81,25 @@ public class HomeFragment extends BaseFragment {
         ItemClickSupport.addTo(dataBinding.recyclerView)
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     if (position == 0) {
-                        if (zu == null) {
-                            ARouter.getInstance().build(RoutConfig.APP_HOME_LIST).navigation();
-                        } else {
-                            rongStartService.startGroup(getActivity(), zu.getId() + "", zu.getName());
-                        }
+                            ARouter.getInstance().build(RoutConfig.APP_ZU_LIST).navigation();
+
                     } else if (position == 1) {
                         ARouter.getInstance().build(RoutConfig.APP_FRIEND_LIST).navigation();
                     } else if (position == 2) {
                         ARouter.getInstance().build(RoutConfig.APP_ZU_APPLY_LIST).navigation();
                     }
                 });
-        DBUtil.getUserStatic(user -> OkGo.<HttpResult<Zu>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY)
-                .params("id", user.getZuId())
-                .execute(new JsonCallBack<HttpResult<Zu>>() {
-                    @Override
-                    public void onSuccess(Response<HttpResult<Zu>> response) {
-                        HttpResult<Zu> httpResult = response.body();
-                        if (httpResult.getStatus() == 200) {
-
-                        }
-                    }
-                }));
+//        DBUtil.getUserStatic(user -> OkGo.<HttpResult<Zu>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY)
+//                .params("id", user.getZuId())
+//                .execute(new JsonCallBack<HttpResult<Zu>>() {
+//                    @Override
+//                    public void onSuccess(Response<HttpResult<Zu>> response) {
+//                        HttpResult<Zu> httpResult = response.body();
+//                        if (httpResult.getStatus() == 200) {
+//
+//                        }
+//                    }
+//                }));
         DBUtil.getZuLiveData().observe(this, zu -> {
             if (zu != null) {
                 HomeFragment.this.zu = zu;

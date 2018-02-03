@@ -30,12 +30,13 @@ public class RoutConfig {
     public static final String APP_FRIEND_INFO = APP + "/friendInfo";
     public static final String APP_USER_INFO = APP + "/userInfo";
     public static final String APP_FRIEND_INFO_TEST = APP + "/friendInfoTest";
-    public static final String APP_HOME_LIST = APP + "/homeList";
+    public static final String APP_ZU_USER_LIST = APP + "/homeList";
     public static final String APP_ZU_CREATE = APP + "zu/create";
     public static final String APP_ZU_GUIDE = APP + "zu/guide";
     public static final String APP_ZU_ENTER = APP + "zu/enter";
     public static final String APP_ZU_APPLY_LIST = APP + "zu/applyList";
     public static final String APP_ZU_INFO = APP + "zu/info";
+    public static final String APP_ZU_LIST = APP + "zu/list";
 
     public static final String NIM = "/nim";
     public static final String NIM_APPLICATION = NIM + APPLICATION;

@@ -8,6 +8,7 @@ import com.eqdd.common.base.CommonFullTitleActivity;
 import com.eqdd.common.http.JsonCallBack;
 import com.eqdd.common.utils.GsonUtils;
 import com.eqdd.common.utils.ToastUtil;
+import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.room.User;
 import com.eqdd.library.http.HttpConfig;
@@ -109,7 +110,7 @@ public class ConversationActivity extends CommonFullTitleActivity {
     }
 
     private void initGroup() {
-        initTopRightText("成员", v -> ARouter.getInstance().build(RoutConfig.APP_ZU_INFO).navigation());
+        initTopRightText("成员", v -> ARouter.getInstance().build(RoutConfig.APP_ZU_INFO).withLong(Config.ID, Long.parseLong(mTargetId)).navigation());
         RongCallKit.setGroupMemberProvider((groupId, result) -> {
             OkGo.<HttpResult<List<User>>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
                     .params("page", -1)
@@ -137,26 +138,26 @@ public class ConversationActivity extends CommonFullTitleActivity {
         });
         RongIM.getInstance().setGroupMembersProvider((s, iGroupMemberCallback) ->
                 OkGo.<HttpResult<List<User>>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
-                .params("page", -1)
-                .execute(new JsonCallBack<HttpResult<List<User>>>() {
-                    @Override
-                    public void onSuccess(Response<HttpResult<List<User>>> response) {
-                        HttpResult<List<User>> httpResult = response.body();
-                        if (httpResult.getStatus() == 200) {
-                            ArrayList<UserInfo> userInfos = new ArrayList<>();
-                            Flowable.fromIterable(httpResult.getItems())
-                                    .map(user -> {
-                                        UserInfo userInfo = new UserInfo(user.getId() + "", user.getName(), Uri.parse(user.getCatongImg()));
-                                        RongIM.getInstance().refreshUserInfoCache(userInfo);
-                                        RongUserInfoManager.getInstance().setUserInfo(userInfo);
-                                        return userInfo;
-                                    })
-                                    .subscribe(userInfos::add,
-                                            System.out::println,
-                                            () -> iGroupMemberCallback.onGetGroupMembersResult(userInfos));
+                        .params("page", -1)
+                        .execute(new JsonCallBack<HttpResult<List<User>>>() {
+                            @Override
+                            public void onSuccess(Response<HttpResult<List<User>>> response) {
+                                HttpResult<List<User>> httpResult = response.body();
+                                if (httpResult.getStatus() == 200) {
+                                    ArrayList<UserInfo> userInfos = new ArrayList<>();
+                                    Flowable.fromIterable(httpResult.getItems())
+                                            .map(user -> {
+                                                UserInfo userInfo = new UserInfo(user.getId() + "", user.getName(), Uri.parse(user.getCatongImg()));
+                                                RongIM.getInstance().refreshUserInfoCache(userInfo);
+                                                RongUserInfoManager.getInstance().setUserInfo(userInfo);
+                                                return userInfo;
+                                            })
+                                            .subscribe(userInfos::add,
+                                                    System.out::println,
+                                                    () -> iGroupMemberCallback.onGetGroupMembersResult(userInfos));
 
-                        }
-                    }
-                }));
+                                }
+                            }
+                        }));
     }
 }

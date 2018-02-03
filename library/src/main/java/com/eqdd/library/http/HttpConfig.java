@@ -36,4 +36,5 @@ public class HttpConfig {
     public static final String APP_UPDATE_USER_PHOTO = "user/updatePhotoWithLocal";
     public static final String APP_UPDATE_USER_CATONG = "user/updateCatongWithLocal";
     public static final String APP_UPDATE_FRIEND_PHOTO = "friend/updatePhotoWithLocal";
+    public static final String APP_ZU_LIST = "user/zu/list";
 }

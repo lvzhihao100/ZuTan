@@ -23,10 +23,10 @@ import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RequestConfig;
 import com.eqdd.library.base.RoutConfig;
-import com.eqdd.library.bean.room.DBUtil;
 import com.eqdd.library.bean.room.User;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpPageResult;
+import com.eqdd.library.http.HttpResult;
 import com.gamerole.zutan.HomeListActivityCustom;
 import com.gamerole.zutan.R;
 import com.lzy.okgo.OkGo;
@@ -45,8 +45,8 @@ import io.reactivex.Flowable;
  * E-Mail：1030753080@qq.com
  * 简书 :http://www.jianshu.com/u/6e525b929aac
  */
-@Route(path = RoutConfig.APP_HOME_LIST)
-public class HomeListActivity extends CommonActivity {
+@Route(path = RoutConfig.APP_ZU_USER_LIST)
+public class ZuUserListActivity extends CommonActivity {
 
 
     private SlimAdapterEx<User> slimAdapterEx;
@@ -57,11 +57,11 @@ public class HomeListActivity extends CommonActivity {
     @Autowired
     long id;
     @Autowired
-    boolean isSelect=false;
+    boolean isSelect = false;
 
     @Override
     public void initBinding() {
-        dataBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_home_list);
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_zu_user_list);
 //        ClickUtil.click(dataBinding.tvAdd, () -> {
 //            ARouter.getInstance().build(RoutConfig.APP_ADD_FRIEND).navigation();
 //        });
@@ -93,7 +93,7 @@ public class HomeListActivity extends CommonActivity {
                         setResult(Config.SUCCESS, intent);
                         finish();
                     } else {
-                        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(HomeListActivity.this
+                        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(ZuUserListActivity.this
                                 , new Pair(v.findViewById(R.id.iv_poster), "shared_image_")
                                 , new Pair(v.findViewById(R.id.tv_name), "shared_text_"));
 //
@@ -101,7 +101,7 @@ public class HomeListActivity extends CommonActivity {
                                 .build(RoutConfig.APP_USER_INFO)
                                 .withObject("user", slimAdapterEx.getDataItem(position))
                                 .withOptionsCompat(activityOptionsCompat)
-                                .navigation(HomeListActivity.this);
+                                .navigation(ZuUserListActivity.this);
                     }
                 });
         mvcHelper = new MVCCoolHelper<>(dataBinding.coolRefreshView);
@@ -109,10 +109,10 @@ public class HomeListActivity extends CommonActivity {
             @Override
             public Flowable<List> loadSource(int page, Rx2DataSource.DoneActionRegister register) {
                 pageNum = page - 1;
-                return OkGo.<HttpPageResult<User>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
+                return OkGo.<HttpResult<List<User>>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
                         .params("page", pageNum)
                         .params("zuId", id)
-                        .converter(new JsonConverter<HttpPageResult<User>>() {
+                        .converter(new JsonConverter<HttpResult<List<User>>>() {
                             @Override
                             public void test() {
                                 super.test();
@@ -121,7 +121,7 @@ public class HomeListActivity extends CommonActivity {
                         .adapt(new FlowableBody<>())
                         .flatMap(listHttpResult -> {
                             if (listHttpResult.getStatus() == 200) {
-                                return Flowable.just(listHttpResult.getItems() == null ? new ArrayList<User>() : listHttpResult.getItems().getContent());
+                                return Flowable.just(listHttpResult.getItems() == null ? new ArrayList<User>() : listHttpResult.getItems());
                             } else {
                                 ToastUtil.showShort(listHttpResult.getMsg());
                                 return Flowable.just(new ArrayList<>());
@@ -132,17 +132,18 @@ public class HomeListActivity extends CommonActivity {
 
         mvcHelper.setDataSource(dataSource);
         mvcHelper.setAdapter(slimAdapterEx);
+        mvcHelper.refresh();
     }
 
     @Override
     public void setView() {
-        DBUtil.getUserStatic(o -> {
-            if (o.getZuId() <= 0 && id == 0) {
-                ARouter.getInstance().build(RoutConfig.APP_ZU_GUIDE).navigation(HomeListActivity.this, RequestConfig.APP_ZU_GUIDE);
-            } else {
-                mvcHelper.refresh();
-            }
-        });
+//        DBUtil.getUserStatic(o -> {
+//            if (o.getZuId() <= 0 && id == 0) {
+//                ARouter.getInstance().build(RoutConfig.APP_ZU_GUIDE).navigation(ZuUserListActivity.this, RequestConfig.APP_ZU_GUIDE);
+//            } else {
+//                mvcHelper.refresh();
+//            }
+//        });
     }
 
     @Override

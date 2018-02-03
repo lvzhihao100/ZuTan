@@ -7,6 +7,7 @@ import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.SparseArray;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.amap.api.maps.AMap;
@@ -18,7 +19,6 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.amap.api.maps.utils.overlay.SmoothMoveMarker;
 import com.autonavi.amap.mapcore.Inner_3dMap_location;
 import com.eqdd.common.adapter.ItemClickSupport;
 import com.eqdd.common.adapter.slimadapter.SlimAdapterEx;
@@ -42,7 +42,6 @@ import com.gamerole.zutan.R;
 import com.gamerole.zutan.ShowMapActivityCustom;
 import com.gamerole.zutan.bean.UserLocationBean;
 import com.gamerole.zutan.box.PagerMapSnapHelper;
-import com.gamerole.zutan.ui.home.HomeListActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okrx2.adapter.FlowableBody;
 
@@ -70,7 +69,8 @@ public class ShowMapActivity extends BaseActivity {
     private ArrayList<User> userLocationBeans = new ArrayList<>();
     private SparseArray<Marker> makers = new SparseArray();
     private Map<Long, Integer> userPos = new HashMap<>();
-    private long zuId;
+    @Autowired
+    long id;
 
     @Override
     public void initBinding() {
@@ -79,6 +79,7 @@ public class ShowMapActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        ARouter.getInstance().inject(this);
         dataBinding.mapView.onCreate(savedInstanceState);// 此方法须覆写，虚拟机需要在很多情况下保存地图绘制的当前状态。
         aMap = dataBinding.mapView.getMap();
     }
@@ -109,7 +110,6 @@ public class ShowMapActivity extends BaseActivity {
                 HttpUtil.updateLocation(location, inLocation.getProvince(), inLocation.getCity(), inLocation.getDistrict(), inLocation.getAddress());
             }
         });
-        DBUtil.getUserStatic(user -> getAllUser(user.getZuId()));
         dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         dataBinding.recyclerView.scrollToPosition(5000);
@@ -128,11 +128,12 @@ public class ShowMapActivity extends BaseActivity {
             }
         });
         ClickUtil.click(dataBinding.btRefresh, this::updateLocationView);
+        getAllUser();
     }
 
     private void updateLocationView() {
         OkGo.<HttpResult<List<UserLocationBean>>>get(HttpConfig.BASE_URL + HttpConfig.GET_USERS_LOCATION)
-                .params("zuId", zuId)
+                .params("zuId", id)
                 .converter(new JsonConverter<HttpResult<List<UserLocationBean>>>() {
                     @Override
                     public void test() {
@@ -144,11 +145,11 @@ public class ShowMapActivity extends BaseActivity {
                 .subscribe(this::refreshLocation, System.out::print, () -> ToastUtil.showShort("已刷新"));
     }
 
-    private void getAllUser(long zuId) {
-        this.zuId = zuId;
+    private void getAllUser() {
         userLocationBeans.clear();
         OkGo.<HttpResult<List<User>>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
                 .params("page", -1)
+                .params("zuId", id)
                 .converter(new JsonConverter<HttpResult<List<User>>>() {
                     @Override
                     public void test() {
@@ -172,7 +173,7 @@ public class ShowMapActivity extends BaseActivity {
                                             , new Pair(v.findViewById(R.id.tv_name), "shared_text_"));
                                     ARouter.getInstance()
                                             .build(RoutConfig.APP_USER_INFO)
-                                            .withObject(Config.USER, slimAdapterEx.getDataItem(position% slimAdapterEx.getData().size()))
+                                            .withObject(Config.USER, slimAdapterEx.getDataItem(position % slimAdapterEx.getData().size()))
                                             .withOptionsCompat(activityOptionsCompat)
                                             .navigation(ShowMapActivity.this);
                                 });

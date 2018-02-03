@@ -43,7 +43,6 @@ public class User implements Serializable{
     private String photo;
     private String catongImg;
 
-    private int zuId;
 
     public String getCatongImg() {
         return catongImg;
@@ -53,13 +52,6 @@ public class User implements Serializable{
         this.catongImg = catongImg;
     }
 
-    public int getZuId() {
-        return zuId;
-    }
-
-    public void setZuId(int zuId) {
-        this.zuId = zuId;
-    }
 
     public String getPhoto() {
         return photo;
@@ -172,7 +164,6 @@ public class User implements Serializable{
                 ", sex='" + sex + '\'' +
                 ", token='" + token + '\'' +
                 ", photo='" + photo + '\'' +
-                ", zuId=" + zuId +
                 '}';
     }
 }

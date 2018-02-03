@@ -46,30 +46,30 @@ public class MainActivity extends CommonActivity {
             rongRefreshService.setCurrentUser(user);
             rongRefreshService.refreshUserCache(user);
         });
-        DBUtil.getUserStatic(user -> OkGo.<HttpResult<Zu>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY)
-                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
-                .cacheKey(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY + user.getZuId())
-                .params("id", user.getZuId())
-                .execute(new JsonCallBack<HttpResult<Zu>>() {
-                    @Override
-                    public void onSuccess(Response<HttpResult<Zu>> response) {
-                        HttpResult<Zu> httpResult = response.body();
-                        if (httpResult.getStatus() == 200) {
-                            Zu zu = httpResult.getItems();
-                            DBUtil.insertZu(zu);
-                        }
-                    }
-
-                    @Override
-                    public void onCacheSuccess(Response<HttpResult<Zu>> response) {
-                        super.onCacheSuccess(response);
-                        HttpResult<Zu> httpResult = response.body();
-                        if (httpResult.getStatus() == 200) {
-                            Zu zu = httpResult.getItems();
-                            DBUtil.insertZu(zu);
-                        }
-                    }
-                }));
+//        DBUtil.getUserStatic(user -> OkGo.<HttpResult<Zu>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY)
+//                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
+//                .cacheKey(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY + user.getZuId())
+//                .params("id", user.getZuId())
+//                .execute(new JsonCallBack<HttpResult<Zu>>() {
+//                    @Override
+//                    public void onSuccess(Response<HttpResult<Zu>> response) {
+//                        HttpResult<Zu> httpResult = response.body();
+//                        if (httpResult.getStatus() == 200) {
+//                            Zu zu = httpResult.getItems();
+//                            DBUtil.insertZu(zu);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCacheSuccess(Response<HttpResult<Zu>> response) {
+//                        super.onCacheSuccess(response);
+//                        HttpResult<Zu> httpResult = response.body();
+//                        if (httpResult.getStatus() == 200) {
+//                            Zu zu = httpResult.getItems();
+//                            DBUtil.insertZu(zu);
+//                        }
+//                    }
+//                }));
 
     }
 
