@@ -16,6 +16,7 @@ import com.eqdd.common.base.App;
 import com.eqdd.common.base.CommonService;
 import com.eqdd.library.Iservice.rongtalk.RongTalkService;
 import com.eqdd.library.service.LibraryService;
+import com.squareup.leakcanary.LeakCanary;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.RxLifecycle;
@@ -53,6 +54,8 @@ public class ZuTanApplication extends Application{
         ARouter.init(App.INSTANCE); // 尽可能早，推荐在Application中初始化
         ARouter.getInstance().inject(this);
         rongTalkService.initRongIm();
+//        LeakCanary.install(this);
+
     }
 
     public boolean isApkInDebug(Context context) {

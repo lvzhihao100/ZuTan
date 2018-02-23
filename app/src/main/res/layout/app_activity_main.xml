@@ -1,5 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class=".MainActivityCustom" />
 
@@ -20,6 +21,18 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingEnd="25pt"
+                android:paddingStart="25pt"
+                android:text="@string/app_label_name"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="30pt" />
+            <TextView
+                android:id="@+id/common_tv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingEnd="25pt"
+                android:layout_alignParentEnd="true"
+                tools:text="@tools:sample/full_names"
                 android:paddingStart="25pt"
                 android:text="@string/app_label_name"
                 android:textColor="?android:textColorPrimary"

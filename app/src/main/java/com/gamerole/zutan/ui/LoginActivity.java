@@ -81,7 +81,6 @@ public class LoginActivity extends CommonActivity {
     @Override
     public void initBinding() {
         dataBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_login);
-//        ImageUtil.setImage(R.mipmap.app_login_bg, dataBinding.ivBg);
     }
 
     @Override

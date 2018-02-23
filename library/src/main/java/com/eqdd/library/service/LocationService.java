@@ -10,6 +10,8 @@ import com.eqdd.common.base.App;
 import com.eqdd.library.livedata.LocationObservable;
 import com.eqdd.library.utils.HttpUtil;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * @author吕志豪 .
  * @date 18-1-27  上午10:43.
@@ -19,6 +21,9 @@ import com.eqdd.library.utils.HttpUtil;
  */
 
 public class LocationService extends Service {
+
+    private Disposable subscribe;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -28,7 +33,7 @@ public class LocationService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        new LocationObservable().subscribe(aMapLocation -> {
+        subscribe = new LocationObservable().subscribe(aMapLocation -> {
             if (aMapLocation.getErrorCode() == 0) {
                 HttpUtil.updateLocation(aMapLocation, aMapLocation.getProvince(), aMapLocation.getCity(), aMapLocation.getDistrict(), aMapLocation.getStreet());
             }
@@ -51,6 +56,10 @@ public class LocationService extends Service {
     @Override
     public void onDestroy() {
         stopForeground(true);// 停止前台服务--参数：表示是否移除之前的通知
+        if (!subscribe.isDisposed()) {
+            subscribe.dispose();
+            subscribe = null;
+        }
         super.onDestroy();
     }
 }

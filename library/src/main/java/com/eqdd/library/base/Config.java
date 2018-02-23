@@ -15,9 +15,10 @@ public class Config {
 
     public static final int RELATION_FATHER = 0;
     public static final int RELATION_MATHER = 1;
-    public static final int RELATION_ELDER = 2;
-    public static final int RELATION_YOUNGER = 3;
-    public static final int RELATION_SON = 4;
+    public static final int RELATION_ANOTHER = 2;
+    public static final int RELATION_SON = 3;
+    public static final int RELATION_ELDER = 4;
+    public static final int RELATION_YOUNGER = 5;
 
     public static final String USER_ACCOUNT = "userAccount";
     public static final String USER_IM_TOKEN = "userIMToken";

@@ -6,8 +6,8 @@ package com.eqdd.library.http;
 
 public class HttpConfig {
 
-    public final static String BASE_URL = "http://192.168.1.137:8069/";
-//    public final static String BASE_URL = "http://47.93.6.211:8069/";
+//    public final static String BASE_URL = "http://192.168.1.137:8069/";
+    public final static String BASE_URL = "http://47.93.6.211:8069/";
     public final static String REGISTER = "user/register";
     public final static String LOGIN = "user/login";
     public final static String QUERY_USER_BY_IDCARD = "user/queryFaceToken";
@@ -24,9 +24,10 @@ public class HttpConfig {
     public static final String ZU_USER_PAGE_LIST = "zu/findAllZuUser";
     public static final String APP_ZU_CREATE = "zu/create";
     public static final String APP_ZU_QUERY = "zu/query";
+    public static final String APP_ZU_QUERY_ONE = "zu/queryOne";
     public static final String APP_ZU_APPLY_ENTER = "zu/applyEnter";
     public static final String APP_RANDOM_PHOTO = "app/randomPhoto";
-    public static final String APP_APPLY_USER = "zu/apply";
+    public static final String APP_ZU_APPLY_LIST = "zu/apply/list";
     public static final String APP_AGREE_ENTER_ZU = "zu/dealApply";
     public static final String APP_GET_USER = "user/info";
     public static final String RONG_GET_USER = "rongTalk/user/get";
@@ -37,4 +38,10 @@ public class HttpConfig {
     public static final String APP_UPDATE_USER_CATONG = "user/updateCatongWithLocal";
     public static final String APP_UPDATE_FRIEND_PHOTO = "friend/updatePhotoWithLocal";
     public static final String APP_ZU_LIST = "user/zu/list";
+    public static final String USER_QUERY = "user/query";
+    public static final String APP_USER_RELATIVE = "user/relative/info";
+    public static final String ZU_QUERY = "zu/query";
+    public static final String APP_USER_APPLY_AUTH = "user/applyAuth";
+    public static final String APP_USER_APPLY_AUTH_LIST = "user/apply/list";
+    public static final String APP_USER_AUTH = "user/dealApply";
 }

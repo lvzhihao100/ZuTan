@@ -73,15 +73,6 @@
                 android:gravity="center_vertical|left"
                 tools:text="员工档案"
                 android:textSize="28pt" />
-
-            <ImageView
-                android:id="@+id/iv_line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignLeft="@id/tv_content"
-                android:layout_alignParentBottom="true"
-                android:background="@color/library_line_divider" />
-
         </RelativeLayout>
     </LinearLayout>
 </layout>

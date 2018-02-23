@@ -16,9 +16,10 @@ public class RelationUtil {
         shipArray=new SparseArray(5);
         shipArray.put(0,"爸爸");
         shipArray.put(1,"妈妈");
-        shipArray.put(2,"姐/兄");
-        shipArray.put(3,"妹/弟");
-        shipArray.put(4,"孩子");
+        shipArray.put(2,"另一半");
+        shipArray.put(3,"孩子");
+        shipArray.put(4,"姐/兄");
+        shipArray.put(5,"妹/弟");
     }
     public static String getShip(int relation){
         return shipArray.get(relation);

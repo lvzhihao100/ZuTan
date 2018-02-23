@@ -18,6 +18,7 @@ import com.eqdd.library.bean.room.dao.ZuDao;
 @Database(entities = {User.class, Zu.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao getUserEntityDao();
+
     public abstract ZuDao getZuEntityDao();
 
 }

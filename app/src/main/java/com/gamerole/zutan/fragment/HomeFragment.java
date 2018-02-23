@@ -58,6 +58,7 @@ public class HomeFragment extends BaseFragment {
         data.add(new ThirdBean(R.mipmap.error_picture, "我的家族", ""));
         data.add(new ThirdBean(R.mipmap.error_picture, "我的友圈", ""));
         data.add(new ThirdBean(R.mipmap.error_picture, "新成员", ""));
+        data.add(new ThirdBean(R.mipmap.error_picture, "搜索", ""));
         dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataBinding.recyclerView.addItemDecoration(new SectionDividerLineItemDecoration(getActivity(), 1, 3)
                 .setLeftDividerPadding(DensityUtil.percentW(20))
@@ -81,12 +82,13 @@ public class HomeFragment extends BaseFragment {
         ItemClickSupport.addTo(dataBinding.recyclerView)
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     if (position == 0) {
-                            ARouter.getInstance().build(RoutConfig.APP_ZU_LIST).navigation();
-
+                        ARouter.getInstance().build(RoutConfig.APP_ZU_LIST).navigation();
                     } else if (position == 1) {
                         ARouter.getInstance().build(RoutConfig.APP_FRIEND_LIST).navigation();
                     } else if (position == 2) {
                         ARouter.getInstance().build(RoutConfig.APP_ZU_APPLY_LIST).navigation();
+                    } else if (position == 3) {
+                        ARouter.getInstance().build(RoutConfig.APP_SEARCH_ZU).navigation();
                     }
                 });
 //        DBUtil.getUserStatic(user -> OkGo.<HttpResult<Zu>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_QUERY)

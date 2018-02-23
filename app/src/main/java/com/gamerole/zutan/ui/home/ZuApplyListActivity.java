@@ -38,7 +38,7 @@ import io.reactivex.Flowable;
  * 简书 :http://www.jianshu.com/u/6e525b929aac
  */
 @Route(path = RoutConfig.APP_ZU_APPLY_LIST)
-public class ApplyListActivity extends CommonFullTitleActivity {
+public class ZuApplyListActivity extends CommonFullTitleActivity {
 
     private RecyclerViewRefreshCustom dataBinding;
     private MVCCoolHelper<List<ApplyUserBean>> mvcHelper;
@@ -63,7 +63,7 @@ public class ApplyListActivity extends CommonFullTitleActivity {
             public void onInject(ApplyUserBean data, IViewInjector injector) {
                 injector.imageCircle(R.id.iv_head, data.getApplyPhoto())
                         .text(R.id.tv_top, data.getApplyName())
-                        .text(R.id.tv_bottom, "认证身份为:" + RelationUtil.getShip(data.getRelation()))
+                        .text(R.id.tv_bottom, "加入族群为:" + data.getZuName())
                         .visibility(R.id.tv_right, data.getStatus().equals("申请中") ? View.GONE : View.VISIBLE)
                         .visibility(R.id.bt_right, data.getStatus().equals("申请中") ? View.VISIBLE : View.GONE)
                         .text(R.id.bt_right, "同意")
@@ -71,10 +71,10 @@ public class ApplyListActivity extends CommonFullTitleActivity {
                         .clicked(R.id.bt_right, v -> {
                             showLoading("正在加入族群");
                             HttpUtil.agreeEnterZuApply(data.getId(), (status, object) -> {
-                                if (status==200) {
+                                if (status == 200) {
                                     hideLoading("操作成功");
                                     mvcHelper.refresh();
-                                }else {
+                                } else {
                                     hideLoading((String) object);
                                 }
                             });
@@ -84,7 +84,7 @@ public class ApplyListActivity extends CommonFullTitleActivity {
         ModelRx2DataSource<ApplyUserBean> dataSource = new ModelRx2DataSource<>(new ModelRx2DataSource.OnLoadSource() {
             @Override
             public Flowable<List> loadSource(int page, Rx2DataSource.DoneActionRegister register) {
-                return OkGo.<HttpResult<List<ApplyUserBean>>>get(HttpConfig.BASE_URL + HttpConfig.APP_APPLY_USER)
+                return OkGo.<HttpResult<List<ApplyUserBean>>>get(HttpConfig.BASE_URL + HttpConfig.APP_ZU_APPLY_LIST)
                         .params("page", page - 1)
                         .converter(new JsonConverter<HttpResult<List<ApplyUserBean>>>() {
                             @Override

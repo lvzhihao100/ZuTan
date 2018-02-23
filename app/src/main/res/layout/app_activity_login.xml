@@ -9,13 +9,13 @@
         android:id="@+id/rl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?android:colorPrimary">
+        android:background="@color/theme_green_primary_dark">
 
         <!--<ImageView-->
-            <!--android:id="@+id/iv_bg"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:scaleType="centerCrop" />-->
+        <!--android:id="@+id/iv_bg"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scaleType="centerCrop" />-->
 
         <LinearLayout
             android:id="@+id/ll_container"
@@ -90,9 +90,9 @@
                         android:hint="请输入身份证号："
                         android:imeOptions="actionNext"
                         android:maxLength="18"
+                        android:popupBackground="#4534ff"
                         android:nextFocusDown="@id/et_password"
                         android:singleLine="true"
-                        android:text="430981199104135435"
                         android:textColor="@color/common_white"
                         android:textColorHint="@color/hint_color" />
                     <!--<android.support.design.widget.TextInputEditText-->
@@ -133,7 +133,6 @@
                         android:inputType="textPassword"
                         android:maxLength="18"
                         android:singleLine="true"
-                        android:text="4135435"
                         android:textColor="@color/common_white"
                         android:textColorHint="@color/hint_color" />
                 </android.support.design.widget.TextInputLayout>
@@ -152,9 +151,10 @@
                 android:layout_height="60pt"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15pt"
-                android:background="@drawable/library_shape_3_gradient_14"
+                android:background="@drawable/library_selector_5_enable_bt"
                 android:elevation="10dp"
                 android:text="登陆"
+                android:textColor="@drawable/library_selector_5_enable_tv"
                 android:translationZ="10dp" />
         </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.eqdd.common.adapter.ItemClickSupport;
 import com.eqdd.common.adapter.slimadapter.SlimAdapterEx;
@@ -12,12 +13,14 @@ import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.BaseFragment;
 import com.eqdd.common.box.ItemDecorate.SectionDividerLineItemDecoration;
 import com.eqdd.common.utils.DensityUtil;
+import com.eqdd.library.Iservice.rongtalk.RongStartService;
 import com.eqdd.library.LibraryOnlyRecyclerViewCustom;
 import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.number.SecondBean;
 import com.eqdd.library.bean.number.ThirdBean;
 import com.eqdd.library.bean.room.DBUtil;
+import com.eqdd.library.bean.room.User;
 import com.eqdd.library.utils.LogoutUtil;
 import com.gamerole.zutan.R;
 
@@ -34,6 +37,10 @@ import java.util.ArrayList;
 public class MineFragment extends BaseFragment {
 
     private LibraryOnlyRecyclerViewCustom dataBinding;
+    @Autowired
+    RongStartService rongStartService;
+    private SlimAdapterEx slimAdapterEx;
+    private User user;
 
     @Override
     protected int getLayoutId() {
@@ -47,21 +54,21 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        ARouter.getInstance().inject(this);
         ArrayList<Object> data = new ArrayList<>();
         data.add(new SecondBean(R.mipmap.error_picture, ""));
         data.add(new ThirdBean(R.mipmap.error_picture, "我的钱包", "比特比 :0"));
-        data.add(new ThirdBean(R.mipmap.error_picture, "我的收益", "比特比 :0"));
-        data.add(new ThirdBean(R.mipmap.error_picture, "我的动态", "比特比 :0"));
+        data.add(new ThirdBean(R.mipmap.error_picture, "我的族谱", ""));
+        data.add(new ThirdBean(R.mipmap.error_picture, "我的消息", ""));
         data.add("退出");
         dataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataBinding.recyclerView.addItemDecoration(new SectionDividerLineItemDecoration(getActivity(), 1, 3)
                 .setLeftDividerPadding(DensityUtil.percentW(20))
                 .setRightDividerPadding(0)
                 .setSectionHeight(DensityUtil.percentW(12)));
-        SlimAdapterEx slimAdapterEx = SlimAdapterEx.create().register(R.layout.library_list_item_17_head, new SlimInjector<SecondBean>() {
+        slimAdapterEx = SlimAdapterEx.create().register(R.layout.library_list_item_17_head, new SlimInjector<SecondBean>() {
             @Override
             public void onInject(SecondBean data, IViewInjector injector) {
-
                 injector.text(R.id.tv_name, (String) data.getTwo())
                         .imageCircle(R.id.iv_head, data.getOne());
             }
@@ -70,7 +77,17 @@ public class MineFragment extends BaseFragment {
             public void onInject(ThirdBean data, IViewInjector injector) {
                 injector.text(R.id.tv_left, (String) data.getTwo())
                         .text(R.id.tv_right, (String) data.getThree())
-                        .image(R.id.iv_head, (Integer) data.getOne());
+                        .imageCircle(R.id.iv_head, (Integer) data.getOne())
+                        .clicked(R.id.rl_root,v -> {
+                            int position= slimAdapterEx.getData().indexOf(data);
+                                if (position == 1) {
+                                    rongStartService.enterWallet(getActivity());
+                                } else if (position == 2) {
+                                    ARouter.getInstance().build(RoutConfig.APP_SHOW_RELATION).withLong(Config.ID, user.getId()).navigation();
+                                } else if (position == 3) {
+                                    ARouter.getInstance().build(RoutConfig.APP_MSG_LIST).navigation();
+                                }
+                        });
             }
         }).registerDefault(R.layout.library_list_item_exit, new SlimInjector() {
             @Override
@@ -80,14 +97,22 @@ public class MineFragment extends BaseFragment {
         }).attachTo(dataBinding.recyclerView).updateData(data);
 
         DBUtil.getUserStatic(user -> {
+            this.user=user;
             SecondBean dataItem = (SecondBean) slimAdapterEx.getDataItem(0);
             dataItem.setTwo(user.getName());
             dataItem.setOne(user.getPhoto());
             slimAdapterEx.notifyItemChanged(0);
             ItemClickSupport.addTo(dataBinding.recyclerView)
                     .setOnItemClickListener((recyclerView, position, v) -> {
+                        System.out.println(position);
                         if (position == 0) {
                             ARouter.getInstance().build(RoutConfig.APP_USER_CARD).withLong(Config.ID, user.getId()).navigation();
+                        } else if (position == 1) {
+                            rongStartService.enterWallet(getActivity());
+                        } else if (position == 2) {
+                            ARouter.getInstance().build(RoutConfig.APP_SHOW_RELATION).withLong(Config.ID, user.getId()).navigation();
+                        } else if (position == 3) {
+                            ARouter.getInstance().build(RoutConfig.APP_MSG_LIST).navigation();
                         }
                     });
         });

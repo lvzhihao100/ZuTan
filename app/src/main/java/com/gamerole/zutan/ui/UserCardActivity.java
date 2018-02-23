@@ -55,6 +55,7 @@ public class UserCardActivity extends CommonFullTitleActivity {
     @Override
     protected void initBinding(ViewDataBinding inflate) {
         dataBinding = (UserCardActivityCustom) inflate;
+        initTopTitleBar("信息");
     }
 
     @Override

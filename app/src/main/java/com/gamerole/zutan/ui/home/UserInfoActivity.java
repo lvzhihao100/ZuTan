@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.view.View;
 import android.view.ViewAnimationUtils;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -24,6 +25,7 @@ import com.eqdd.common.utils.DensityUtil;
 import com.eqdd.common.utils.ImageUtil;
 import com.eqdd.common.utils.PicUtil;
 import com.eqdd.library.Iservice.rongtalk.RongStartService;
+import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.room.DBUtil;
 import com.eqdd.library.bean.room.User;
@@ -212,12 +214,15 @@ public class UserInfoActivity extends CommonActivity {
         dataBinding.slidingTabLayout.setViewPager(dataBinding.viewPager);
         dataBinding.slidingTabLayout.getTitleView(0).setTransitionName("shared_text_");
         ClickUtil.click(dataBinding.back, this::onBackPressed);
+        ClickUtil.click(dataBinding.tvAuth, () -> {
+            ARouter.getInstance().build(RoutConfig.APP_AUTH_RELATIVE).withLong(Config.ID, user.getId()).navigation();
+        });
     }
 
 
     @Override
     public void setView() {
-        ClickUtil.click(dataBinding.sendMsg, () -> rongStartService.startPrivate(UserInfoActivity.this, user.getIdCard(), user.getName(), user.getPhoto()));
+        ClickUtil.click(dataBinding.sendMsg, () -> rongStartService.startPrivate(UserInfoActivity.this, user.getId()+"", user.getName(), user.getPhoto()));
         DBUtil.getUserStatic(user1 -> {
             if (user1.getIdCard().equals(user.getIdCard())) {
                 ClickUtil.click(dataBinding.ivHead, () -> {
@@ -226,8 +231,10 @@ public class UserInfoActivity extends CommonActivity {
                     }
                     dialog.show();
                 });
+                dataBinding.tvAuth.setVisibility(View.INVISIBLE);
             }
         });
+
     }
 
     private MaterialDialog getDialog() {

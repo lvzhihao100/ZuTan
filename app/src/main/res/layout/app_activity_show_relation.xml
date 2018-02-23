@@ -1,0 +1,101 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ShowRelationActivityCustom">
+
+    </data>
+
+
+    <FrameLayout
+        android:id="@+id/scene_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <RelativeLayout
+                android:id="@+id/rl_top"
+                android:layout_width="match_parent"
+                android:layout_height="200pt">
+
+                <include
+                    android:id="@+id/include_father"
+                    layout="@layout/app_user_item"
+                    android:layout_width="100pt"
+                    android:layout_height="200pt"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="160pt" />
+
+                <include
+                    android:id="@+id/include_mather"
+                    layout="@layout/app_user_item"
+                    android:layout_width="100pt"
+                    android:layout_height="200pt"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="370pt" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_mid"
+                android:layout_width="match_parent"
+                android:layout_height="200pt"
+                android:layout_below="@id/rl_top">
+
+                <include
+                    android:id="@+id/include_another"
+                    layout="@layout/app_user_item"
+                    android:layout_width="100pt"
+                    android:layout_height="200pt"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="60pt" />
+
+                <include
+                    android:id="@+id/include_me"
+                    layout="@layout/app_user_item"
+                    android:layout_width="100pt"
+                    android:layout_height="200pt"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="265pt" />
+
+                <include
+                    android:id="@+id/include_son"
+                    layout="@layout/app_user_item"
+                    android:layout_width="100pt"
+                    android:layout_height="200pt"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="470pt" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="200pt"
+                android:layout_below="@id/rl_mid">
+
+                <include
+                    android:id="@+id/include_old"
+                    layout="@layout/app_user_item"
+                    android:layout_width="100pt"
+                    android:layout_height="200pt"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="160pt" />
+
+                <include
+                    android:id="@+id/include_small"
+                    layout="@layout/app_user_item"
+                    android:layout_width="100pt"
+                    android:layout_height="200pt"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="370pt" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+
+</layout>

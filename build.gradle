@@ -19,8 +19,6 @@ allprojects {
         flatDir { dirs '../common/libs' }
     }
 }
-
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

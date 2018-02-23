@@ -41,20 +41,6 @@
                 android:inputType="number"
                 android:textSize="28pt"
                 android:theme="@style/common_EditText" />
-
-            <!--<android.support.v7.widget.AppCompatButton-->
-                <!--android:id="@+id/add"-->
-                <!--android:layout_width="120pt"-->
-                <!--android:layout_height="50pt"-->
-                <!--android:layout_marginBottom="160pt"-->
-                <!--android:background="@drawable/library_selector_5_enable_bt"-->
-                <!--android:elevation="20pt"-->
-                <!--android:enabled="false"-->
-                <!--android:text="加入"-->
-                <!--android:textColor="@drawable/library_selector_5_enable_tv"-->
-                <!--android:textSize="24pt"-->
-                <!--android:translationZ="20pt" />-->
-
         </LinearLayout>
 
         <RelativeLayout
@@ -127,7 +113,7 @@
                     android:layout_below="@id/rl_top">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/old"
+                        android:id="@+id/another"
                         android:layout_width="100pt"
                         android:layout_height="100pt"
                         android:layout_centerVertical="true"
@@ -144,7 +130,7 @@
                         android:src="@mipmap/app_cute_girl" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/small"
+                        android:id="@+id/son"
                         android:layout_width="100pt"
                         android:layout_height="100pt"
                         android:layout_centerVertical="true"
@@ -160,12 +146,23 @@
                     android:layout_below="@id/rl_mid">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/son"
+                        android:id="@+id/old"
                         android:layout_width="100pt"
                         android:layout_height="100pt"
-                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="160pt"
                         android:onClick="onClick"
-                        android:src="@mipmap/app_cute_boy" />
+                        android:src="@mipmap/app_cute_boy"
+                        android:text="123123" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/small"
+                        android:layout_width="100pt"
+                        android:layout_height="100pt"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="370pt"
+                        android:onClick="onClick"
+                        android:src="@mipmap/app_cute_girl" />
 
                 </RelativeLayout>
 

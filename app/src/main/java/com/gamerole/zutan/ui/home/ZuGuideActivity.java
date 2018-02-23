@@ -79,11 +79,7 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
         dataBinding.appProgressbar.setVisibility(View.GONE);
         dataBinding.ivZuHead.setVisibility(View.GONE);
         dataBinding.tvNoExist.setVisibility(View.GONE);
-
-        ClickUtil.click(dataBinding.create, () -> {
-            ARouter.getInstance().build(RoutConfig.APP_ZU_CREATE).navigation(ZuGuideActivity.this, RequestConfig.APP_ZU_CREATE);
-
-        });
+        ClickUtil.click(dataBinding.create, () -> ARouter.getInstance().build(RoutConfig.APP_ZU_CREATE).navigation(ZuGuideActivity.this, RequestConfig.APP_ZU_CREATE));
         RxTextView.textChangeEvents(dataBinding.etZuId)
                 .filter(textViewTextChangeEvent -> textViewTextChangeEvent.count() > 0)
                 .debounce(800, TimeUnit.MILLISECONDS)
@@ -136,22 +132,8 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
                         }
                     });
         });
-        DBUtil.getUserStatic(user -> {
-            ImageUtil.setImage(user.getPhoto(), dataBinding.me);
-
-        });
+        DBUtil.getUserStatic(user -> ImageUtil.setImage(user.getPhoto(), dataBinding.me));
         dataBinding.wrapper.setVisibility(View.GONE);
-//        Random random = new Random(System.currentTimeMillis());
-//        aBoolean = random.nextBoolean();
-//        System.out.println(aBoolean);
-//        if (aBoolean) {
-//            dataBinding.wrapper.setVisibility(View.GONE);
-//            initScene();
-//            clickScene();
-//        } else {
-
-
-//        }
     }
 
     @Override
@@ -176,15 +158,17 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
             case R.id.son:
                 relation = Config.RELATION_SON;
                 break;
+            case R.id.another:
+                relation = Config.RELATION_ANOTHER;
+                break;
         }
     }
 
     private void changeScene(View view) {
         changeSize(view);
-        changeVisibility(dataBinding.father, dataBinding.mather, dataBinding.old, dataBinding.small, dataBinding.son);
+        changeVisibility(dataBinding.father, dataBinding.mather, dataBinding.old, dataBinding.small, dataBinding.son,dataBinding.another);
         view.setVisibility(View.VISIBLE);
     }
-
     /**
      * VISIBLE和INVISIBLE状态切换
      *
@@ -196,7 +180,6 @@ public class ZuGuideActivity extends CommonFullTitleActivity {
         }
         dataBinding.apply.setEnabled(!dataBinding.apply.isEnabled());
     }
-
     /**
      * view的宽高1.5倍和原尺寸大小切换
      * 配合ChangeBounds实现缩放效果

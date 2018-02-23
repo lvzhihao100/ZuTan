@@ -9,6 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120pt"
+        android:id="@+id/rl_root"
         android:background="@color/common_white"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center"

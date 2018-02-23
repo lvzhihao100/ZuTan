@@ -35,6 +35,15 @@ public class Zu implements Serializable{
     private String poster;
     private long createUserId;
     private long holderUserId;
+    private String holderUserIdCard;
+
+    public String getHolderUserIdCard() {
+        return holderUserIdCard;
+    }
+
+    public void setHolderUserIdCard(String holderUserIdCard) {
+        this.holderUserIdCard = holderUserIdCard;
+    }
 
     public Long getId() {
         return id;

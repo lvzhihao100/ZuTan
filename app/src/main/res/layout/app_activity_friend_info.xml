@@ -33,6 +33,7 @@
                 android:layout_width="300pt"
                 android:layout_height="50pt"
                 android:layout_centerInParent="true">
+
                 <com.flyco.tablayout.SlidingTabLayout
                     android:id="@+id/slidingTabLayout"
                     android:layout_width="match_parent"
@@ -41,7 +42,6 @@
                     android:background="@drawable/library_bg_black_oval"
                     android:padding="0pt"
                     app:tl_divider_padding="0pt"
-                    app:tl_indicator_width_equal_title="true"
                     app:tl_indicator_color="@color/library_orange"
                     app:tl_indicator_corner_radius="20dp"
                     app:tl_indicator_height="50pt"
@@ -50,12 +50,29 @@
                     app:tl_indicator_margin_right="0pt"
                     app:tl_indicator_margin_top="0pt"
                     app:tl_indicator_style="BLOCK"
+                    app:tl_indicator_width_equal_title="true"
                     app:tl_tab_padding="0pt"
                     app:tl_tab_space_equal="true"
                     app:tl_underline_color="@color/library_orange" />
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/tv_auth"
+                android:layout_width="140pt"
+                android:layout_height="45pt"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_margin="10pt"
+                android:background="@drawable/library_bg_orange_round"
+                android:elevation="10pt"
+                android:gravity="center"
+                android:text="认证关系"
+                android:textColor="@color/common_white"
+                android:textSize="26pt"
+                android:textStyle="bold"
+                android:translationZ="10pt" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -64,6 +81,7 @@
             android:layout_height="360pt"
             android:layout_below="@id/toolBar"
             android:transitionGroup="true">
+
             <ImageView
                 android:id="@+id/iv_head"
                 android:layout_width="match_parent"

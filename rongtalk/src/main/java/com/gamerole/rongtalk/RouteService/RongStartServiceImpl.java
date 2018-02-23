@@ -1,11 +1,13 @@
 package com.gamerole.rongtalk.RouteService;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.eqdd.library.Iservice.rongtalk.RongStartService;
 import com.eqdd.library.base.RoutConfig;
+import com.jrmf360.rylib.JrmfClient;
 
 import io.rong.imkit.RongIM;
 import io.rong.imkit.userInfoCache.RongUserInfoManager;
@@ -32,6 +34,10 @@ public class RongStartServiceImpl implements RongStartService {
     public void startGroup(Context context, String zuId, String title) {
         RongIM.getInstance().startGroupChat(context, zuId, title);
 
+    }
+    @Override
+    public void enterWallet(Activity activity){
+        JrmfClient.intentWallet( activity);
     }
 
     @Override

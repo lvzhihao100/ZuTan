@@ -145,8 +145,13 @@ public class HttpUtil {
                         IDCheckBean httpResult = response.body();
                         if (TextUtils.isEmpty(httpResult.getError_message())) {
                             baseActivity.hideLoading("身份证信息获取成功...");
+                            if (httpResult.getCards() == null || httpResult.getCards().size() == 0) {
+                                baseActivity.hideLoading("身份证信息获取失败...");
+                                idCardBack.back(false, null);
 
-                            idCardBack.back(true, httpResult.getCards().get(0));
+                            } else {
+                                idCardBack.back(true, httpResult.getCards().get(0));
+                            }
                         } else {
                             baseActivity.hideLoading("身份证信息获取失败...");
                             idCardBack.back(false, null);
@@ -322,6 +327,45 @@ public class HttpUtil {
                         super.onError(response);
                         baseActivity.hideLoading(response.getException().toString());
 
+                    }
+                });
+    }
+
+    public static void applyEnterZu(long id, String holderUserIdCard, ResultObjectBack resultObjectBack) {
+        OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.APP_ZU_APPLY_ENTER)
+                .params("zuId", id)
+                .params("applyTo", holderUserIdCard)
+                .execute(new JsonCallBack<HttpResult>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult> response) {
+                        HttpResult httpResult = response.body();
+                        resultObjectBack.onResultBack(httpResult.getStatus(), httpResult.getItems());
+                    }
+
+                    @Override
+                    public void onError(Response<HttpResult> response) {
+                        super.onError(response);
+                        resultObjectBack.onResultBack(500, response.getException().toString());
+                    }
+                });
+
+    }
+
+    public static void agreeUserAuthApply(long id, boolean isAgree, ResultObjectBack resultObjectBack) {
+        OkGo.<HttpResult>post(HttpConfig.BASE_URL + HttpConfig.APP_USER_AUTH)
+                .params("id", id)
+                .params("isAgree", isAgree)
+                .execute(new JsonCallBack<HttpResult>() {
+                    @Override
+                    public void onSuccess(Response<HttpResult> response) {
+                        HttpResult httpResult = response.body();
+                        resultObjectBack.onResultBack(httpResult.getStatus(), httpResult.getItems());
+                    }
+
+                    @Override
+                    public void onError(Response<HttpResult> response) {
+                        super.onError(response);
+                        resultObjectBack.onResultBack(500, response.getException().toString());
                     }
                 });
     }

@@ -12,6 +12,7 @@ import com.eqdd.common.adapter.slimadapter.viewinjector.IViewInjector;
 import com.eqdd.common.base.CommonFullTitleActivity;
 import com.eqdd.common.bean.TwoBean;
 import com.eqdd.common.utils.ClickUtil;
+import com.eqdd.common.utils.ImageUtil;
 import com.eqdd.common.utils.PicUtil;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.base.RoutConfig;
@@ -144,6 +145,7 @@ public class RegisterActivity extends CommonFullTitleActivity {
                     slimAdapterEx.updateData(slimData);
                     dataBinding.btSubmit.setVisibility(View.VISIBLE);
                     dataBinding.tvTip.setVisibility(View.VISIBLE);
+                    ImageUtil.setImage(localMedias.get(0).getCompressPath(),dataBinding.ivCard);
                 } else {
                     dataBinding.btSubmit.setVisibility(View.GONE);
                     dataBinding.tvTip.setVisibility(View.GONE);

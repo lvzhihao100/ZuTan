@@ -26,7 +26,12 @@
                     android:layout_height="230pt"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10pt"
-                    android:background="@mipmap/app_id_card_exam"></RelativeLayout>
+                    android:background="@mipmap/app_id_card_exam">
+                    <ImageView
+                        android:id="@+id/iv_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
 
                 <TextView
                     android:layout_width="wrap_content"

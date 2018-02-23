@@ -22,7 +22,7 @@ import io.reactivex.android.MainThreadDisposable;
 
 public class LocationObservable extends Observable<AMapLocation> {
     private AMapLocationClient locationClient = null;
-    private AMapLocationClientOption locationOption = new AMapLocationClientOption();
+    private AMapLocationClientOption locationOption = null;
     private static LocationObservable sInstance;
     private static long time = 1000 * 60 * 5;
 
@@ -33,8 +33,8 @@ public class LocationObservable extends Observable<AMapLocation> {
         private final Observer<? super AMapLocation> observer;
 
         Listener(Observer<? super AMapLocation> observer) {
-
             this.observer = observer;
+            locationOption = new AMapLocationClientOption();
         }
 
         @Override
@@ -48,11 +48,9 @@ public class LocationObservable extends Observable<AMapLocation> {
                 if (!isDisposed()) {
                     observer.onNext(loc);
                 }
-            } else {
             }
-
-
         }
+
     }
 
     public LocationObservable() {
@@ -160,6 +158,8 @@ public class LocationObservable extends Observable<AMapLocation> {
              * 如果AMapLocationClient是在当前Activity实例化的，
              * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
              */
+
+            listener = null;
             locationClient.onDestroy();
             locationClient = null;
             locationOption = null;

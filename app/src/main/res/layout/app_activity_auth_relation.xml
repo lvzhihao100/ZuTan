@@ -1,0 +1,122 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class=".AuthRelationActivityCustom">
+
+    </data>
+
+
+    <FrameLayout
+        android:id="@+id/scene_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40pt"
+                android:layout_marginTop="40pt">
+
+                <RelativeLayout
+                    android:id="@+id/rl_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="300pt">
+
+                    <include
+                        android:id="@+id/include_father"
+                        layout="@layout/app_user_item"
+                        android:layout_width="150pt"
+                        android:layout_height="300pt"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="160pt" />
+
+                    <include
+                        android:id="@+id/include_mather"
+                        layout="@layout/app_user_item"
+                        android:layout_width="150pt"
+                        android:layout_height="300pt"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="370pt" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_mid"
+                    android:layout_width="match_parent"
+                    android:layout_height="300pt"
+                    android:layout_below="@id/rl_top">
+
+                    <include
+                        android:id="@+id/include_another"
+                        layout="@layout/app_user_item"
+                        android:layout_width="150pt"
+                        android:layout_height="300pt"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="60pt" />
+
+                    <include
+                        android:id="@+id/include_me"
+                        layout="@layout/app_user_item"
+                        android:layout_width="150pt"
+                        android:layout_height="300pt"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="265pt" />
+
+                    <include
+                        android:id="@+id/include_son"
+                        layout="@layout/app_user_item"
+                        android:layout_width="150pt"
+                        android:layout_height="300pt"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="470pt" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="300pt"
+                    android:layout_below="@id/rl_mid">
+
+                    <include
+                        android:id="@+id/include_old"
+                        layout="@layout/app_user_item"
+                        android:layout_width="150pt"
+                        android:layout_height="300pt"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="160pt" />
+
+                    <include
+                        android:id="@+id/include_small"
+                        layout="@layout/app_user_item"
+                        android:layout_width="150pt"
+                        android:layout_height="300pt"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="370pt" />
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/apply"
+                    android:layout_width="400pt"
+                    android:layout_height="80pt"
+                    android:layout_below="@id/rl_bottom"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20pt"
+                    android:background="@drawable/library_selector_5_enable_bt"
+                    android:elevation="20pt"
+                    android:text="发送申请"
+                    android:enabled="false"
+                    android:textColor="@drawable/library_selector_5_enable_tv"
+                    android:textSize="32pt"
+                    android:translationZ="20pt" />
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </FrameLayout>
+
+
+</layout>

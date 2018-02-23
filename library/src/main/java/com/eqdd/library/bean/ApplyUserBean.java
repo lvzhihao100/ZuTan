@@ -27,8 +27,18 @@ public class ApplyUserBean {
     private String applyName;
     private int zuId;
     private String status;
-    private int relation;
+    private String zuName;
     private String applyPhoto;
+    private int relation;
+
+
+    public int getRelation() {
+        return relation;
+    }
+
+    public void setRelation(int relation) {
+        this.relation = relation;
+    }
 
     public String getUpdateTime() {
         return updateTime;
@@ -78,12 +88,12 @@ public class ApplyUserBean {
         this.status = status;
     }
 
-    public int getRelation() {
-        return relation;
+    public String getZuName() {
+        return zuName;
     }
 
-    public void setRelation(int relation) {
-        this.relation = relation;
+    public void setZuName(String zuName) {
+        this.zuName = zuName;
     }
 
     public String getApplyPhoto() {

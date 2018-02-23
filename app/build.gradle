@@ -67,7 +67,7 @@ android {
         }
         debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard-system-common.pro'
             signingConfig signingConfigs.gaode
         }
     }
@@ -133,6 +133,8 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-rc1"
     implementation project(':rongtalk')
     api 'de.hdodenhof:circleimageview:2.1.0'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //    implementation project(':nim')
 //    implementation project(':GangSdk')
 }

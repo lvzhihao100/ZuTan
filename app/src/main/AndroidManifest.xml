@@ -78,16 +78,21 @@
         <activity android:name=".ui.home.UserInfoActivity" android:theme="@style/common_AppTheme_Yellow"/>
         <activity android:name=".ui.home.CreateZuActivity" android:theme="@style/common_AppTheme_Yellow"/>
         <activity android:name=".ui.home.ZuGuideActivity" android:theme="@style/common_AppTheme_Yellow"/>
-        <activity android:name=".ui.home.ApplyListActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.home.ZuApplyListActivity" android:theme="@style/common_AppTheme_Yellow"/>
         <activity android:name=".ui.home.ZuInfoActivity" android:theme="@style/common_AppTheme_Yellow_TRANS"/>
         <activity android:name=".ui.SplashActivity" android:theme="@style/common_AppTheme_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.home.ZuListActivity" />
+        <activity android:name=".ui.home.ZuListActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.SearchActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.mine.ShowRelationActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.mine.AuthRelationActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.mine.MsgListActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.SearchZuActivity" android:theme="@style/common_AppTheme_Yellow"/>
+        <activity android:name=".ui.home.ZuShowActivity" android:theme="@style/common_AppTheme_Yellow"/>
         <!--<activity android:name=".ScanFingerActivity" />-->
         <meta-data
             android:name="com.amap.api.v2.apikey"

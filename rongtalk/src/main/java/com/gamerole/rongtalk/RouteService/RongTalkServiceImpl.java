@@ -8,19 +8,28 @@ import android.net.Uri;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.eqdd.common.http.DialogCallBack;
 import com.eqdd.common.http.JsonCallBack;
+import com.eqdd.common.http.JsonConverter;
 import com.eqdd.common.utils.ToastUtil;
 import com.eqdd.library.Iservice.rongtalk.RongTalkService;
 import com.eqdd.library.base.RoutConfig;
+import com.eqdd.library.bean.room.User;
 import com.eqdd.library.http.HttpConfig;
 import com.eqdd.library.http.HttpResult;
 import com.gamerole.rongtalk.listener.ConnectionStatusListener;
 import com.gamerole.rongtalk.listener.ReceiveMessageListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
+import com.lzy.okrx2.adapter.FlowableBody;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Flowable;
+import io.rong.callkit.RongCallKit;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;
+import io.rong.imkit.userInfoCache.RongUserInfoManager;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
@@ -82,33 +91,32 @@ public class RongTalkServiceImpl implements RongTalkService {
             System.out.println("融云来获取" + s + "的用户数据了");
             OkGo.<HttpResult<RongUserInfo>>get(HttpConfig.BASE_URL + HttpConfig.RONG_GET_USER)
                     .params("userId", s)
-                    .execute(new JsonCallBack<HttpResult<RongUserInfo>>() {
+                    .converter(new JsonConverter<HttpResult<RongUserInfo>>() {
                         @Override
-                        public void onSuccess(Response<HttpResult<RongUserInfo>> response) {
-                            HttpResult<RongUserInfo> httpResult = response.body();
-                            if (httpResult.getStatus() == 200) {
-                                System.out.println("获取到用户数据了" + httpResult.getItems().getUserId());
-                                RongIM.getInstance().refreshUserInfoCache(new UserInfo(httpResult.getItems().getUserId(), httpResult.getItems().getName(), Uri.parse(httpResult.getItems().getUri())));
-                            }
+                        public void test() {
+                            super.test();
                         }
-                    });
+                    })
+                    .adapt(new FlowableBody<>())
+                    .filter(rongGroupUserBeanHttpResult -> rongGroupUserBeanHttpResult.getStatus()==200)
+                    .map(HttpResult::getItems)
+                    .subscribe(rongUserInfo -> RongIM.getInstance().refreshUserInfoCache(new UserInfo(rongUserInfo.getUserId(), rongUserInfo.getName(), Uri.parse(rongUserInfo.getUri()))));
             return null;
         }, true);
         RongIM.setGroupInfoProvider(s -> {
-            System.out.println("融云来获取" + s + "的群组数据了");
             OkGo.<HttpResult<RongGroupBean>>get(HttpConfig.BASE_URL + HttpConfig.RONG_GET_GROUP)
                     .params("groupId", s)
-                    .execute(new JsonCallBack<HttpResult<RongGroupBean>>() {
+                    .converter(new JsonConverter<HttpResult<RongGroupBean>>() {
                         @Override
-                        public void onSuccess(Response<HttpResult<RongGroupBean>> response) {
-                            HttpResult<RongGroupBean> httpResult = response.body();
-                            if (httpResult.getStatus() == 200) {
-                                System.out.println("获取到群组数据了" + httpResult.getItems().getId());
-                                RongIM.getInstance().refreshGroupInfoCache(
-                                        new Group(httpResult.getItems().getId(), httpResult.getItems().getName(), Uri.parse(httpResult.getItems().getUri())));
-                            }
+                        public void test() {
+                            super.test();
                         }
-                    });
+                    })
+                    .adapt(new FlowableBody<>())
+                    .filter(rongGroupUserBeanHttpResult -> rongGroupUserBeanHttpResult.getStatus()==200)
+                    .map(HttpResult::getItems)
+                    .subscribe(rongGroupBean -> RongIM.getInstance().refreshGroupInfoCache(
+                            new Group(rongGroupBean.getId(), rongGroupBean.getName(), Uri.parse(rongGroupBean.getUri()))));
             return null;
         }, true);
         RongIM.setGroupUserInfoProvider((s, s1) -> {
@@ -116,20 +124,60 @@ public class RongTalkServiceImpl implements RongTalkService {
             OkGo.<HttpResult<RongGroupUserBean>>get(HttpConfig.BASE_URL + HttpConfig.RONG_GET_GROUP_USER)
                     .params("groupId", s)
                     .params("userId", s1)
-                    .execute(new JsonCallBack<HttpResult<RongGroupUserBean>>() {
+                    .converter(new JsonConverter<HttpResult<RongGroupUserBean>>() {
                         @Override
-                        public void onSuccess(Response<HttpResult<RongGroupUserBean>> response) {
-                            HttpResult<RongGroupUserBean> httpResult = response.body();
-                            if (httpResult.getStatus() == 200) {
-                                System.out.println("获取到群组用户数据了" + httpResult.getItems().getUserId());
-                                RongIM.getInstance().refreshGroupUserInfoCache(
-                                        new GroupUserInfo(httpResult.getItems().getGroupId(), httpResult.getItems().getUserId(),
-                                                httpResult.getItems().getNickname()));
-                            }
+                        public void test() {
+                            super.test();
                         }
-                    });
+                    })
+                    .adapt(new FlowableBody<>())
+                    .filter(rongGroupUserBeanHttpResult -> rongGroupUserBeanHttpResult.getStatus()==200)
+                    .map(HttpResult::getItems)
+                    .subscribe(rongGroupUserBean -> RongIM.getInstance().refreshGroupUserInfoCache(
+                            new GroupUserInfo(rongGroupUserBean.getGroupId(), rongGroupUserBean.getUserId(),
+                                    rongGroupUserBean.getNickname())));
             return null;
         }, true);
+        RongCallKit.setGroupMemberProvider((groupId, result) -> {
+            OkGo.<HttpResult<List<User>>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
+                    .params("page", -1)
+                    .converter(new JsonConverter<HttpResult<List<User>>>() {
+                        @Override
+                        public void test() {
+                            super.test();
+                        }
+                    })
+                    .adapt(new FlowableBody<>())
+                    .flatMap(listHttpResult -> Flowable.fromIterable(listHttpResult.getItems()))
+                    .map(user -> {
+                        UserInfo userInfo = new UserInfo(user.getId() + "", user.getName(), Uri.parse(user.getCatongImg()));
+                        RongIM.getInstance().refreshUserInfoCache(userInfo);
+                        RongUserInfoManager.getInstance().setUserInfo(userInfo);
+                        return userInfo.getUserId();
+                    })
+                    .toList()
+                    .subscribe(userInfos->result.onGotMemberList((ArrayList<String>) userInfos));
+            return null;
+        });
+        RongIM.getInstance().setGroupMembersProvider((s, iGroupMemberCallback) ->
+                OkGo.<HttpResult<List<User>>>get(HttpConfig.BASE_URL + HttpConfig.ZU_USER_PAGE_LIST)
+                        .params("page", -1)
+                        .converter(new JsonConverter<HttpResult<List<User>>>() {
+                            @Override
+                            public void test() {
+                                super.test();
+                            }
+                        })
+                        .adapt(new FlowableBody<>())
+                        .flatMap(listHttpResult -> Flowable.fromIterable(listHttpResult.getItems()))
+                        .map(user -> {
+                            UserInfo userInfo = new UserInfo(user.getId() + "", user.getName(), Uri.parse(user.getCatongImg()));
+                            RongIM.getInstance().refreshUserInfoCache(userInfo);
+                            RongUserInfoManager.getInstance().setUserInfo(userInfo);
+                            return userInfo;
+                        })
+                        .toList()
+                        .subscribe(iGroupMemberCallback::onGetGroupMembersResult));
     }
 
     public class RongUserInfo {

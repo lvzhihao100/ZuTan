@@ -220,9 +220,9 @@ public class FriendInfoActivity extends CommonActivity {
 
     @Override
     public void setView() {
-        ClickUtil.click(dataBinding.sendMsg, () -> {
-            rongStartService.startPrivate(FriendInfoActivity.this, "412824199203124753", friend.getName(), friend.getPoster());
-        });
+//        ClickUtil.click(dataBinding.sendMsg, () -> {
+//            rongStartService.startPrivate(FriendInfoActivity.this, "412824199203124753", friend.getName(), friend.getPoster());
+//        });
 
         ClickUtil.click(dataBinding.ivHead, () -> {
             if (dialog == null) {

@@ -56,11 +56,11 @@ public class CreateZuActivity extends CommonFullTitleActivity {
 
     @Override
     public void setView() {
-
         dataBinding.btSubmit.setEnabled(false);
         ClickUtil.click(dataBinding.btSubmit, () -> OkGo.<HttpResult<Long>>post(HttpConfig.BASE_URL + HttpConfig.APP_ZU_CREATE)
                 .params("file", new File(filePath))
                 .params("name", dataBinding.tvName.getText().toString().trim())
+                .retryCount(0)
                 .execute(new DialogCallBack<HttpResult<Long>>(CreateZuActivity.this) {
                     @Override
                     public void onSuccess(Response<HttpResult<Long>> response) {

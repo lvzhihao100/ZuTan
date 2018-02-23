@@ -1,5 +1,6 @@
 package com.eqdd.library.Iservice.rongtalk;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.alibaba.android.arouter.facade.template.IProvider;
@@ -19,4 +20,6 @@ public interface RongStartService extends IProvider{
 
 
     public  void startGroup(Context context, String guid, String title);
+
+    void enterWallet(Activity activity);
 }

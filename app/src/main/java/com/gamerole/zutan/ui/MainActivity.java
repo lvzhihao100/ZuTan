@@ -11,6 +11,7 @@ import com.eqdd.common.adapter.MyFragmentPagerAdapter;
 import com.eqdd.common.base.CommonActivity;
 import com.eqdd.common.http.JsonCallBack;
 import com.eqdd.library.Iservice.rongtalk.RongRefreshService;
+import com.eqdd.library.base.Config;
 import com.eqdd.library.base.RoutConfig;
 import com.eqdd.library.bean.room.DBUtil;
 import com.eqdd.library.bean.room.Zu;
@@ -33,10 +34,10 @@ public class MainActivity extends CommonActivity {
     @Autowired
     RongRefreshService rongRefreshService;
 
-
     @Override
     public void initBinding() {
         dataBinding = DataBindingUtil.setContentView(this, R.layout.app_activity_main);
+        initTopRightText("搜索", v -> ARouter.getInstance().build(RoutConfig.APP_SEARCH).withBoolean(Config.IS_SELECT, false).navigation());
     }
 
     @Override
